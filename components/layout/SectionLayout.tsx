@@ -41,7 +41,7 @@ export function SectionLayout({
   domainEyebrow?: string;
   sections: SectionNavItem[];
   activeSectionRoute: string;
-  children: ReactNode;
+  children?: ReactNode;
 }) {
   const pills = sourcePills(entry);
 

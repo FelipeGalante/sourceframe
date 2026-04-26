@@ -1,10 +1,20 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
+import type { KeyboardEvent as ReactKeyboardEvent } from "react";
 
 import type { SearchRecord } from "@/lib/content";
+import { buildSearchExcerpt } from "./search-utils";
+import {
+  groupSearchResults,
+  highlightText,
+  isSearchFocusShortcut,
+  normalizeSearchText,
+  rankSearchRecord,
+  tokenizeSearchQuery,
+} from "./search-utils";
 
 function useDebouncedValue<T>(value: T, delay = 140) {
   const [debounced, setDebounced] = useState(value);
@@ -17,51 +27,44 @@ function useDebouncedValue<T>(value: T, delay = 140) {
   return debounced;
 }
 
-function normalize(value: string) {
-  return value.toLowerCase().replace(/\s+/g, " ").trim();
-}
-
-function rankRecord(record: SearchRecord, terms: string[]) {
-  const haystack = normalize(
-    [record.title, record.domain, record.section, record.headings.join(" "), record.text].join(" "),
-  );
-  if (!haystack) {
-    return 0;
-  }
-
-  let score = 0;
-  for (const term of terms) {
-    if (!term) continue;
-    if (record.title.toLowerCase().includes(term)) score += 45;
-    if (record.domain.toLowerCase().includes(term)) score += 18;
-    if (record.section.toLowerCase().includes(term)) score += 16;
-    if (record.headings.some((heading) => heading.toLowerCase().includes(term))) score += 12;
-    if (haystack.includes(term)) score += 6;
-  }
-
-  return score;
-}
-
 export function SearchBox({ records }: { records: SearchRecord[] }) {
   const [query, setQuery] = useState("");
+  const [activeIndex, setActiveIndex] = useState(0);
+  const inputRef = useRef<HTMLInputElement>(null);
   const pathname = usePathname();
+  const router = useRouter();
   const debouncedQuery = useDebouncedValue(query);
+  const listboxId = useId();
+  const activeQuery = normalizeSearchText(query);
 
   useEffect(() => {
     setQuery("");
+    setActiveIndex(0);
   }, [pathname]);
 
+  useEffect(() => {
+    function handleGlobalShortcut(event: globalThis.KeyboardEvent) {
+      if (document.activeElement !== inputRef.current && isSearchFocusShortcut(event)) {
+        event.preventDefault();
+        inputRef.current?.focus();
+      }
+    }
+
+    window.addEventListener("keydown", handleGlobalShortcut);
+    return () => window.removeEventListener("keydown", handleGlobalShortcut);
+  }, []);
+
   const results = useMemo(() => {
-    const normalized = normalize(debouncedQuery);
+    const normalized = normalizeSearchText(debouncedQuery);
     if (!normalized) {
       return [] as SearchRecord[];
     }
 
-    const terms = normalized.split(" ").filter(Boolean);
+    const terms = tokenizeSearchQuery(normalized);
     return records
       .map((record) => ({
         record,
-        score: rankRecord(record, terms),
+        score: rankSearchRecord(record, terms, normalized),
       }))
       .filter((item) => item.score > 0)
       .sort(
@@ -72,16 +75,83 @@ export function SearchBox({ records }: { records: SearchRecord[] }) {
       .map((item) => item.record);
   }, [debouncedQuery, records]);
 
-  const visible = Boolean(normalize(query));
+  useEffect(() => {
+    setActiveIndex(results.length ? 0 : -1);
+  }, [results]);
+
+  function navigateToResult(index: number) {
+    const target = results[index];
+    if (!target) {
+      return;
+    }
+    router.push(target.href);
+  }
+
+  function handleKeyDown(event: ReactKeyboardEvent<HTMLInputElement>) {
+    if (!results.length) {
+      if (event.key === "Escape") {
+        setQuery("");
+      }
+      return;
+    }
+
+    if (event.key === "ArrowDown") {
+      event.preventDefault();
+      setActiveIndex((current) => (current + 1) % results.length);
+      return;
+    }
+
+    if (event.key === "ArrowUp") {
+      event.preventDefault();
+      setActiveIndex((current) => (current <= 0 ? results.length - 1 : current - 1));
+      return;
+    }
+
+    if (event.key === "Home") {
+      event.preventDefault();
+      setActiveIndex(0);
+      return;
+    }
+
+    if (event.key === "End") {
+      event.preventDefault();
+      setActiveIndex(results.length - 1);
+      return;
+    }
+
+    if (event.key === "Enter") {
+      event.preventDefault();
+      navigateToResult(activeIndex >= 0 ? activeIndex : 0);
+      return;
+    }
+
+    if (event.key === "Escape") {
+      event.preventDefault();
+      setQuery("");
+      setActiveIndex(0);
+    }
+  }
+
+  const visible = Boolean(activeQuery);
+  const terms = tokenizeSearchQuery(query);
+  const groupedResults = groupSearchResults(results);
 
   return (
     <div className="pm-search">
       <input
+        ref={inputRef}
         aria-label="Search project content"
+        aria-activedescendant={activeIndex >= 0 ? `${listboxId}-option-${activeIndex}` : undefined}
+        aria-autocomplete="list"
+        aria-controls={listboxId}
+        aria-haspopup="listbox"
+        aria-expanded={visible}
         className="pm-search-input"
         placeholder="Search content"
+        role="combobox"
         value={query}
         onChange={(event) => setQuery(event.target.value)}
+        onKeyDown={handleKeyDown}
       />
       <button
         type="button"
@@ -91,24 +161,119 @@ export function SearchBox({ records }: { records: SearchRecord[] }) {
       >
         ×
       </button>
+      <div className="pm-search-hint">Press `/` to focus search</div>
       {visible ? (
-        <div className="pm-search-results" role="listbox" aria-label="Search results">
-          <div className="pm-search-query">Search results for “{query}”</div>
+        <div
+          className="pm-search-results"
+          id={listboxId}
+          role="listbox"
+          aria-label="Search results"
+        >
+          <div className="pm-search-query" aria-live="polite">
+            <span>Search results for “{query}”</span>
+            <span className="pm-search-count">
+              {results.length ? `${results.length} matches` : "No matches"}
+            </span>
+          </div>
+          <div className="pm-search-shortcuts" aria-label="Search keyboard shortcuts">
+            <span className="pm-search-shortcut">
+              <kbd>/</kbd> focus search
+            </span>
+            <span className="pm-search-shortcut">
+              <kbd>↑</kbd>
+              <kbd>↓</kbd> navigate
+            </span>
+            <span className="pm-search-shortcut">
+              <kbd>Enter</kbd> open
+            </span>
+            <span className="pm-search-shortcut">
+              <kbd>Esc</kbd> clear
+            </span>
+          </div>
           <div className="pm-search-results-list">
             {results.length ? (
-              results.map((record) => (
-                <Link key={record.id} href={record.href} className="pm-search-result">
-                  <span className="pm-search-result-title">{record.title}</span>
-                  <span className="pm-search-result-meta">
-                    <span>{record.domain}</span>
-                    {record.section ? <span>· {record.section}</span> : null}
-                  </span>
-                  <span className="pm-search-result-excerpt">{record.excerpt}</span>
-                </Link>
+              groupedResults.map((group) => (
+                <div
+                  key={group.domain}
+                  className="pm-search-group"
+                  role="group"
+                  aria-label={group.domain}
+                >
+                  <div className="pm-search-group-title">
+                    <span>{group.domain}</span>
+                    <span className="pm-search-count">{group.records.length} results</span>
+                  </div>
+                  {group.records.map((record) => {
+                    const index = results.findIndex((item) => item.id === record.id);
+                    const active = index === activeIndex;
+                    return (
+                      <Link
+                        key={record.id}
+                        id={`${listboxId}-option-${index}`}
+                        href={record.href}
+                        className="pm-search-result"
+                        role="option"
+                        aria-selected={active}
+                        data-active={active}
+                      >
+                        <span className="pm-search-result-title">
+                          {highlightText(record.title, terms).map((part, partIndex) =>
+                            part.matched ? (
+                              <mark key={partIndex}>{part.text}</mark>
+                            ) : (
+                              <span key={partIndex}>{part.text}</span>
+                            ),
+                          )}
+                        </span>
+                        <span className="pm-search-result-meta">
+                          <span>
+                            {highlightText(record.domain, terms).map((part, partIndex) =>
+                              part.matched ? (
+                                <mark key={partIndex}>{part.text}</mark>
+                              ) : (
+                                <span key={partIndex}>{part.text}</span>
+                              ),
+                            )}
+                          </span>
+                          {record.section ? (
+                            <span>
+                              ·{" "}
+                              {highlightText(record.section, terms).map((part, partIndex) =>
+                                part.matched ? (
+                                  <mark key={partIndex}>{part.text}</mark>
+                                ) : (
+                                  <span key={partIndex}>{part.text}</span>
+                                ),
+                              )}
+                            </span>
+                          ) : null}
+                        </span>
+                        <span className="pm-search-result-excerpt">
+                          {highlightText(
+                            buildSearchExcerpt(record.text, terms, record.excerpt),
+                            terms,
+                          ).map((part, partIndex) =>
+                            part.matched ? (
+                              <mark key={partIndex}>{part.text}</mark>
+                            ) : (
+                              <span key={partIndex}>{part.text}</span>
+                            ),
+                          )}
+                        </span>
+                      </Link>
+                    );
+                  })}
+                </div>
               ))
             ) : (
               <div className="pm-search-empty">
-                No matching section found. Try another term or switch to Full archive view.
+                <p>
+                  No matches yet. Try a title, heading, domain, or a shorter phrase, or open the
+                  full archive.
+                </p>
+                <Link href="/full-archive" className="pm-action-button">
+                  Open full archive
+                </Link>
               </div>
             )}
           </div>

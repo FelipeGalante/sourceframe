@@ -51,8 +51,8 @@ test("SectionLayout marks the active section as current", () => {
         domainEyebrow: domain.eyebrow,
         sections: domain.sections,
         activeSectionRoute: "/technology/database",
-        children: createElement("div", null, "content"),
       },
+      createElement("div", null, "content"),
     ),
   );
 

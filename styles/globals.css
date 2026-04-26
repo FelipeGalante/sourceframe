@@ -241,6 +241,13 @@ select {
   background: transparent;
 }
 
+.pm-search-hint {
+  margin-top: 8px;
+  color: var(--pm-soft);
+  font-size: 0.74rem;
+  letter-spacing: 0.02em;
+}
+
 .pm-action-button {
   border-radius: 999px;
   border: 1px solid var(--pm-border);
@@ -673,6 +680,26 @@ select {
   overflow-y: auto;
 }
 
+.pm-search-group {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--pm-border-soft);
+}
+
+.pm-search-group:last-child {
+  border-bottom: 0;
+}
+
+.pm-search-group-title {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 16px 10px;
+  color: var(--pm-text);
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
 .pm-search-result {
   display: grid;
   gap: 4px;
@@ -684,6 +711,18 @@ select {
 .pm-search-result:focus-visible {
   background: rgba(255, 255, 255, 0.04);
   outline: none;
+}
+
+.pm-search-result[data-active="true"] {
+  background: var(--pm-accent-soft);
+  border-color: var(--pm-accent-line);
+}
+
+.pm-search-result mark {
+  background: rgba(124, 140, 255, 0.34);
+  color: var(--pm-text);
+  border-radius: 0.25rem;
+  padding: 0 0.08rem;
 }
 
 .pm-search-result-title {
@@ -705,14 +744,55 @@ select {
 }
 
 .pm-search-empty {
+  display: grid;
+  gap: 12px;
   padding: 18px;
   color: var(--pm-muted);
 }
 
+.pm-search-empty p {
+  margin: 0;
+}
+
 .pm-search-query {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
   padding: 14px 16px;
   border-bottom: 1px solid var(--pm-border-soft);
   color: var(--pm-text);
+}
+
+.pm-search-count {
+  color: var(--pm-soft);
+  font-size: 0.78rem;
+  white-space: nowrap;
+}
+
+.pm-search-shortcuts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--pm-border-soft);
+}
+
+.pm-search-shortcut {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--pm-soft);
+  font-size: 0.78rem;
+}
+
+.pm-search-shortcut kbd {
+  padding: 0.2rem 0.38rem;
+  border-radius: 8px;
+  border: 1px solid var(--pm-border);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--pm-text);
+  font-size: 0.74rem;
 }
 
 @media (max-width: 1100px) {
