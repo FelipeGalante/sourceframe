@@ -16,6 +16,7 @@ const contentTypeSchema = z.union([
 const sharedSchema = z.object({
   title: z.string().min(1),
   type: contentTypeSchema,
+  visibility: z.enum(["public", "internal"]).optional(),
   domain: z.string().min(1).optional(),
   section: z.string().min(1).optional(),
   order: z.coerce.number().int().nonnegative().optional(),

@@ -2,246 +2,211 @@
   {
     "table_name": "users",
     "database_domain": "Auth",
-    "kicker": "Auth / Identity \u00b7 MVP Core",
-    "description": "Primary user account. Owns private documents, tracker records, prep progress, billing state, and product settings.",
+    "kicker": "Auth / Identity · MVP Core",
     "path": "content/technology/database/tables/users.md"
   },
   {
     "table_name": "sessions",
     "database_domain": "Auth",
-    "kicker": "Auth / Identity \u00b7 MVP Core",
-    "description": "Postgres-backed session and refresh-token revocation store.",
+    "kicker": "Auth / Identity · MVP Core",
     "path": "content/technology/database/tables/sessions.md"
   },
   {
     "table_name": "technologies",
     "database_domain": "Lookup",
-    "kicker": "Lookup / Taxonomy \u00b7 MVP Core",
-    "description": "Canonical skill and technology taxonomy used by resumes, work experience, JD parsing, prep paths, and ATS matching.",
+    "kicker": "Lookup / Taxonomy · MVP Core",
     "path": "content/technology/database/tables/technologies.md"
   },
   {
     "table_name": "institutions",
     "database_domain": "Lookup",
-    "kicker": "Lookup / Taxonomy \u00b7 MVP Core",
-    "description": "Normalized education institutions for resume builder and education parsing.",
+    "kicker": "Lookup / Taxonomy · MVP Core",
     "path": "content/technology/database/tables/institutions.md"
   },
   {
     "table_name": "roles",
     "database_domain": "Lookup",
-    "kicker": "Lookup / Taxonomy \u00b7 MVP Core",
-    "description": "Canonical role taxonomy for applications, target roles, prep plans, and resume experience mapping.",
+    "kicker": "Lookup / Taxonomy · MVP Core",
     "path": "content/technology/database/tables/roles.md"
   },
   {
     "table_name": "certifications",
     "database_domain": "Lookup",
-    "kicker": "Lookup / Taxonomy \u00b7 MVP / Optional",
-    "description": "Canonical certification lookup for future normalized credential suggestions.",
+    "kicker": "Lookup / Taxonomy · MVP / Optional",
     "path": "content/technology/database/tables/certifications.md"
   },
   {
     "table_name": "application_statuses",
     "database_domain": "Lookup",
-    "kicker": "Lookup / Tracker \u00b7 MVP Core",
-    "description": "Default and user-custom application pipeline statuses.",
+    "kicker": "Lookup / Tracker · MVP Core",
     "path": "content/technology/database/tables/application-statuses.md"
   },
   {
     "table_name": "target_roles",
     "database_domain": "Product Core",
-    "kicker": "Product Core \u00b7 MVP / Strategic Core",
-    "description": "First-class user intent object. Connects preparation, resumes, saved jobs, applications, ATS analysis, and recommendations.",
+    "kicker": "Product Core · MVP / Strategic Core",
     "path": "content/technology/database/tables/target-roles.md"
   },
   {
     "table_name": "companies",
     "database_domain": "Tracker",
-    "kicker": "Tracker / CRM \u00b7 Growth Core",
-    "description": "Company dossier shared across applications, saved jobs, contacts, JDs, interview notes, and company-specific prep.",
+    "kicker": "Tracker / CRM · Growth Core",
     "path": "content/technology/database/tables/companies.md"
   },
   {
     "table_name": "resumes",
     "database_domain": "Resume Builder",
-    "kicker": "Resume Builder \u00b7 MVP Core",
-    "description": "Base resumes and tailored variants. Central document entity linked to applications and ATS analyses.",
+    "kicker": "Resume Builder · MVP Core",
     "path": "content/technology/database/tables/resumes.md"
   },
   {
     "table_name": "resume_headers",
     "database_domain": "Resume Builder",
-    "kicker": "Resume Builder \u00b7 MVP Core",
-    "description": "Structured resume header for ATS-safe export and parsing preview.",
+    "kicker": "Resume Builder · MVP Core",
     "path": "content/technology/database/tables/resume-headers.md"
   },
   {
     "table_name": "resume_summaries",
     "database_domain": "Resume Builder",
-    "kicker": "Resume Builder \u00b7 MVP Core",
-    "description": "Structured professional summary for each resume or variant.",
+    "kicker": "Resume Builder · MVP Core",
     "path": "content/technology/database/tables/resume-summaries.md"
   },
   {
     "table_name": "work_experiences",
     "database_domain": "Resume Builder",
-    "kicker": "Resume Builder \u00b7 MVP Core",
-    "description": "Resume work history entries with structured dates, role normalization, and technology links.",
+    "kicker": "Resume Builder · MVP Core",
     "path": "content/technology/database/tables/work-experiences.md"
   },
   {
     "table_name": "work_experience_technologies",
     "database_domain": "Resume Builder",
-    "kicker": "Resume Builder \u00b7 MVP Core",
-    "description": "Join table mapping experience entries to the shared technology taxonomy.",
+    "kicker": "Resume Builder · MVP Core",
     "path": "content/technology/database/tables/work-experience-technologies.md"
   },
   {
     "table_name": "educations",
     "database_domain": "Resume Builder",
-    "kicker": "Resume Builder \u00b7 MVP Core",
-    "description": "Structured education entries for resume output and parsing.",
+    "kicker": "Resume Builder · MVP Core",
     "path": "content/technology/database/tables/educations.md"
   },
   {
     "table_name": "certifications_resume",
     "database_domain": "Resume Builder",
-    "kicker": "Resume Builder \u00b7 MVP / Optional",
-    "description": "Resume-specific certifications, including user-entered credentials not in canonical lookup.",
+    "kicker": "Resume Builder · MVP / Optional",
     "path": "content/technology/database/tables/certifications-resume.md"
   },
   {
     "table_name": "technical_skills",
     "database_domain": "Resume Builder",
-    "kicker": "Resume Builder \u00b7 MVP Core",
-    "description": "Skill groups such as Languages, Frameworks, Cloud, Databases.",
+    "kicker": "Resume Builder · MVP Core",
     "path": "content/technology/database/tables/technical-skills.md"
   },
   {
     "table_name": "technical_skill_items",
     "database_domain": "Resume Builder",
-    "kicker": "Resume Builder \u00b7 MVP Core",
-    "description": "Technology items inside a resume skill group.",
+    "kicker": "Resume Builder · MVP Core",
     "path": "content/technology/database/tables/technical-skill-items.md"
   },
   {
     "table_name": "cover_letters",
     "database_domain": "Documents",
-    "kicker": "Documents \u00b7 Growth / Phase 2",
-    "description": "Structured cover letter drafts, versions, and application-specific communication artifacts.",
+    "kicker": "Documents · Growth / Phase 2",
     "path": "content/technology/database/tables/cover-letters.md"
   },
   {
     "table_name": "applications",
     "database_domain": "Interviewing Tracker",
-    "kicker": "Interviewing Tracker \u00b7 MVP Core",
-    "description": "Application pipeline record. The operational spine linking companies, JDs, resume variants, contacts, statuses, and outcomes.",
+    "kicker": "Interviewing Tracker · MVP Core",
     "path": "content/technology/database/tables/applications.md"
   },
   {
     "table_name": "application_contacts",
     "database_domain": "Interviewing Tracker",
-    "kicker": "Interviewing Tracker / CRM \u00b7 MVP Core",
-    "description": "Per-application contact log for recruiters, referrals, hiring managers, interviewers, and follow-ups.",
+    "kicker": "Interviewing Tracker / CRM · MVP Core",
     "path": "content/technology/database/tables/application-contacts.md"
   },
   {
     "table_name": "interactions",
     "database_domain": "Networking CRM",
-    "kicker": "Networking CRM \u00b7 Growth",
-    "description": "Generalized relationship history beyond a single application, useful for networking CRM expansion.",
+    "kicker": "Networking CRM · Growth",
     "path": "content/technology/database/tables/interactions.md"
   },
   {
     "table_name": "saved_jobs",
     "database_domain": "Job Saver Extension",
-    "kicker": "Job Saver Extension \u00b7 Growth",
-    "description": "Raw and parsed job posting ingestion from browser extension, bookmarklet, or paste/import flow.",
+    "kicker": "Job Saver Extension · Growth",
     "path": "content/technology/database/tables/saved-jobs.md"
   },
   {
     "table_name": "job_descriptions",
     "database_domain": "ATS",
-    "kicker": "ATS / Jobs \u00b7 MVP / Growth",
-    "description": "Captured job description text and structured extraction used for matching, tailoring, prep recommendations, and ATS analysis.",
+    "kicker": "ATS / Jobs · MVP / Growth",
     "path": "content/technology/database/tables/job-descriptions.md"
   },
   {
     "table_name": "ats_analyses",
     "database_domain": "ATS Intelligence",
-    "kicker": "ATS Intelligence \u00b7 Growth / Phase 2",
-    "description": "Explainable resume-to-JD analysis, matching breakdown, parseability feedback, and tailoring recommendations.",
+    "kicker": "ATS Intelligence · Growth / Phase 2",
     "path": "content/technology/database/tables/ats-analyses.md"
   },
   {
     "table_name": "study_guides",
     "database_domain": "Preparation",
-    "kicker": "Preparation \u00b7 MVP Core",
-    "description": "User-created or forked interview prep plans tied to target roles, dates, hours/week, modules, and public/community visibility.",
+    "kicker": "Preparation · MVP Core",
     "path": "content/technology/database/tables/study-guides.md"
   },
   {
     "table_name": "study_guide_modules",
     "database_domain": "Preparation",
-    "kicker": "Preparation \u00b7 MVP Core",
-    "description": "Modules inside a study guide, such as Node.js, distributed systems, system design, behavioral, frontend, databases.",
+    "kicker": "Preparation · MVP Core",
     "path": "content/technology/database/tables/study-guide-modules.md"
   },
   {
     "table_name": "questions",
     "database_domain": "Preparation",
-    "kicker": "Preparation \u00b7 MVP Core",
-    "description": "Interview question bank, including technical, behavioral, system design, frontend, and role-specific questions.",
+    "kicker": "Preparation · MVP Core",
     "path": "content/technology/database/tables/questions.md"
   },
   {
     "table_name": "question_responses",
     "database_domain": "Preparation",
-    "kicker": "Preparation \u00b7 MVP Core",
-    "description": "Spaced repetition memory, confidence scoring, review history, and user notes for questions.",
+    "kicker": "Preparation · MVP Core",
     "path": "content/technology/database/tables/question-responses.md"
   },
   {
     "table_name": "weekly_goals",
     "database_domain": "Retention",
-    "kicker": "Retention / Operating Rhythm \u00b7 MVP / Growth",
-    "description": "Weekly job-search operating targets for saved jobs, applications, resume tailoring, prep hours, and networking.",
+    "kicker": "Retention / Operating Rhythm · MVP / Growth",
     "path": "content/technology/database/tables/weekly-goals.md"
   },
   {
     "table_name": "email_templates",
     "database_domain": "Communication",
-    "kicker": "Communication \u00b7 MVP / Growth",
-    "description": "Stage-based outreach and follow-up templates for referrals, recruiters, interviews, negotiation, and rejection follow-ups.",
+    "kicker": "Communication · MVP / Growth",
     "path": "content/technology/database/tables/email-templates.md"
   },
   {
     "table_name": "jobs",
     "database_domain": "Background Jobs",
-    "kicker": "Background Jobs \u00b7 MVP Core",
-    "description": "Postgres-backed queue for exports, reminders, imports, JD parsing, ATS scoring, and digest emails before Redis/BullMQ is justified.",
+    "kicker": "Background Jobs · MVP Core",
     "path": "content/technology/database/tables/jobs.md"
   },
   {
     "table_name": "export_files",
     "database_domain": "Exports",
-    "kicker": "Exports \u00b7 MVP / Growth",
-    "description": "Export artifact lifecycle for PDF/DOCX resume exports and temporary download links.",
+    "kicker": "Exports · MVP / Growth",
     "path": "content/technology/database/tables/export-files.md"
   },
   {
     "table_name": "billing_customers",
     "database_domain": "Billing",
-    "kicker": "Billing \u00b7 MVP / When Paid",
-    "description": "Stripe customer mapping and country/currency context for PPP/localized pricing.",
+    "kicker": "Billing · MVP / When Paid",
     "path": "content/technology/database/tables/billing-customers.md"
   },
   {
     "table_name": "subscriptions",
     "database_domain": "Billing",
-    "kicker": "Billing \u00b7 MVP / When Paid",
-    "description": "Subscription lifecycle state synchronized from Stripe webhooks.",
+    "kicker": "Billing · MVP / When Paid",
     "path": "content/technology/database/tables/subscriptions.md"
   }
 ]

@@ -12,8 +12,10 @@
     "format": "prettier . --write",
     "format:check": "prettier . --check",
     "lint": "eslint . --max-warnings=0",
-    "typecheck": "tsc --noEmit",
-    "test": "node --import tsx --test tests/**/*.test.ts lib/content/**/__tests__/**/*.test.ts && node --test tests/**/*.test.mjs",
+    "generate:content": "node --import tsx scripts/generate-content.ts",
+    "typegen": "next typegen",
+    "typecheck": "pnpm typegen && tsc --noEmit",
+    "test": "pnpm typegen && node --import tsx --test tests/**/*.test.ts lib/content/**/__tests__/**/*.test.ts && node --test tests/**/*.test.mjs",
     "validate:content": "node --import tsx scripts/validate-content.ts"
   },
   "dependencies": {

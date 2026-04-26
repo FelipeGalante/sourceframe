@@ -32,10 +32,12 @@ Then open `http://localhost:3000`.
 - `pnpm format` - write Prettier formatting
 - `pnpm format:check` - verify Prettier formatting
 - `pnpm lint` - run ESLint
-- `pnpm typecheck` - run the TypeScript compiler in no-emit mode
+- `pnpm generate:content` - regenerate the checked-in content manifests and migration report
+- `pnpm typegen` - generate Next.js route types without a full build
+- `pnpm typecheck` - generate Next.js route types and then run the TypeScript compiler in no-emit mode
 - `pnpm build` - create a production build
 - `pnpm test` - run content loader tests
-- `pnpm validate:content` - validate the real content tree
+- `pnpm validate:content` - validate the real content tree and confirm generated artifacts are current
 
 ## Creating a new project from this template
 
@@ -72,3 +74,5 @@ Then open `http://localhost:3000`.
 - The app shell is intentionally generic so you can swap content without touching layout code.
 - The source archive page is intentionally large and should be left as Markdown unless you have a strong reason to split it further.
 - `content/about/sources.md` is rendered as literal source text so the archive stays auditable and cannot be reinterpreted as normal Markdown.
+- Mark template-only docs with `visibility: "internal"` when they should stay in the repo but be excluded from the public migration manifest.
+- Run `pnpm generate:content` after changing `/content` if you want to refresh the checked-in manifests in `/generated`.
