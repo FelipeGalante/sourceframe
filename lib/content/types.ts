@@ -7,11 +7,14 @@ export type ContentType =
   | "section"
   | "section-index"
   | "section-full-extraction"
+  | "reference"
   | "database-domain"
   | "database-table"
   | "database-sql-reference"
   | "database-relationships"
   | "database-mermaid";
+
+export type ContentFormat = "markdown" | "mdx";
 
 export type ContentEntry = {
   id: string;
@@ -36,6 +39,7 @@ export type ContentEntry = {
   databaseDomain?: string;
   tableName?: string;
   body: string;
+  format: ContentFormat;
   plainText: string;
   excerpt: string;
   headings: string[];

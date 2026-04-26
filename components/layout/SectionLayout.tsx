@@ -1,3 +1,4 @@
+import React from "react";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
@@ -64,6 +65,7 @@ export function SectionLayout({
                 key={section.key}
                 href={section.href}
                 className="pm-section-link"
+                aria-current={activeSectionRoute === section.href ? "page" : undefined}
                 data-active={activeSectionRoute === section.href}
               >
                 <span className="pm-section-link-title">

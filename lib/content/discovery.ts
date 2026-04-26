@@ -11,9 +11,17 @@ import {
   routeFromSegments,
   toKebabCase,
 } from "./routes";
-import type { ContentEntry } from "./types";
+import type { ContentEntry, ContentFormat } from "./types";
 
-export function discoverMarkdownFiles(dir: string): string[] {
+function isContentFile(name: string) {
+  return name.endsWith(".md") || name.endsWith(".mdx");
+}
+
+function getContentFormat(filePath: string): ContentFormat {
+  return filePath.endsWith(".mdx") ? "mdx" : "markdown";
+}
+
+export function discoverContentFiles(dir: string): string[] {
   const entries = fs.readdirSync(dir, { withFileTypes: true });
   const files: string[] = [];
 
@@ -24,8 +32,8 @@ export function discoverMarkdownFiles(dir: string): string[] {
 
     const nextPath = path.join(dir, entry.name);
     if (entry.isDirectory()) {
-      files.push(...discoverMarkdownFiles(nextPath));
-    } else if (entry.isFile() && entry.name.endsWith(".md")) {
+      files.push(...discoverContentFiles(nextPath));
+    } else if (entry.isFile() && isContentFile(entry.name)) {
       files.push(nextPath);
     }
   }
@@ -33,13 +41,18 @@ export function discoverMarkdownFiles(dir: string): string[] {
   return files;
 }
 
-export function readMarkdownFile(filePath: string, rootDir: string) {
+export function discoverMarkdownFiles(dir: string): string[] {
+  return discoverContentFiles(dir);
+}
+
+export function readContentFile(filePath: string, rootDir: string) {
   const source = fs.readFileSync(filePath, "utf8");
   const { content, data } = matter(source);
   const frontmatter = frontmatterSchema.parse(data);
   const relativePath = normalizeRelativePath(path.relative(rootDir, filePath));
   const slugSegments = relativeSegmentsForFile(relativePath);
   const route = routeFromSegments(slugSegments);
+  const format = getContentFormat(filePath);
 
   if (frontmatter.type !== "site-index") {
     const domainSlug = toKebabCase(frontmatter.domain ?? "");
@@ -92,9 +105,14 @@ export function readMarkdownFile(filePath: string, rootDir: string) {
     databaseDomain: frontmatter.database_domain,
     tableName: frontmatter.table_name,
     body: content,
+    format,
     plainText: meta.plainText,
     excerpt: meta.excerpt || frontmatter.description || frontmatter.title,
     headings: meta.headings,
     frontmatter,
   } satisfies ContentEntry;
+}
+
+export function readMarkdownFile(filePath: string, rootDir: string) {
+  return readContentFile(filePath, rootDir);
 }

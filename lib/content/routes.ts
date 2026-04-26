@@ -31,7 +31,7 @@ export function routeFromSegments(segments: string[]) {
 
 export function relativeSegmentsForFile(relativePath: string) {
   const normalized = relativePath.replaceAll(path.sep, "/");
-  const withoutExt = normalized.replace(/\.md$/, "");
+  const withoutExt = normalized.replace(/\.(md|mdx)$/, "");
   const parts = withoutExt.split("/").filter(Boolean);
   if (parts.at(-1) === "index") {
     parts.pop();

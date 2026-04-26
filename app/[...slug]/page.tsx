@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 
+import { ContentRenderer } from "@/components/markdown/ContentRenderer";
 import { SectionLayout } from "@/components/layout/SectionLayout";
 import {
   getChildren,
@@ -8,7 +9,6 @@ import {
   getDomainEntry,
   getSectionRoute,
 } from "@/lib/content";
-import { MarkdownRenderer } from "@/lib/markdown";
 
 export function generateStaticParams() {
   return getContentRegistry()
@@ -31,7 +31,11 @@ export default async function ContentPage({ params }: { params: Promise<{ slug: 
     return (
       <section className="pm-card pm-content-card">
         <div className="pm-content-body">
-          <MarkdownRenderer markdown={entry.body} sourceRelativePath={entry.relativePath} />
+          <ContentRenderer
+            format={entry.format}
+            markdown={entry.body}
+            sourceRelativePath={entry.relativePath}
+          />
         </div>
       </section>
     );
@@ -62,7 +66,11 @@ export default async function ContentPage({ params }: { params: Promise<{ slug: 
     >
       <section className="pm-card pm-content-card">
         <div className="pm-content-body">
-          <MarkdownRenderer markdown={entry.body} sourceRelativePath={entry.relativePath} />
+          <ContentRenderer
+            format={entry.format}
+            markdown={entry.body}
+            sourceRelativePath={entry.relativePath}
+          />
         </div>
       </section>
     </SectionLayout>

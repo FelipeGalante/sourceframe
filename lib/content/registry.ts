@@ -21,11 +21,12 @@ function sortEntries(entries: ContentEntry[]) {
     section: 2,
     "section-index": 3,
     "section-full-extraction": 4,
-    "database-relationships": 5,
-    "database-mermaid": 6,
-    "database-sql-reference": 7,
-    "database-domain": 8,
-    "database-table": 9,
+    reference: 5,
+    "database-relationships": 6,
+    "database-mermaid": 7,
+    "database-sql-reference": 8,
+    "database-domain": 9,
+    "database-table": 10,
   };
 
   return [...entries].sort((left, right) => {
@@ -251,7 +252,7 @@ export function resolveContentHref(href: string, sourceRelativePath: string) {
   }
 
   const [pathPart, hashPart] = href.split("#");
-  if (!pathPart.endsWith(".md")) {
+  if (!pathPart.endsWith(".md") && !pathPart.endsWith(".mdx")) {
     return href;
   }
 

@@ -56,6 +56,12 @@ export const frontmatterSchema = z.discriminatedUnion("type", [
     order: z.coerce.number().int().nonnegative(),
   }),
   sharedSchema.extend({
+    type: z.literal("reference"),
+    domain: z.string().min(1),
+    section: z.string().min(1),
+    order: z.coerce.number().int().nonnegative(),
+  }),
+  sharedSchema.extend({
     type: z.literal("database-domain"),
     domain: z.string().min(1),
     section: z.string().min(1),

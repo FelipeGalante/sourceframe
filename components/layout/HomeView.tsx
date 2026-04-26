@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import type { ContentEntry, DomainNavItem } from "@/lib/content";
-import { MarkdownRenderer } from "@/lib/markdown";
+import { ContentRenderer } from "@/components/markdown/ContentRenderer";
 
 export function HomeView({ entry, domains }: { entry: ContentEntry; domains: DomainNavItem[] }) {
   return (
@@ -21,7 +21,11 @@ export function HomeView({ entry, domains }: { entry: ContentEntry; domains: Dom
 
       <section className="pm-card pm-content-card">
         <div className="pm-content-body">
-          <MarkdownRenderer markdown={entry.body} sourceRelativePath={entry.relativePath} />
+          <ContentRenderer
+            format={entry.format}
+            markdown={entry.body}
+            sourceRelativePath={entry.relativePath}
+          />
         </div>
       </section>
 

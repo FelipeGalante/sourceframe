@@ -21,6 +21,7 @@ test("route helpers normalize content slugs", () => {
 test("route helpers read markdown-relative paths", () => {
   assert.deepEqual(relativeSegmentsForFile("alpha/index.md"), ["alpha"]);
   assert.deepEqual(relativeSegmentsForFile("alpha/beta/gamma.md"), ["alpha", "beta", "gamma"]);
+  assert.deepEqual(relativeSegmentsForFile("alpha/beta/gamma.mdx"), ["alpha", "beta", "gamma"]);
   assert.equal(
     normalizeRelativePath(path.join("alpha", "beta", "gamma.md")),
     path.join("alpha", "beta", "gamma.md"),

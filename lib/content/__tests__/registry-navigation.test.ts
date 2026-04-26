@@ -44,14 +44,26 @@ test("buildContentRegistry builds a search index and navigation tree", () => {
       "",
       "# Details",
     ].join("\n"),
+    "alpha/notes.mdx": [
+      "---",
+      'title: "Notes"',
+      'nav_label: "Notes"',
+      'domain: "alpha"',
+      'section: "notes"',
+      'type: "section"',
+      "order: 3",
+      "---",
+      "",
+      "# Notes",
+    ].join("\n"),
   });
 
   const registry = buildContentRegistry(root);
 
-  assert.equal(registry.domainTabs[0]?.sectionCount, 2);
+  assert.equal(registry.domainTabs[0]?.sectionCount, 3);
   assert.deepEqual(
     registry.domainTabs[0]?.sections.map((section) => section.href),
-    ["/alpha/intro", "/alpha/details"],
+    ["/alpha/intro", "/alpha/details", "/alpha/notes"],
   );
   assert.match(registry.searchIndex[2]?.text ?? "", /See/);
   assert.match(registry.searchIndex[2]?.text ?? "", /Alpha/);
