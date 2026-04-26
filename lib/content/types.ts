@@ -1,5 +1,6 @@
 import type { Frontmatter } from "./schemas";
 import type { SiteConfig } from "@/lib/site-config";
+import type { SchemaDefinition, SchemaSourceFormat } from "@/lib/schema-docs/types";
 
 export type ContentType =
   | "site-index"
@@ -37,6 +38,9 @@ export type ContentEntry = {
   status?: string;
   visibility?: "public" | "internal";
   updated?: string;
+  schema?: SchemaDefinition;
+  schemaSource?: string;
+  schemaSourceFormat?: SchemaSourceFormat;
   tags?: string[];
   eyebrow?: string;
   description?: string;

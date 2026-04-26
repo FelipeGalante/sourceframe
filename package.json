@@ -16,7 +16,7 @@
     "screenshots": "node --import tsx scripts/capture-screenshots.ts",
     "typegen": "next typegen",
     "typecheck": "pnpm typegen && tsc --noEmit",
-    "test": "pnpm typegen && node --import tsx --test tests/**/*.test.ts lib/content/**/__tests__/**/*.test.ts && node --test tests/**/*.test.mjs",
+    "test": "pnpm typegen && node --import tsx --test tests/**/*.test.ts tests/**/*.test.tsx lib/content/**/__tests__/**/*.test.ts && node --test tests/**/*.test.mjs",
     "validate:content": "node --import tsx scripts/validate-content.ts"
   },
   "dependencies": {

@@ -12,6 +12,7 @@ import {
   toKebabCase,
 } from "./routes";
 import type { ContentEntry, ContentFormat } from "./types";
+import { loadSchemaDocument } from "@/lib/schema-docs/loader";
 
 function isContentFile(name: string) {
   return name.endsWith(".md") || name.endsWith(".mdx");
@@ -95,6 +96,7 @@ export function readContentFile(filePath: string, rootDir: string) {
 
   const meta = extractMarkdownMeta(content);
   const navLabel = frontmatter.nav_label ?? frontmatter.title;
+  const schemaDocument = loadSchemaDocument(filePath, relativePath, frontmatter.schema);
 
   return {
     id: relativePath,
@@ -117,6 +119,9 @@ export function readContentFile(filePath: string, rootDir: string) {
     status: frontmatter.status,
     visibility: frontmatter.visibility,
     updated: frontmatter.updated,
+    schema: schemaDocument?.definition,
+    schemaSource: schemaDocument?.sourcePath,
+    schemaSourceFormat: schemaDocument?.sourceFormat,
     tags: frontmatter.tags,
     eyebrow: frontmatter.eyebrow,
     description: frontmatter.description,
