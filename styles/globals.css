@@ -743,6 +743,19 @@ select {
   font-size: 0.88rem;
 }
 
+.pm-search-result-summary {
+  color: var(--pm-muted);
+  font-size: 0.88rem;
+}
+
+.pm-search-result-route {
+  color: var(--pm-soft);
+  font-size: 0.78rem;
+  font-family:
+    "SFMono-Regular", ui-monospace, "Cascadia Code", "IBM Plex Mono", Consolas, monospace;
+  word-break: break-all;
+}
+
 .pm-search-empty {
   display: grid;
   gap: 12px;

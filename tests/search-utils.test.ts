@@ -16,8 +16,13 @@ const record = {
   title: "Alpha Intro",
   domain: "Alpha Domain",
   section: "Intro",
-  path: "/alpha/intro",
+  route: "/alpha/intro",
   href: "/alpha/intro",
+  summary: "A short intro to alpha content.",
+  contentType: "guide",
+  owner: "Docs Team",
+  status: "published",
+  tags: ["alpha", "intro"],
   headings: ["Getting Started"],
   text: "Alpha content with docs and examples",
   excerpt: "Alpha content with docs and examples",
@@ -85,6 +90,16 @@ test("search helpers identify the keyboard shortcut", () => {
       defaultPrevented: false,
     }),
     false,
+  );
+  assert.equal(
+    isSearchFocusShortcut({
+      key: "k",
+      metaKey: true,
+      ctrlKey: false,
+      altKey: false,
+      defaultPrevented: false,
+    }),
+    true,
   );
 });
 

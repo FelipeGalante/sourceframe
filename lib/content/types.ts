@@ -31,6 +31,11 @@ export type ContentEntry = {
   domain?: string;
   section?: string;
   order?: number;
+  contentType?: string;
+  summary?: string;
+  owner?: string;
+  status?: string;
+  tags?: string[];
   eyebrow?: string;
   description?: string;
   kicker?: string;
@@ -71,8 +76,13 @@ export type SearchRecord = {
   title: string;
   domain: string;
   section: string;
-  path: string;
+  route: string;
   href: string;
+  summary: string;
+  contentType: string;
+  owner?: string;
+  status?: string;
+  tags: string[];
   headings: string[];
   text: string;
   excerpt: string;

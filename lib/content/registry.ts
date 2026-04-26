@@ -99,15 +99,23 @@ function buildSearchIndex(entries: ContentEntry[], domainTabs: DomainNavItem[]) 
   const domainTitleByKey = new Map(domainTabs.map((domain) => [domain.key, domain.title]));
 
   return entries.map((entry) => {
+    const summary = entry.summary ?? entry.description ?? entry.excerpt;
+    const contentType = entry.contentType ?? entry.type;
+    const tags = entry.tags ?? [];
     const domainTitle = entry.domain
       ? (domainTitleByKey.get(entry.domain) ?? entry.domain)
       : siteConfig.name;
     const sectionTitle = entry.navLabel;
     const text = [
       entry.title,
+      summary,
       entry.navLabel,
       domainTitle,
       sectionTitle,
+      contentType,
+      entry.owner,
+      entry.status,
+      ...tags,
       ...entry.headings,
       entry.plainText,
     ]
@@ -119,8 +127,13 @@ function buildSearchIndex(entries: ContentEntry[], domainTabs: DomainNavItem[]) 
       title: entry.navLabel,
       domain: domainTitle,
       section: entry.section ?? "",
-      path: entry.route,
+      route: entry.route,
       href: entry.href,
+      summary,
+      contentType,
+      owner: entry.owner,
+      status: entry.status,
+      tags,
       headings: entry.headings,
       text,
       excerpt: entry.excerpt,

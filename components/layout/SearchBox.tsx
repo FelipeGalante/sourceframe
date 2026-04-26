@@ -161,7 +161,7 @@ export function SearchBox({ records }: { records: SearchRecord[] }) {
       >
         ×
       </button>
-      <div className="pm-search-hint">Press `/` to focus search</div>
+      <div className="pm-search-hint">Press Cmd/Ctrl+K or / to focus search</div>
       {visible ? (
         <div
           className="pm-search-results"
@@ -176,6 +176,10 @@ export function SearchBox({ records }: { records: SearchRecord[] }) {
             </span>
           </div>
           <div className="pm-search-shortcuts" aria-label="Search keyboard shortcuts">
+            <span className="pm-search-shortcut">
+              <kbd>⌘</kbd>
+              <kbd>K</kbd> focus search
+            </span>
             <span className="pm-search-shortcut">
               <kbd>/</kbd> focus search
             </span>
@@ -235,24 +239,32 @@ export function SearchBox({ records }: { records: SearchRecord[] }) {
                               ),
                             )}
                           </span>
-                          {record.section ? (
-                            <span>
-                              ·{" "}
-                              {highlightText(record.section, terms).map((part, partIndex) =>
+                          <span>
+                            ·{" "}
+                            {highlightText(record.contentType.replace(/-/g, " "), terms).map(
+                              (part, partIndex) =>
                                 part.matched ? (
                                   <mark key={partIndex}>{part.text}</mark>
                                 ) : (
                                   <span key={partIndex}>{part.text}</span>
                                 ),
-                              )}
-                            </span>
-                          ) : null}
+                            )}
+                          </span>
                         </span>
-                        <span className="pm-search-result-excerpt">
+                        <span className="pm-search-result-summary">
                           {highlightText(
-                            buildSearchExcerpt(record.text, terms, record.excerpt),
+                            buildSearchExcerpt(record.text, terms, record.summary),
                             terms,
                           ).map((part, partIndex) =>
+                            part.matched ? (
+                              <mark key={partIndex}>{part.text}</mark>
+                            ) : (
+                              <span key={partIndex}>{part.text}</span>
+                            ),
+                          )}
+                        </span>
+                        <span className="pm-search-result-route">
+                          {highlightText(record.route, terms).map((part, partIndex) =>
                             part.matched ? (
                               <mark key={partIndex}>{part.text}</mark>
                             ) : (
@@ -267,10 +279,7 @@ export function SearchBox({ records }: { records: SearchRecord[] }) {
               ))
             ) : (
               <div className="pm-search-empty">
-                <p>
-                  No matches yet. Try a title, heading, domain, or a shorter phrase, or open the
-                  full archive.
-                </p>
+                <p>No matching section found. Try another term or switch to Full archive view.</p>
                 <Link href="/full-archive" className="pm-action-button">
                   Open full archive
                 </Link>

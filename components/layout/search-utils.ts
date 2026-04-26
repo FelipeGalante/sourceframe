@@ -16,7 +16,18 @@ export function tokenizeSearchQuery(value: string) {
 
 export function rankSearchRecord(record: SearchRecord, terms: string[], phrase?: string) {
   const haystack = normalizeSearchText(
-    [record.title, record.domain, record.section, record.headings.join(" "), record.text].join(" "),
+    [
+      record.title,
+      record.summary,
+      record.domain,
+      record.section,
+      record.contentType,
+      record.owner,
+      record.status,
+      record.tags.join(" "),
+      record.headings.join(" "),
+      record.text,
+    ].join(" "),
   );
   if (!haystack) {
     return 0;
@@ -26,8 +37,13 @@ export function rankSearchRecord(record: SearchRecord, terms: string[], phrase?:
   const normalizedPhrase = phrase ? normalizeSearchText(phrase) : "";
   if (normalizedPhrase) {
     if (record.title.toLowerCase().includes(normalizedPhrase)) score += 80;
+    if (record.summary.toLowerCase().includes(normalizedPhrase)) score += 34;
     if (record.domain.toLowerCase().includes(normalizedPhrase)) score += 24;
     if (record.section.toLowerCase().includes(normalizedPhrase)) score += 22;
+    if (record.contentType.toLowerCase().includes(normalizedPhrase)) score += 16;
+    if (record.owner?.toLowerCase().includes(normalizedPhrase)) score += 12;
+    if (record.status?.toLowerCase().includes(normalizedPhrase)) score += 12;
+    if (record.tags.some((tag) => tag.toLowerCase().includes(normalizedPhrase))) score += 14;
     if (record.headings.some((heading) => heading.toLowerCase().includes(normalizedPhrase))) {
       score += 18;
     }
@@ -37,8 +53,13 @@ export function rankSearchRecord(record: SearchRecord, terms: string[], phrase?:
   for (const term of terms) {
     if (!term) continue;
     if (record.title.toLowerCase().includes(term)) score += 45;
+    if (record.summary.toLowerCase().includes(term)) score += 22;
     if (record.domain.toLowerCase().includes(term)) score += 18;
     if (record.section.toLowerCase().includes(term)) score += 16;
+    if (record.contentType.toLowerCase().includes(term)) score += 12;
+    if (record.owner?.toLowerCase().includes(term)) score += 10;
+    if (record.status?.toLowerCase().includes(term)) score += 10;
+    if (record.tags.some((tag) => tag.toLowerCase().includes(term))) score += 12;
     if (record.headings.some((heading) => heading.toLowerCase().includes(term))) score += 12;
     if (haystack.includes(term)) score += 6;
   }
@@ -108,11 +129,10 @@ export function isSearchFocusShortcut(
   event: Pick<KeyboardEvent, "key" | "metaKey" | "ctrlKey" | "altKey" | "defaultPrevented">,
 ) {
   return (
-    event.key === "/" &&
-    !event.metaKey &&
-    !event.ctrlKey &&
+    !event.defaultPrevented &&
     !event.altKey &&
-    !event.defaultPrevented
+    ((event.key === "/" && !event.metaKey && !event.ctrlKey) ||
+      ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k"))
   );
 }
 
