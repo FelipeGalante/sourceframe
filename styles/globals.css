@@ -594,25 +594,30 @@ select {
   height: auto;
 }
 
-.pm-heading-anchor {
+.pm-markdown h1 > a[href^="#"],
+.pm-markdown h2 > a[href^="#"],
+.pm-markdown h3 > a[href^="#"],
+.pm-markdown h4 > a[href^="#"],
+.pm-markdown h5 > a[href^="#"],
+.pm-markdown h6 > a[href^="#"] {
   margin-left: 0.45rem;
   color: var(--pm-soft);
   opacity: 0;
   transition: opacity 160ms ease;
 }
 
-.pm-markdown h1:hover .pm-heading-anchor,
-.pm-markdown h2:hover .pm-heading-anchor,
-.pm-markdown h3:hover .pm-heading-anchor,
-.pm-markdown h4:hover .pm-heading-anchor,
-.pm-markdown h5:hover .pm-heading-anchor,
-.pm-markdown h6:hover .pm-heading-anchor,
-.pm-markdown h1:focus-within .pm-heading-anchor,
-.pm-markdown h2:focus-within .pm-heading-anchor,
-.pm-markdown h3:focus-within .pm-heading-anchor,
-.pm-markdown h4:focus-within .pm-heading-anchor,
-.pm-markdown h5:focus-within .pm-heading-anchor,
-.pm-markdown h6:focus-within .pm-heading-anchor {
+.pm-markdown h1:hover > a[href^="#"],
+.pm-markdown h2:hover > a[href^="#"],
+.pm-markdown h3:hover > a[href^="#"],
+.pm-markdown h4:hover > a[href^="#"],
+.pm-markdown h5:hover > a[href^="#"],
+.pm-markdown h6:hover > a[href^="#"],
+.pm-markdown h1:focus-within > a[href^="#"],
+.pm-markdown h2:focus-within > a[href^="#"],
+.pm-markdown h3:focus-within > a[href^="#"],
+.pm-markdown h4:focus-within > a[href^="#"],
+.pm-markdown h5:focus-within > a[href^="#"],
+.pm-markdown h6:focus-within > a[href^="#"] {
   opacity: 1;
 }
 

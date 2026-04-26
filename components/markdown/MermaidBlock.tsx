@@ -1,5 +1,6 @@
 "use client";
 
+import { jsx, jsxs } from "react/jsx-runtime";
 import { useEffect, useRef, useState } from "react";
 
 let mermaidPromise: Promise<typeof import("mermaid")> | null = null;
@@ -51,19 +52,24 @@ export function MermaidBlock({ code }: { code: string }) {
   }, [code]);
 
   return (
-    <div className="pm-code-block">
-      <div className="pm-code-bar">
-        <span>mermaid</span>
-      </div>
-      <div className="pm-content-body">
-        {error ? (
-          <pre className="pm-code-scroll" style={{ margin: 0 }}>
-            <code>{code}</code>
-          </pre>
-        ) : (
-          <div ref={ref} />
-        )}
-      </div>
-    </div>
+    jsxs("div", {
+      className: "pm-code-block",
+      children: [
+        jsx("div", {
+          className: "pm-code-bar",
+          children: jsx("span", { children: "mermaid" }),
+        }),
+        jsx("div", {
+          className: "pm-content-body",
+          children: error
+            ? jsx("pre", {
+                className: "pm-code-scroll",
+                style: { margin: 0 },
+                children: jsx("code", { children: code }),
+              })
+            : jsx("div", { ref }),
+        }),
+      ],
+    })
   );
 }

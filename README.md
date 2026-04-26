@@ -13,7 +13,7 @@ This template expects Node.js 24.
 - Generated domain tabs and section navigation from content metadata
 - Client-side search over titles, headings, and body text
 - Full archive view
-- Markdown rendering for GFM tables, fenced code blocks, Mermaid, heading anchors, details/summary, and raw HTML from trusted content
+- Markdown rendering for GFM tables, fenced code blocks, Mermaid, heading anchors, details/summary, and raw HTML from trusted content, plus a literal-text Source Archive exception for `content/about/sources.md`
 - Responsive and print-friendly styling
 
 ## Quick start
@@ -69,3 +69,4 @@ Then open `http://localhost:3000`.
 - Search is client-side and uses the build-time registry.
 - The app shell is intentionally generic so you can swap content without touching layout code.
 - The source archive page is intentionally large and should be left as Markdown unless you have a strong reason to split it further.
+- `content/about/sources.md` is rendered as literal source text so the archive stays auditable and cannot be reinterpreted as normal Markdown.

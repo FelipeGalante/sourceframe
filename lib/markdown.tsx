@@ -114,6 +114,7 @@ function sanitizeSchema() {
       "ariaLabel",
       "ariaHidden",
       "ariaCurrent",
+      "tabIndex",
       "viewBox",
       "xmlns",
       "width",
@@ -143,7 +144,7 @@ function sanitizeSchema() {
       "fillRule",
       "clipRule",
     ],
-    a: [...(schema.attributes?.a ?? []), "href", "title", "target", "rel"],
+    a: [...(schema.attributes?.a ?? []), "href", "title", "target", "rel", "className", "ariaHidden", "tabIndex"],
     code: [...(schema.attributes?.code ?? []), "className"],
     pre: [...(schema.attributes?.pre ?? []), "className"],
     details: [...(schema.attributes?.details ?? []), "open"],
@@ -166,6 +167,8 @@ function sanitizeSchema() {
   return schema;
 }
 
+const markdownSanitizeSchema = sanitizeSchema();
+
 export function MarkdownRenderer({
   markdown,
   sourceRelativePath = "content/index.md",
@@ -176,6 +179,8 @@ export function MarkdownRenderer({
   allowRawHtml?: boolean;
 }) {
   if (sourceRelativePath.endsWith("about/sources.md")) {
+    // The source archive is intentionally rendered as literal text so the
+    // raw source stays auditable and cannot be reinterpreted as markdown.
     return (
       <div className="pm-markdown">
         <div className="pm-code-block">
@@ -206,11 +211,10 @@ export function MarkdownRenderer({
       content: { type: "text", value: "#" },
       properties: {
         ariaHidden: "true",
-        className: ["pm-heading-anchor"],
         tabIndex: -1,
       },
     })
-    .use(rehypeSanitize, sanitizeSchema())
+    .use(rehypeSanitize, markdownSanitizeSchema)
     .freeze();
 
   const parsed = processor.parse(markdown);
