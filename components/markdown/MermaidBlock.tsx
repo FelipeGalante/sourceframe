@@ -10,9 +10,31 @@ function loadMermaid() {
   return mermaidPromise;
 }
 
+export function MermaidFallback({ code, error }: { code: string; error?: string }) {
+  return jsxs("div", {
+    className: "pm-mermaid-fallback",
+    children: [
+      jsx("p", {
+        className: "pm-mermaid-error",
+        children: error ?? "Unable to render Mermaid diagram. Showing the source instead.",
+      }),
+      jsx("div", {
+        className: "pm-code-block pm-mermaid-source",
+        children: jsx("div", {
+          className: "pm-code-scroll",
+          children: jsx("pre", {
+            children: jsx("code", { children: code }),
+          }),
+        }),
+      }),
+    ],
+  });
+}
+
 export function MermaidBlock({ code }: { code: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const [error, setError] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     let active = true;
@@ -51,23 +73,41 @@ export function MermaidBlock({ code }: { code: string }) {
     };
   }, [code]);
 
+  async function handleCopy() {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1400);
+    } catch {
+      setCopied(false);
+    }
+  }
+
   return jsxs("div", {
-    className: "pm-code-block",
+    className: "pm-code-block pm-mermaid-block",
     children: [
       jsx("div", {
         className: "pm-code-bar",
-        children: jsx("span", { children: "mermaid" }),
+        children: [
+          jsx("span", { children: "mermaid" }, "label"),
+          jsx(
+            "button",
+            {
+              className: "pm-copy-button",
+              type: "button",
+              onClick: handleCopy,
+              children: copied ? "Copied" : "Copy source",
+            },
+            "copy",
+          ),
+        ],
       }),
-      jsx("div", {
-        className: "pm-content-body",
-        children: error
-          ? jsx("pre", {
-              className: "pm-code-scroll",
-              style: { margin: 0 },
-              children: jsx("code", { children: code }),
-            })
-          : jsx("div", { ref }),
-      }),
+      error
+        ? jsx(MermaidFallback, { code, error })
+        : jsx("div", {
+            className: "pm-mermaid-stage",
+            children: jsx("div", { ref, className: "pm-mermaid-canvas" }),
+          }),
     ],
   });
 }

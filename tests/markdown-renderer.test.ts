@@ -42,6 +42,8 @@ test("MarkdownRenderer supports GFM tables, code blocks, anchors, Mermaid, and d
   assert.match(html, /language-ts/);
   assert.match(html, /href="#heading"/);
   assert.match(html, /mermaid/);
+  assert.match(html, /Copy source/);
+  assert.match(html, /pm-mermaid-stage/);
   assert.match(html, /<details>/);
   assert.match(html, /<summary>More<\/summary>/);
 });

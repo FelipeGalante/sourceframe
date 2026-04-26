@@ -595,6 +595,38 @@ select {
     "SFMono-Regular", ui-monospace, "Cascadia Code", "IBM Plex Mono", Consolas, monospace;
 }
 
+.pm-mermaid-block {
+  background:
+    radial-gradient(circle at top left, rgba(124, 140, 255, 0.14), transparent 18rem),
+    linear-gradient(180deg, rgba(10, 16, 32, 0.98), rgba(10, 16, 32, 0.92));
+}
+
+.pm-mermaid-stage {
+  padding: 18px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.pm-mermaid-canvas {
+  min-width: min-content;
+}
+
+.pm-mermaid-canvas svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.pm-mermaid-fallback {
+  padding: 18px;
+}
+
+.pm-mermaid-error {
+  margin: 0 0 12px;
+  color: var(--pm-warning);
+  font-size: 0.92rem;
+}
+
 .pm-markdown :not(pre) > code {
   padding: 0.16rem 0.42rem;
   border-radius: 8px;
@@ -623,6 +655,10 @@ select {
 .pm-markdown svg {
   max-width: 100%;
   height: auto;
+}
+
+.pm-markdown .pm-mermaid-block {
+  margin: 1.2rem 0 0;
 }
 
 .pm-markdown h1 > a[href^="#"],
