@@ -46,6 +46,7 @@ const sharedSchema = z.object({
   summary: z.string().min(1).optional(),
   tags: z.array(z.string().min(1)).optional(),
   owner: z.string().min(1).optional(),
+  updated: z.string().min(1).optional(),
   domain: z.string().min(1).optional(),
   section: z.string().min(1).optional(),
   order: z.coerce.number().int().nonnegative().optional(),

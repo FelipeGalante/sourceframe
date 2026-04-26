@@ -35,6 +35,8 @@ export type ContentEntry = {
   summary?: string;
   owner?: string;
   status?: string;
+  visibility?: "public" | "internal";
+  updated?: string;
   tags?: string[];
   eyebrow?: string;
   description?: string;
@@ -69,6 +71,7 @@ export type DomainNavItem = {
   href: string;
   sectionCount: number;
   sections: SectionNavItem[];
+  visibility?: "public" | "internal";
 };
 
 export type SearchRecord = {

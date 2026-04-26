@@ -31,6 +31,7 @@ export function SectionLayout({
   domainTitle,
   domainDescription,
   domainEyebrow,
+  archiveHref,
   sections,
   activeSectionRoute,
   children,
@@ -39,6 +40,7 @@ export function SectionLayout({
   domainTitle: string;
   domainDescription?: string;
   domainEyebrow?: string;
+  archiveHref?: string;
   sections: SectionNavItem[];
   activeSectionRoute: string;
   children?: ReactNode;
@@ -59,6 +61,11 @@ export function SectionLayout({
               </span>
             ))}
           </div>
+          {archiveHref ? (
+            <Link href={archiveHref} className="pm-action-button pm-domain-archive-link">
+              View archive
+            </Link>
+          ) : null}
           <nav className="pm-section-nav" aria-label={`${domainTitle} sections`}>
             {sections.map((section) => (
               <Link

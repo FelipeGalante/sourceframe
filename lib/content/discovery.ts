@@ -115,6 +115,8 @@ export function readContentFile(filePath: string, rootDir: string) {
     summary: frontmatter.summary,
     owner: frontmatter.owner,
     status: frontmatter.status,
+    visibility: frontmatter.visibility,
+    updated: frontmatter.updated,
     tags: frontmatter.tags,
     eyebrow: frontmatter.eyebrow,
     description: frontmatter.description,

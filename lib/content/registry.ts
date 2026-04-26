@@ -91,6 +91,7 @@ function buildDomainTabs(entries: ContentEntry[], childrenByRoute: Map<string, C
         href: child.href,
         type: child.type,
       })),
+      visibility: entry.visibility,
     } satisfies DomainNavItem;
   });
 }
@@ -231,26 +232,34 @@ export function getActiveSectionRoute(entry: ContentEntry) {
 }
 
 export function getArchiveRoots() {
+  return getVisibleArchiveRoots();
+}
+
+export function getVisibleArchiveRoots() {
   const registry = getContentRegistry();
-  return registry.childrenByRoute.get("/") ?? [];
+  return registry.childrenByRoute.get("/")?.filter(isVisibleEntry) ?? [];
 }
 
 export function getArchiveEntries() {
-  const registry = getContentRegistry();
-  const walk = (route: string): ContentEntry[] => {
-    const nodes = registry.childrenByRoute.get(route) ?? [];
-    const result: ContentEntry[] = [];
+  return getFullArchiveEntries();
+}
 
-    for (const node of nodes) {
-      result.push(node);
-      result.push(...walk(node.route));
-    }
+function isVisibleEntry(entry: ContentEntry) {
+  return entry.visibility !== "internal";
+}
 
-    return result;
-  };
+export function getFullArchiveEntries() {
+  return getContentRegistry().entries.filter(isVisibleEntry);
+}
 
-  const roots = registry.rootEntry ? [registry.rootEntry] : [];
-  return [...roots, ...walk("/")];
+export function getDomainArchiveEntries(domainKey: string) {
+  return getContentRegistry()
+    .entries.filter(isVisibleEntry)
+    .filter((entry) => entry.domain === domainKey);
+}
+
+export function getVisibleDomainTabs() {
+  return getContentRegistry().domainTabs.filter((domain) => domain.visibility !== "internal");
 }
 
 export function resolveContentHref(href: string, sourceRelativePath: string) {

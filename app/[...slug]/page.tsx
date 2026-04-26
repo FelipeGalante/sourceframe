@@ -54,6 +54,7 @@ export default async function ContentPage({ params }: { params: Promise<{ slug: 
       domainTitle={domainEntry.title}
       domainDescription={domainEntry.description}
       domainEyebrow={domainEntry.eyebrow}
+      archiveHref={`${domainEntry.href}/archive`}
       sections={sections.map((section) => ({
         key: section.route,
         title: section.title,
