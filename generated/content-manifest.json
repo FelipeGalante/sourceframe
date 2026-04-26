@@ -1,0 +1,199 @@
+{
+  "source_file": "PathMerit_Domain_Navigation_Source_of_Truth_DATABASE_REWORKED_CLEAN_COLUMNS.html",
+  "source_sha256": "d68a20b397084fd28eae3406958a5323dc1c9dfbc29ce35164ca573d7176d175",
+  "extracted_at_note": "Generated from uploaded HTML by parsing domain-view and content-panel nodes.",
+  "domains": [
+    {
+      "key": "technology",
+      "title": "Technology",
+      "description": "Technical source of truth for the application architecture, storage model, endpoint contracts, build execution, and development status.",
+      "order": 1,
+      "sections": [
+        {
+          "key": "architecture",
+          "title": "Architecture Source",
+          "nav_label": "Architecture Source",
+          "order": 1,
+          "panel_id": "panel-architecture",
+          "path": "content/technology/architecture.md"
+        },
+        {
+          "key": "database",
+          "title": "Database Design",
+          "nav_label": "Database Design",
+          "order": 2,
+          "panel_id": "panel-database",
+          "path": "content/technology/database/index.md"
+        },
+        {
+          "key": "api",
+          "title": "API Endpoint Design",
+          "nav_label": "API Endpoint Design",
+          "order": 3,
+          "panel_id": "panel-api",
+          "path": "content/technology/api.md"
+        },
+        {
+          "key": "dev",
+          "title": "Development Tracking",
+          "nav_label": "Development Tracking",
+          "order": 4,
+          "panel_id": "panel-dev",
+          "path": "content/technology/dev.md"
+        },
+        {
+          "key": "execution",
+          "title": "Execution Source",
+          "nav_label": "Execution Source",
+          "order": 5,
+          "panel_id": "panel-execution",
+          "path": "content/technology/execution.md"
+        }
+      ]
+    },
+    {
+      "key": "product",
+      "title": "Product",
+      "description": "Canonical product strategy split into the two operating areas of PathMerit: Interviewing Tracker and Preparation. This is the product-facing source of truth for scope, inspiration, feature origins, and discovery.",
+      "order": 2,
+      "sections": [
+        {
+          "key": "primary",
+          "title": "Primary Product Source",
+          "nav_label": "Primary Product Source",
+          "order": 1,
+          "panel_id": "panel-primary",
+          "path": "content/product/primary.md"
+        },
+        {
+          "key": "tracker",
+          "title": "Interviewing Tracker",
+          "nav_label": "Interviewing Tracker",
+          "order": 2,
+          "panel_id": "panel-tracker",
+          "path": "content/product/tracker.md"
+        },
+        {
+          "key": "preparation",
+          "title": "Preparation",
+          "nav_label": "Preparation",
+          "order": 3,
+          "panel_id": "panel-preparation",
+          "path": "content/product/preparation.md"
+        },
+        {
+          "key": "features",
+          "title": "Feature Expansion Source",
+          "nav_label": "Feature Expansion Source",
+          "order": 4,
+          "panel_id": "panel-features",
+          "path": "content/product/features.md"
+        },
+        {
+          "key": "discovery",
+          "title": "Product Discovery",
+          "nav_label": "Product Discovery",
+          "order": 5,
+          "panel_id": "panel-discovery",
+          "path": "content/product/discovery.md"
+        }
+      ]
+    },
+    {
+      "key": "marketing",
+      "title": "Marketing",
+      "description": "Market-facing narrative, messaging, content pillars, launch plan, and investor/customer pitch structure.",
+      "order": 3,
+      "sections": [
+        {
+          "key": "marketing",
+          "title": "Marketing Strategy",
+          "nav_label": "Marketing Strategy",
+          "order": 1,
+          "panel_id": "panel-marketing",
+          "path": "content/marketing/marketing.md"
+        },
+        {
+          "key": "pitch",
+          "title": "Pitch Deck",
+          "nav_label": "Pitch Deck",
+          "order": 2,
+          "panel_id": "panel-pitch",
+          "path": "content/marketing/pitch.md"
+        }
+      ]
+    },
+    {
+      "key": "brand",
+      "title": "Brand / Design",
+      "description": "Visual identity, design principles, logo SVGs, product UI rules, canonical CSS tokens, and raw style vault.",
+      "order": 4,
+      "sections": [
+        {
+          "key": "brand",
+          "title": "Brand / Design Source",
+          "nav_label": "Brand / Design Source",
+          "order": 1,
+          "panel_id": "panel-brand",
+          "path": "content/brand/brand.md"
+        },
+        {
+          "key": "logos",
+          "title": "Logo SVG Library",
+          "nav_label": "Logo SVG Library",
+          "order": 2,
+          "panel_id": "panel-logos",
+          "path": "content/brand/logos.md"
+        },
+        {
+          "key": "css",
+          "title": "CSS / Token Vault",
+          "nav_label": "CSS / Token Vault",
+          "order": 3,
+          "panel_id": "panel-css",
+          "path": "content/brand/css.md"
+        }
+      ]
+    },
+    {
+      "key": "about",
+      "title": "About",
+      "description": "Governance layer for this master source: update protocol, decision log, audit trail, and raw source archive.",
+      "order": 5,
+      "sections": [
+        {
+          "key": "top",
+          "title": "One file for product, architecture, execution, brand, and source archive.",
+          "nav_label": "Document Overview",
+          "order": 1,
+          "panel_id": "panel-top",
+          "path": "content/about/top.md"
+        },
+        {
+          "key": "control",
+          "title": "Control Center",
+          "nav_label": "Control Center",
+          "order": 2,
+          "panel_id": "panel-control",
+          "path": "content/about/control.md"
+        },
+        {
+          "key": "decisions",
+          "title": "Decision Log",
+          "nav_label": "Decision Log",
+          "order": 3,
+          "panel_id": "panel-decisions",
+          "path": "content/about/decisions.md"
+        },
+        {
+          "key": "sources",
+          "title": "Source Archive",
+          "nav_label": "Source Archive",
+          "order": 4,
+          "panel_id": "panel-sources",
+          "path": "content/about/sources.md"
+        }
+      ]
+    }
+  ]
+}
