@@ -68,7 +68,7 @@ test("buildContentRegistry creates a typed navigation tree", () => {
   assert.equal(registry.domainTabs[0]?.key, "alpha");
   assert.deepEqual(
     registry.domainTabs[0]?.sections.map((section) => section.href),
-    ["/alpha/intro", "/alpha/details"]
+    ["/alpha/intro", "/alpha/details"],
   );
   assert.match(registry.entries[0]?.plainText ?? "", /Welcome to the docs/);
   assert.match(registry.searchIndex[2]?.text ?? "", /First section/);

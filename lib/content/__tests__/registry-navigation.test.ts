@@ -7,14 +7,7 @@ import { createTempContent } from "../../../tests/content-fixtures";
 
 test("buildContentRegistry builds a search index and navigation tree", () => {
   const root = createTempContent({
-    "index.md": [
-      "---",
-      'title: "Home"',
-      'type: "site-index"',
-      "---",
-      "",
-      "# Home",
-    ].join("\n"),
+    "index.md": ["---", 'title: "Home"', 'type: "site-index"', "---", "", "# Home"].join("\n"),
     "alpha/index.md": [
       "---",
       'title: "Alpha"',
@@ -58,7 +51,7 @@ test("buildContentRegistry builds a search index and navigation tree", () => {
   assert.equal(registry.domainTabs[0]?.sectionCount, 2);
   assert.deepEqual(
     registry.domainTabs[0]?.sections.map((section) => section.href),
-    ["/alpha/intro", "/alpha/details"]
+    ["/alpha/intro", "/alpha/details"],
   );
   assert.match(registry.searchIndex[2]?.text ?? "", /See/);
   assert.match(registry.searchIndex[2]?.text ?? "", /Alpha/);

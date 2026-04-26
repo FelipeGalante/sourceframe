@@ -1,22 +1,24 @@
 import { notFound } from "next/navigation";
 
 import { SectionLayout } from "@/components/layout/SectionLayout";
-import { getChildren, getContentEntry, getContentRegistry, getDomainEntry, getSectionRoute } from "@/lib/content";
+import {
+  getChildren,
+  getContentEntry,
+  getContentRegistry,
+  getDomainEntry,
+  getSectionRoute,
+} from "@/lib/content";
 import { MarkdownRenderer } from "@/lib/markdown";
 
 export function generateStaticParams() {
-  return getContentRegistry().entries
-    .filter((entry) => entry.route !== "/")
+  return getContentRegistry()
+    .entries.filter((entry) => entry.route !== "/")
     .map((entry) => ({
       slug: entry.route.replace(/^\//, "").split("/"),
     }));
 }
 
-export default async function ContentPage({
-  params,
-}: {
-  params: Promise<{ slug: string[] }>;
-}) {
+export default async function ContentPage({ params }: { params: Promise<{ slug: string[] }> }) {
   const { slug } = await params;
   const route = `/${slug.join("/")}`;
   const entry = getContentEntry(route);

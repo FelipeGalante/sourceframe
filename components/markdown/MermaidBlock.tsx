@@ -51,25 +51,23 @@ export function MermaidBlock({ code }: { code: string }) {
     };
   }, [code]);
 
-  return (
-    jsxs("div", {
-      className: "pm-code-block",
-      children: [
-        jsx("div", {
-          className: "pm-code-bar",
-          children: jsx("span", { children: "mermaid" }),
-        }),
-        jsx("div", {
-          className: "pm-content-body",
-          children: error
-            ? jsx("pre", {
-                className: "pm-code-scroll",
-                style: { margin: 0 },
-                children: jsx("code", { children: code }),
-              })
-            : jsx("div", { ref }),
-        }),
-      ],
-    })
-  );
+  return jsxs("div", {
+    className: "pm-code-block",
+    children: [
+      jsx("div", {
+        className: "pm-code-bar",
+        children: jsx("span", { children: "mermaid" }),
+      }),
+      jsx("div", {
+        className: "pm-content-body",
+        children: error
+          ? jsx("pre", {
+              className: "pm-code-scroll",
+              style: { margin: 0 },
+              children: jsx("code", { children: code }),
+            })
+          : jsx("div", { ref }),
+      }),
+    ],
+  });
 }

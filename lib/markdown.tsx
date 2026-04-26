@@ -29,7 +29,9 @@ function flattenText(children: React.ReactNode): string {
   }
 
   if (React.isValidElement(children)) {
-    return flattenText((children as React.ReactElement<{ children?: React.ReactNode }>).props.children);
+    return flattenText(
+      (children as React.ReactElement<{ children?: React.ReactNode }>).props.children,
+    );
   }
 
   return "";
@@ -47,7 +49,10 @@ function getCodeLanguage(className?: string) {
 function PreBlock(props: React.ComponentPropsWithoutRef<"pre">) {
   const onlyChild = React.Children.toArray(props.children)[0];
   if (React.isValidElement(onlyChild)) {
-    const child = onlyChild as React.ReactElement<{ className?: string; children?: React.ReactNode }>;
+    const child = onlyChild as React.ReactElement<{
+      className?: string;
+      children?: React.ReactNode;
+    }>;
     const childProps = child.props;
     const className = childProps.className;
     const language = getCodeLanguage(className);
@@ -74,7 +79,10 @@ function InlineCode(props: React.ComponentPropsWithoutRef<"code">) {
 
 function createAnchor(sourceRelativePath: string) {
   return function Anchor(props: React.ComponentPropsWithoutRef<"a">) {
-    const href = typeof props.href === "string" ? resolveContentHref(props.href, sourceRelativePath) : props.href;
+    const href =
+      typeof props.href === "string"
+        ? resolveContentHref(props.href, sourceRelativePath)
+        : props.href;
     return <a {...props} href={typeof href === "string" ? href : props.href} />;
   };
 }
@@ -144,7 +152,16 @@ function sanitizeSchema() {
       "fillRule",
       "clipRule",
     ],
-    a: [...(schema.attributes?.a ?? []), "href", "title", "target", "rel", "className", "ariaHidden", "tabIndex"],
+    a: [
+      ...(schema.attributes?.a ?? []),
+      "href",
+      "title",
+      "target",
+      "rel",
+      "className",
+      "ariaHidden",
+      "tabIndex",
+    ],
     code: [...(schema.attributes?.code ?? []), "className"],
     pre: [...(schema.attributes?.pre ?? []), "className"],
     details: [...(schema.attributes?.details ?? []), "open"],
@@ -152,16 +169,43 @@ function sanitizeSchema() {
     table: [...(schema.attributes?.table ?? []), "className"],
     th: [...(schema.attributes?.th ?? []), "scope", "colSpan", "rowSpan"],
     td: [...(schema.attributes?.td ?? []), "colSpan", "rowSpan"],
-    svg: [...(schema.attributes?.svg ?? []), "viewBox", "xmlns", "role", "ariaLabel", "width", "height", "fill"],
+    svg: [
+      ...(schema.attributes?.svg ?? []),
+      "viewBox",
+      "xmlns",
+      "role",
+      "ariaLabel",
+      "width",
+      "height",
+      "fill",
+    ],
     path: [...(schema.attributes?.path ?? []), "d", "fill", "stroke", "strokeWidth", "transform"],
-    rect: [...(schema.attributes?.rect ?? []), "x", "y", "width", "height", "rx", "ry", "fill", "stroke"],
+    rect: [
+      ...(schema.attributes?.rect ?? []),
+      "x",
+      "y",
+      "width",
+      "height",
+      "rx",
+      "ry",
+      "fill",
+      "stroke",
+    ],
     circle: [...(schema.attributes?.circle ?? []), "cx", "cy", "r", "fill", "stroke"],
     line: [...(schema.attributes?.line ?? []), "x1", "y1", "x2", "y2", "stroke"],
     polyline: [...(schema.attributes?.polyline ?? []), "points", "fill", "stroke"],
     polygon: [...(schema.attributes?.polygon ?? []), "points", "fill", "stroke"],
     g: [...(schema.attributes?.g ?? []), "fill", "stroke", "transform"],
     text: [...(schema.attributes?.text ?? []), "x", "y", "fill", "textAnchor", "fontSize"],
-    tspan: [...(schema.attributes?.tspan ?? []), "x", "dy", "fill", "fontFamily", "fontSize", "fontWeight"],
+    tspan: [
+      ...(schema.attributes?.tspan ?? []),
+      "x",
+      "dy",
+      "fill",
+      "fontFamily",
+      "fontSize",
+      "fontWeight",
+    ],
   };
 
   return schema;

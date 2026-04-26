@@ -4,7 +4,13 @@ import { siteConfig } from "@/site.config";
 
 import { discoverMarkdownFiles, readMarkdownFile } from "./discovery";
 import { toKebabCase } from "./routes";
-import type { ContentEntry, ContentRegistry, ContentType, DomainNavItem, SearchRecord } from "./types";
+import type {
+  ContentEntry,
+  ContentRegistry,
+  ContentType,
+  DomainNavItem,
+  SearchRecord,
+} from "./types";
 
 const defaultContentRoot = path.join(process.cwd(), "content");
 
@@ -64,7 +70,7 @@ function buildDomainTabs(entries: ContentEntry[], childrenByRoute: Map<string, C
   return sortEntries(domainEntries).map((entry) => {
     const domainRoute = entry.route;
     const directChildren = (childrenByRoute.get(domainRoute) ?? []).filter(
-      (child) => child.type !== "domain-index" && child.type !== "site-index"
+      (child) => child.type !== "domain-index" && child.type !== "site-index",
     );
 
     return {
@@ -91,9 +97,18 @@ function buildSearchIndex(entries: ContentEntry[], domainTabs: DomainNavItem[]) 
   const domainTitleByKey = new Map(domainTabs.map((domain) => [domain.key, domain.title]));
 
   return entries.map((entry) => {
-    const domainTitle = entry.domain ? domainTitleByKey.get(entry.domain) ?? entry.domain : siteConfig.name;
+    const domainTitle = entry.domain
+      ? (domainTitleByKey.get(entry.domain) ?? entry.domain)
+      : siteConfig.name;
     const sectionTitle = entry.navLabel;
-    const text = [entry.title, entry.navLabel, domainTitle, sectionTitle, ...entry.headings, entry.plainText]
+    const text = [
+      entry.title,
+      entry.navLabel,
+      domainTitle,
+      sectionTitle,
+      ...entry.headings,
+      entry.plainText,
+    ]
       .filter(Boolean)
       .join(" ");
 
@@ -128,7 +143,7 @@ export function buildContentRegistry(rootDir = defaultContentRoot): ContentRegis
     if (entryByRoute.has(entry.route)) {
       const existing = entryByRoute.get(entry.route)!;
       throw new Error(
-        `Duplicate route "${entry.route}" found in ${existing.relativePath} and ${entry.relativePath}`
+        `Duplicate route "${entry.route}" found in ${existing.relativePath} and ${entry.relativePath}`,
       );
     }
     entryByRoute.set(entry.route, entry);

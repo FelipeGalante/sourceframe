@@ -33,7 +33,7 @@ test("MarkdownRenderer supports GFM tables, code blocks, anchors, Mermaid, and d
         "</details>",
       ].join("\n"),
       sourceRelativePath: "content/page.md",
-    })
+    }),
   );
 
   assert.match(html, /pm-markdown/);
@@ -60,7 +60,7 @@ test("MarkdownRenderer keeps raw HTML enabled by default", () => {
         "</details>",
       ].join("\n"),
       sourceRelativePath: "content/page.md",
-    })
+    }),
   );
 
   assert.doesNotMatch(html, /<script>/);
@@ -83,7 +83,7 @@ test("MarkdownRenderer can disable raw HTML handling", () => {
       ].join("\n"),
       sourceRelativePath: "content/page.md",
       allowRawHtml: false,
-    })
+    }),
   );
 
   assert.match(html, /Plain markdown/);
@@ -105,7 +105,7 @@ test("MarkdownRenderer renders the about source archive as literal code", () => 
         "```",
       ].join("\n"),
       sourceRelativePath: "content/about/sources.md",
-    })
+    }),
   );
 
   assert.match(html, /pm-code-block/);

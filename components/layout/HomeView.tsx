@@ -3,13 +3,7 @@ import Link from "next/link";
 import type { ContentEntry, DomainNavItem } from "@/lib/content";
 import { MarkdownRenderer } from "@/lib/markdown";
 
-export function HomeView({
-  entry,
-  domains,
-}: {
-  entry: ContentEntry;
-  domains: DomainNavItem[];
-}) {
+export function HomeView({ entry, domains }: { entry: ContentEntry; domains: DomainNavItem[] }) {
   return (
     <div className="pm-home-grid">
       <section className="pm-domain-card">
@@ -18,7 +12,9 @@ export function HomeView({
         {entry.description ? <p className="pm-subtitle">{entry.description}</p> : null}
         <div className="pm-meta-row">
           <span className="pm-pill">{domains.length} domains</span>
-          <span className="pm-pill">{domains.reduce((sum, domain) => sum + domain.sectionCount, 0)} sections</span>
+          <span className="pm-pill">
+            {domains.reduce((sum, domain) => sum + domain.sectionCount, 0)} sections
+          </span>
           <span className="pm-pill">Markdown source</span>
         </div>
       </section>
@@ -29,7 +25,10 @@ export function HomeView({
         </div>
       </section>
 
-      <section className="pm-home-grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))" }}>
+      <section
+        className="pm-home-grid"
+        style={{ gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))" }}
+      >
         {domains.map((domain) => (
           <Link key={domain.key} href={domain.href} className="pm-domain-card">
             <div className="pm-kicker">{domain.eyebrow ?? "Domain"}</div>

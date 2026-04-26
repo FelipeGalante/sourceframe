@@ -7,7 +7,7 @@ import { createTempContent } from "../../../tests/content-fixtures";
 
 test("buildContentRegistry throws on missing metadata", () => {
   const root = createTempContent({
-    "index.md": ['---', 'title: "Home"', 'type: "site-index"', "---", "# Home"].join("\n"),
+    "index.md": ["---", 'title: "Home"', 'type: "site-index"', "---", "# Home"].join("\n"),
     "docs/index.md": [
       "---",
       'domain: "docs"',

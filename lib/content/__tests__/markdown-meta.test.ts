@@ -4,17 +4,19 @@ import test from "node:test";
 import { extractMarkdownMeta } from "@/lib/content";
 
 test("extractMarkdownMeta collects headings and normalizes plain text", () => {
-  const meta = extractMarkdownMeta([
-    "# Title",
-    "",
-    "Paragraph with",
-    "line breaks.",
-    "",
-    "## Section",
-    "",
-    "- Item one",
-    "- Item two",
-  ].join("\n"));
+  const meta = extractMarkdownMeta(
+    [
+      "# Title",
+      "",
+      "Paragraph with",
+      "line breaks.",
+      "",
+      "## Section",
+      "",
+      "- Item one",
+      "- Item two",
+    ].join("\n"),
+  );
 
   assert.deepEqual(meta.headings, ["Title", "Section"]);
   assert.equal(meta.plainText, "Title Paragraph with line breaks. Section Item one Item two");

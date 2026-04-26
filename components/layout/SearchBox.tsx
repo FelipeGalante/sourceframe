@@ -22,7 +22,9 @@ function normalize(value: string) {
 }
 
 function rankRecord(record: SearchRecord, terms: string[]) {
-  const haystack = normalize([record.title, record.domain, record.section, record.headings.join(" "), record.text].join(" "));
+  const haystack = normalize(
+    [record.title, record.domain, record.section, record.headings.join(" "), record.text].join(" "),
+  );
   if (!haystack) {
     return 0;
   }
@@ -62,7 +64,10 @@ export function SearchBox({ records }: { records: SearchRecord[] }) {
         score: rankRecord(record, terms),
       }))
       .filter((item) => item.score > 0)
-      .sort((left, right) => right.score - left.score || left.record.title.localeCompare(right.record.title))
+      .sort(
+        (left, right) =>
+          right.score - left.score || left.record.title.localeCompare(right.record.title),
+      )
       .slice(0, 8)
       .map((item) => item.record);
   }, [debouncedQuery, records]);

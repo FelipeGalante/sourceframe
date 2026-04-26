@@ -26,7 +26,9 @@ export function extractMarkdownMeta(markdown: string) {
   const headings: string[] = [];
 
   visit(tree as never, "heading", (node) => {
-    const text = collectText(node as unknown).replace(/\s+/g, " ").trim();
+    const text = collectText(node as unknown)
+      .replace(/\s+/g, " ")
+      .trim();
     if (text) {
       headings.push(text);
     }

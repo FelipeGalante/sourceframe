@@ -14,7 +14,9 @@ test("discoverMarkdownFiles ignores dotfiles and non-markdown files", () => {
     "beta/.draft.md": "# Draft",
   });
 
-  const files = discoverMarkdownFiles(root).map((file) => file.replaceAll(root, "").replace(/^[/\\]/, ""));
+  const files = discoverMarkdownFiles(root).map((file) =>
+    file.replaceAll(root, "").replace(/^[/\\]/, ""),
+  );
 
   assert.deepEqual(files.sort(), ["alpha/intro.md", "index.md"]);
 });

@@ -7,7 +7,7 @@ import { createTempContent } from "../../../tests/content-fixtures";
 
 test("buildContentRegistry indexes entries by relative path and route", () => {
   const root = createTempContent({
-    "index.md": ['---', 'title: "Home"', 'type: "site-index"', "---", "# Home"].join("\n"),
+    "index.md": ["---", 'title: "Home"', 'type: "site-index"', "---", "# Home"].join("\n"),
     "docs/index.md": [
       "---",
       'title: "Docs"',

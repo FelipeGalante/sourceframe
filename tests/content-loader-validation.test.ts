@@ -7,7 +7,7 @@ import { createTempContent } from "./content-fixtures";
 
 test("buildContentRegistry throws on duplicate routes", () => {
   const root = createTempContent({
-    "index.md": ['---', 'title: "Home"', 'type: "site-index"', "---", "# Home"].join("\n"),
+    "index.md": ["---", 'title: "Home"', 'type: "site-index"', "---", "# Home"].join("\n"),
     "docs.md": [
       "---",
       'title: "Docs"',
@@ -35,7 +35,7 @@ test("buildContentRegistry throws on duplicate routes", () => {
 
 test("buildContentRegistry throws on missing required frontmatter", () => {
   const root = createTempContent({
-    "index.md": ['---', 'title: "Home"', 'type: "site-index"', "---", "# Home"].join("\n"),
+    "index.md": ["---", 'title: "Home"', 'type: "site-index"', "---", "# Home"].join("\n"),
     "docs/index.md": [
       "---",
       'domain: "docs"',

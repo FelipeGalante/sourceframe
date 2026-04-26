@@ -29,6 +29,8 @@ Then open `http://localhost:3000`.
 ## Scripts
 
 - `pnpm dev` - start the Next.js dev server
+- `pnpm format` - write Prettier formatting
+- `pnpm format:check` - verify Prettier formatting
 - `pnpm lint` - run ESLint
 - `pnpm typecheck` - run the TypeScript compiler in no-emit mode
 - `pnpm build` - create a production build

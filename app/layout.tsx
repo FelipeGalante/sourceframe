@@ -25,7 +25,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <SiteChrome domains={registry.domainTabs} searchIndex={registry.searchIndex} config={registry.siteConfig}>
+        <SiteChrome
+          domains={registry.domainTabs}
+          searchIndex={registry.searchIndex}
+          config={registry.siteConfig}
+        >
           {children}
         </SiteChrome>
       </body>
