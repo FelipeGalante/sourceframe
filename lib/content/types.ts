@@ -1,6 +1,5 @@
-import { siteConfig } from "@/site.config";
-
 import type { Frontmatter } from "./schemas";
+import type { SiteConfig } from "@/lib/site-config";
 
 export type ContentType =
   | "site-index"
@@ -10,6 +9,7 @@ export type ContentType =
   | "section-full-extraction"
   | "database-domain"
   | "database-table"
+  | "database-sql-reference"
   | "database-relationships"
   | "database-mermaid";
 
@@ -82,5 +82,5 @@ export type ContentRegistry = {
   domainTabs: DomainNavItem[];
   searchIndex: SearchRecord[];
   rootEntry?: ContentEntry;
-  siteConfig: typeof siteConfig;
+  siteConfig: SiteConfig;
 };

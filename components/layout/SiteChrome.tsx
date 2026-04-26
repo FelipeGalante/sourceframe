@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 
 import type { DomainNavItem, SearchRecord } from "@/lib/content";
-import type { SiteConfig } from "@/site.config";
+import type { SiteConfig } from "@/lib/site-config";
 
 import { Topbar } from "./Topbar";
 

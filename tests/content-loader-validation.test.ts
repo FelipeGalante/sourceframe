@@ -49,3 +49,23 @@ test("buildContentRegistry throws on missing required frontmatter", () => {
 
   assert.throws(() => buildContentRegistry(root), /title/i);
 });
+
+test("buildContentRegistry accepts quoted numeric order values", () => {
+  const root = createTempContent({
+    "index.md": ["---", 'title: "Home"', 'type: "site-index"', "---", "# Home"].join("\n"),
+    "docs/index.md": [
+      "---",
+      'title: "Docs"',
+      'domain: "docs"',
+      'type: "domain-index"',
+      'order: "1"',
+      "---",
+      "",
+      "# Docs",
+    ].join("\n"),
+  });
+
+  const registry = buildContentRegistry(root);
+
+  assert.equal(registry.domainTabs[0]?.order, 1);
+});

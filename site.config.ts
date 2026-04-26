@@ -1,4 +1,6 @@
-export const siteConfig = {
+import { validateSiteConfig } from "@/lib/site-config";
+
+const rawSiteConfig = {
   name: "PathMerit",
   subtitle: "Master Source of Truth",
   eyebrow: "Domain-based Markdown workspace",
@@ -9,4 +11,6 @@ export const siteConfig = {
   repositoryUrl: undefined,
 } as const;
 
-export type SiteConfig = typeof siteConfig;
+export const siteConfig = validateSiteConfig(rawSiteConfig);
+
+export type { SiteConfig } from "@/lib/site-config";

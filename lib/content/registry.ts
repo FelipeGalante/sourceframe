@@ -23,8 +23,9 @@ function sortEntries(entries: ContentEntry[]) {
     "section-full-extraction": 4,
     "database-relationships": 5,
     "database-mermaid": 6,
-    "database-domain": 7,
-    "database-table": 8,
+    "database-sql-reference": 7,
+    "database-domain": 8,
+    "database-table": 9,
   };
 
   return [...entries].sort((left, right) => {

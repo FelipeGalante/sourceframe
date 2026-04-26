@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import type { DomainNavItem, SearchRecord } from "@/lib/content";
-import type { SiteConfig } from "@/site.config";
+import type { SiteConfig } from "@/lib/site-config";
 
 import { DomainTabs } from "./DomainTabs";
 import { SearchBox } from "./SearchBox";
