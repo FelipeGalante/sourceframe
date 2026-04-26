@@ -1,5 +1,6 @@
 import type { Frontmatter } from "./schemas";
 import type { SiteConfig } from "@/lib/site-config";
+import type { ApiDefinition, ApiSourceFormat } from "@/lib/api-docs";
 import type { SchemaDefinition, SchemaSourceFormat } from "@/lib/schema-docs/types";
 
 export type ContentType =
@@ -38,6 +39,9 @@ export type ContentEntry = {
   status?: string;
   visibility?: "public" | "internal";
   updated?: string;
+  api?: ApiDefinition;
+  apiSource?: string;
+  apiSourceFormat?: ApiSourceFormat;
   schema?: SchemaDefinition;
   schemaSource?: string;
   schemaSourceFormat?: SchemaSourceFormat;

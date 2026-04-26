@@ -543,6 +543,132 @@ select {
   margin-top: 18px;
 }
 
+.pm-api-summary-card,
+.pm-endpoint-card {
+  overflow: clip;
+}
+
+.pm-api-section-title {
+  margin: 18px 0 10px;
+  color: var(--pm-text);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.pm-api-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.pm-method-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 72px;
+  padding: 0.45rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--pm-text);
+  border: 1px solid transparent;
+  text-transform: uppercase;
+}
+
+.pm-method-get {
+  background: rgba(77, 208, 145, 0.16);
+  border-color: rgba(77, 208, 145, 0.35);
+}
+
+.pm-method-post {
+  background: rgba(92, 145, 255, 0.16);
+  border-color: rgba(92, 145, 255, 0.35);
+}
+
+.pm-method-put,
+.pm-method-patch {
+  background: rgba(255, 193, 92, 0.16);
+  border-color: rgba(255, 193, 92, 0.35);
+}
+
+.pm-method-delete {
+  background: rgba(255, 110, 110, 0.16);
+  border-color: rgba(255, 110, 110, 0.35);
+}
+
+.pm-method-options,
+.pm-method-generic {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--pm-border-soft);
+}
+
+.pm-api-auth {
+  display: grid;
+  gap: 4px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--pm-border-soft);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.pm-api-auth span {
+  color: var(--pm-soft);
+  font-size: 0.88rem;
+}
+
+.pm-api-auth-row {
+  margin-top: 14px;
+}
+
+.pm-api-example {
+  margin-top: 18px;
+}
+
+.pm-api-example-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--pm-text);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.pm-api-example-title {
+  margin-top: 8px;
+  color: var(--pm-soft);
+}
+
+.pm-api-code {
+  margin-top: 10px;
+}
+
+.pm-api-errors {
+  margin-top: 18px;
+}
+
+.pm-api-error-item {
+  display: grid;
+  gap: 4px;
+}
+
+.pm-api-path-link {
+  color: var(--pm-text);
+  word-break: break-word;
+}
+
+.pm-endpoint-grid {
+  display: grid;
+  gap: 16px;
+  margin-top: 18px;
+}
+
 .pm-domain-archive-link,
 .pm-archive-toggle {
   margin-top: 18px;
@@ -1108,6 +1234,8 @@ select {
   .pm-schema-table,
   .pm-schema-card,
   .pm-schema-index,
+  .pm-api-summary-card,
+  .pm-endpoint-card,
   .pm-archive-header,
   .pm-archive-card {
     box-shadow: none;

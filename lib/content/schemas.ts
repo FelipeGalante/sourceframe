@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { apiDefinitionSchema } from "@/lib/api-docs";
 import { schemaDefinitionSchema } from "@/lib/schema-docs/types";
 
 const contentTypeValueSchema = z.enum([
@@ -48,6 +49,7 @@ const sharedSchema = z.object({
   tags: z.array(z.string().min(1)).optional(),
   owner: z.string().min(1).optional(),
   updated: z.string().min(1).optional(),
+  api: apiDefinitionSchema.optional(),
   schema: schemaDefinitionSchema.optional(),
   domain: z.string().min(1).optional(),
   section: z.string().min(1).optional(),

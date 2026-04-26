@@ -8,6 +8,9 @@ const rawSiteConfig = {
   description:
     "Use high-level domain tabs, section subnavigation, global search, and a full archive view to organize product, architecture, execution, brand, marketing, and source material.",
   defaultDomain: "technology",
+  openapi: {
+    registrations: [],
+  },
   repositoryUrl: undefined,
 } as const;
 

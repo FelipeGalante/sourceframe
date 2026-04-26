@@ -8,6 +8,20 @@ export const siteConfigSchema = z.object({
   description: z.string().min(1),
   defaultDomain: z.string().min(1),
   repositoryUrl: z.string().url().optional(),
+  openapi: z
+    .object({
+      registrations: z
+        .array(
+          z.object({
+            name: z.string().min(1),
+            path: z.string().min(1),
+            description: z.string().min(1).optional(),
+            version: z.string().min(1).optional(),
+          }),
+        )
+        .default([]),
+    })
+    .optional(),
 });
 
 export type SiteConfig = z.infer<typeof siteConfigSchema>;

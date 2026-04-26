@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 
 import { ContentRenderer } from "@/components/markdown/ContentRenderer";
 import { SectionLayout } from "@/components/layout/SectionLayout";
+import { EndpointCard, EndpointTable } from "@/components/api";
 import { SchemaDomainIndex } from "@/components/schema/SchemaDomainIndex";
 import { RelationshipMap } from "@/components/schema/RelationshipMap";
 import { SchemaTableCard } from "@/components/schema/SchemaTableCard";
@@ -61,6 +62,7 @@ export default async function ContentPage({ params }: { params: Promise<{ slug: 
         definition: entry.schema,
       }
     : null;
+  const apiDefinition = entry.api ?? null;
   const schemaCatalog = buildSchemaCatalog(
     registry.entries,
     new Map(registry.domainTabs.map((domain) => [domain.key, domain.title])),
@@ -84,6 +86,28 @@ export default async function ContentPage({ params }: { params: Promise<{ slug: 
       }))}
       activeSectionRoute={getSectionRoute(entry)}
     >
+      {apiDefinition ? (
+        <section className="pm-card pm-content-card pm-api-summary-card">
+          <div className="pm-content-body">
+            <div className="pm-kicker">API reference</div>
+            <h2 className="pm-title pm-title-lg">{entry.title}</h2>
+            {entry.summary ? <p className="pm-subtitle">{entry.summary}</p> : null}
+            {apiDefinition.title ? <p className="pm-subtitle">{apiDefinition.title}</p> : null}
+            {apiDefinition.description ? (
+              <p className="pm-subtitle">{apiDefinition.description}</p>
+            ) : null}
+            <EndpointTable endpoints={apiDefinition.endpoints} />
+            <div className="pm-endpoint-grid">
+              {apiDefinition.endpoints.map((endpoint) => (
+                <EndpointCard
+                  key={`${endpoint.group}:${endpoint.method}:${endpoint.path}`}
+                  endpoint={endpoint}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
       {entry.route === "/technology/database" ||
       (entry.type === "section-index" && entry.section === "database") ? (
         <SchemaDomainIndex groups={schemaCatalog} />
