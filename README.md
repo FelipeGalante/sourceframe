@@ -32,6 +32,8 @@ Then open `http://localhost:3000`.
 - `pnpm lint` - run ESLint
 - `pnpm typecheck` - run the TypeScript compiler in no-emit mode
 - `pnpm build` - create a production build
+- `pnpm test` - run content loader tests
+- `pnpm validate:content` - validate the real content tree
 
 ## Creating a new project from this template
 
