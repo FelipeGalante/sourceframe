@@ -48,7 +48,21 @@ export function discoverMarkdownFiles(dir: string): string[] {
 export function readContentFile(filePath: string, rootDir: string) {
   const source = fs.readFileSync(filePath, "utf8");
   const { content, data } = matter(source);
-  const frontmatter = frontmatterSchema.parse(data);
+  const parsedFrontmatter = frontmatterSchema.safeParse(data);
+  if (!parsedFrontmatter.success) {
+    const message = parsedFrontmatter.error.issues
+      .map((issue) => {
+        const location = issue.path.length ? issue.path.join(".") : "frontmatter";
+        return `${location}: ${issue.message}`;
+      })
+      .join("; ");
+
+    throw new Error(
+      `${normalizeRelativePath(filePath)}: invalid frontmatter${message ? ` (${message})` : ""}`,
+    );
+  }
+
+  const frontmatter = parsedFrontmatter.data;
   const relativePath = normalizeRelativePath(path.relative(rootDir, filePath));
   const slugSegments = relativeSegmentsForFile(relativePath);
   const route = routeFromSegments(slugSegments);

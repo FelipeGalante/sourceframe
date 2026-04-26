@@ -1,5 +1,29 @@
 import { z } from "zod";
 
+const contentTypeValueSchema = z.enum([
+  "overview",
+  "prd",
+  "research",
+  "architecture",
+  "api",
+  "database",
+  "schema",
+  "adr",
+  "decision-log",
+  "roadmap",
+  "release-note",
+  "runbook",
+  "playbook",
+  "brand",
+  "marketing",
+  "prompt",
+  "source-archive",
+  "reference",
+  "guide",
+  "tutorial",
+  "changelog",
+]);
+
 const contentTypeSchema = z.union([
   z.literal("site-index"),
   z.literal("domain-index"),
@@ -16,6 +40,8 @@ const contentTypeSchema = z.union([
 const sharedSchema = z.object({
   title: z.string().min(1),
   type: contentTypeSchema,
+  contentType: contentTypeValueSchema.optional(),
+  status: z.enum(["draft", "active", "archived", "deprecated"]).optional(),
   visibility: z.enum(["public", "internal"]).optional(),
   domain: z.string().min(1).optional(),
   section: z.string().min(1).optional(),

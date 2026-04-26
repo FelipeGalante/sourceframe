@@ -17,6 +17,8 @@ SourceFrame keeps content in Markdown or MDX files under `/content`. The app rea
 - `type` must match the page kind.
 - `domain`, `section`, and `order` control routing and navigation.
 - `nav_label` is optional and overrides the visible section label.
+- `contentType` is optional and, when used, must be one of the documented content-type values.
+- `status` is optional and must be one of `draft`, `active`, `archived`, or `deprecated` when present.
 - `visibility: "internal"` keeps implementation-only docs in the repo while excluding them from the public migration manifest.
 - `source` and `source_panel` help trace migrated files back to the original extraction.
 

@@ -49,7 +49,7 @@ Then open `http://localhost:3000`.
 - `pnpm typecheck` - generate Next.js route types and then run the TypeScript compiler in no-emit mode
 - `pnpm build` - create a production build
 - `pnpm test` - run content loader tests
-- `pnpm validate:content` - validate the real content tree and confirm generated artifacts are current
+- `pnpm validate:content` - validate the real content tree
 
 ## Start A New Project
 
