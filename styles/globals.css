@@ -627,6 +627,35 @@ select {
   background: rgba(255, 255, 255, 0.03);
 }
 
+.pm-archive-card,
+.pm-archive-index {
+  border-color: rgba(255, 206, 102, 0.28);
+  background: linear-gradient(180deg, rgba(74, 54, 18, 0.18), rgba(255, 255, 255, 0.03));
+}
+
+.pm-archive-notice {
+  padding: 16px 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 206, 102, 0.28);
+  background: rgba(74, 54, 18, 0.18);
+}
+
+.pm-archive-provenance {
+  margin-top: 18px;
+}
+
+.pm-archive-index {
+  margin-bottom: 18px;
+}
+
+.pm-archive-index-card {
+  border-color: rgba(255, 206, 102, 0.22);
+}
+
+.pm-archive-index-link {
+  margin-top: 14px;
+}
+
 .pm-api-summary-card,
 .pm-endpoint-card {
   overflow: clip;

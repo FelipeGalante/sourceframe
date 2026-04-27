@@ -31,6 +31,7 @@ const contentTypeValueSchema = z.enum([
   "personas",
   "success-metrics",
   "release-plan",
+  "source-archive",
 ]);
 
 const contentTypeSchema = z.union([
@@ -73,6 +74,12 @@ const sharedSchema = z.object({
   source_panel: z.string().min(1).optional(),
   database_domain: z.string().min(1).optional(),
   table_name: z.string().min(1).optional(),
+  origin: z.string().min(1).optional(),
+  sourceFile: z.string().min(1).optional(),
+  importedAt: z.string().min(1).optional(),
+  importedBy: z.string().min(1).optional(),
+  canonicalStatus: z.string().min(1).optional(),
+  relatedCanonicalPages: z.array(z.string().min(1)).optional(),
 });
 
 export const frontmatterSchema = z.discriminatedUnion("type", [

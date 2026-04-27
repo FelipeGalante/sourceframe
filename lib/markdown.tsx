@@ -217,12 +217,14 @@ export function MarkdownRenderer({
   markdown,
   sourceRelativePath = "content/index.md",
   allowRawHtml = true,
+  literalSource = false,
 }: {
   markdown: string;
   sourceRelativePath?: string;
   allowRawHtml?: boolean;
+  literalSource?: boolean;
 }) {
-  if (sourceRelativePath.endsWith("about/sources.md")) {
+  if (literalSource || sourceRelativePath.endsWith("about/sources.md")) {
     // The source archive is intentionally rendered as literal text so the
     // raw source stays auditable and cannot be reinterpreted as markdown.
     return (

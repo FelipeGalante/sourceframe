@@ -61,6 +61,12 @@ export type ContentEntry = {
   sourcePanel?: string;
   databaseDomain?: string;
   tableName?: string;
+  origin?: string;
+  sourceFile?: string;
+  importedAt?: string;
+  importedBy?: string;
+  canonicalStatus?: string;
+  relatedCanonicalPages?: string[];
   body: string;
   format: ContentFormat;
   plainText: string;

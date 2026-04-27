@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 
+import { ArchiveIndex, ArchiveNotice, SourceProvenance } from "@/components/archive";
 import { DecisionIndex, DecisionRecord } from "@/components/decision";
 import { ContentRenderer } from "@/components/markdown/ContentRenderer";
 import { SectionLayout } from "@/components/layout/SectionLayout";
@@ -93,6 +94,7 @@ export default async function ContentPage({ params }: { params: Promise<{ slug: 
       }))}
       activeSectionRoute={getSectionRoute(entry)}
     >
+      {entry.route === "/about/archive" ? <ArchiveIndex entries={registry.entries} /> : null}
       {(entry.route === "/about/decisions" || entry.contentType === "decision-log") &&
       decisionCatalog.length ? (
         <DecisionIndex groups={decisionCatalog} />
@@ -138,15 +140,31 @@ export default async function ContentPage({ params }: { params: Promise<{ slug: 
           </div>
         </section>
       ) : null}
-      <section className="pm-card pm-content-card">
-        <div className="pm-content-body">
-          <ContentRenderer
-            format={entry.format}
-            markdown={entry.body}
-            sourceRelativePath={entry.relativePath}
-          />
-        </div>
-      </section>
+      {entry.contentType === "source-archive" ? (
+        <section className="pm-card pm-content-card pm-archive-card">
+          <div className="pm-content-body">
+            <ArchiveNotice entry={entry} />
+            <SourceProvenance entry={entry} />
+            <ContentRenderer
+              format={entry.format}
+              markdown={entry.body}
+              sourceRelativePath={entry.relativePath}
+              archiveMode
+            />
+          </div>
+        </section>
+      ) : null}
+      {entry.contentType !== "source-archive" ? (
+        <section className="pm-card pm-content-card">
+          <div className="pm-content-body">
+            <ContentRenderer
+              format={entry.format}
+              markdown={entry.body}
+              sourceRelativePath={entry.relativePath}
+            />
+          </div>
+        </section>
+      ) : null}
     </SectionLayout>
   );
 }
