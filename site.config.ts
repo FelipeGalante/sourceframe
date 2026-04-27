@@ -1,19 +1,7 @@
+import { projectCatalog } from "@/projects.config";
+
 import { validateSiteConfig } from "@/lib/site-config";
 
-const rawSiteConfig = {
-  name: "PathMerit",
-  subtitle: "Master Source of Truth",
-  eyebrow: "Domain-based Markdown workspace",
-  title: "One reusable source-of-truth template, powered by Markdown.",
-  description:
-    "Use high-level domain tabs, section subnavigation, global search, and a full archive view to organize product, architecture, execution, brand, marketing, and source material.",
-  defaultDomain: "technology",
-  openapi: {
-    registrations: [],
-  },
-  repositoryUrl: undefined,
-} as const;
-
-export const siteConfig = validateSiteConfig(rawSiteConfig);
+export const siteConfig = validateSiteConfig(projectCatalog[0].siteConfig);
 
 export type { SiteConfig } from "@/lib/site-config";

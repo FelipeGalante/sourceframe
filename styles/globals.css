@@ -10,9 +10,9 @@
   --pm-muted: #a9b5d6;
   --pm-soft: #7e8bb1;
   --pm-accent: #7c8cff;
-  --pm-accent-2: #93a0ff;
-  --pm-accent-soft: rgba(124, 140, 255, 0.14);
-  --pm-accent-line: rgba(124, 140, 255, 0.32);
+  --pm-accent-2: color-mix(in srgb, var(--pm-accent) 72%, white);
+  --pm-accent-soft: color-mix(in srgb, var(--pm-accent) 14%, transparent);
+  --pm-accent-line: color-mix(in srgb, var(--pm-accent) 32%, transparent);
   --pm-success: #5fd0b3;
   --pm-warning: #f3c46a;
   --pm-danger: #f08a8a;
@@ -39,7 +39,11 @@ body {
   min-height: 100vh;
   color: var(--pm-text);
   background:
-    radial-gradient(circle at top left, rgba(124, 140, 255, 0.16), transparent 34rem),
+    radial-gradient(
+      circle at top left,
+      color-mix(in srgb, var(--pm-accent) 16%, transparent),
+      transparent 34rem
+    ),
     radial-gradient(circle at top right, rgba(95, 208, 179, 0.1), transparent 28rem),
     linear-gradient(180deg, #090d1a 0%, #070b16 100%);
   font-family:
@@ -103,7 +107,11 @@ select {
   height: 42px;
   border-radius: 14px;
   background:
-    linear-gradient(135deg, rgba(124, 140, 255, 0.32), rgba(124, 140, 255, 0.08)),
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--pm-accent) 32%, transparent),
+      color-mix(in srgb, var(--pm-accent) 8%, transparent)
+    ),
     linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.03));
   border: 1px solid var(--pm-border);
   box-shadow: var(--pm-shadow);
@@ -122,7 +130,7 @@ select {
 
 .pm-brand-mark::after {
   inset: 14px;
-  border-color: rgba(124, 140, 255, 0.72);
+  border-color: color-mix(in srgb, var(--pm-accent) 72%, white);
   clip-path: polygon(0 68%, 30% 46%, 55% 56%, 100% 0, 100% 100%, 0 100%);
 }
 
@@ -146,6 +154,58 @@ select {
 .pm-topbar-main {
   flex: 1;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pm-project-switcher {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+.pm-project-switcher-item {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 140px;
+  padding: 10px 14px;
+  border-radius: 16px;
+  border: 1px solid transparent;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--pm-muted);
+  transition:
+    background 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.pm-project-switcher-item:hover,
+.pm-project-switcher-item:focus-visible {
+  color: var(--pm-text);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--pm-border);
+  outline: none;
+}
+
+.pm-project-switcher-item[data-active="true"] {
+  color: var(--pm-text);
+  background: var(--pm-accent-soft);
+  border-color: var(--pm-accent-line);
+}
+
+.pm-project-switcher-title {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.pm-project-switcher-subtitle {
+  font-size: 0.8rem;
+  color: var(--pm-soft);
 }
 
 .pm-domain-tabs {
@@ -1309,8 +1369,8 @@ select {
     --pm-muted: #374151;
     --pm-soft: #4b5563;
     --pm-accent: #2f45d1;
-    --pm-accent-soft: rgba(47, 69, 209, 0.08);
-    --pm-accent-line: rgba(47, 69, 209, 0.28);
+    --pm-accent-soft: color-mix(in srgb, var(--pm-accent) 8%, transparent);
+    --pm-accent-line: color-mix(in srgb, var(--pm-accent) 28%, transparent);
     --pm-shadow: none;
   }
 

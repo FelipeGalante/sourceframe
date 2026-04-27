@@ -1,6 +1,6 @@
 import path from "node:path";
 
-import { siteConfig } from "@/site.config";
+import { siteConfig as defaultSiteConfig } from "@/site.config";
 
 import { discoverMarkdownFiles, readMarkdownFile } from "./discovery";
 import { toKebabCase } from "./routes";
@@ -13,6 +13,40 @@ import type {
 } from "./types";
 
 const defaultContentRoot = path.join(process.cwd(), "content");
+
+type BuildContentRegistryOptions = {
+  rootDir?: string;
+  siteConfig?: typeof defaultSiteConfig;
+  routeBase?: string;
+};
+
+function normalizeBuildOptions(rootDirOrOptions?: string | BuildContentRegistryOptions) {
+  if (typeof rootDirOrOptions === "string") {
+    return {
+      rootDir: rootDirOrOptions,
+      siteConfig: defaultSiteConfig,
+      routeBase: "",
+    };
+  }
+
+  return {
+    rootDir: rootDirOrOptions?.rootDir ?? defaultContentRoot,
+    siteConfig: rootDirOrOptions?.siteConfig ?? defaultSiteConfig,
+    routeBase: rootDirOrOptions?.routeBase ?? "",
+  };
+}
+
+function joinRouteBase(routeBase: string, route: string) {
+  if (!routeBase) {
+    return route;
+  }
+
+  if (route === "/") {
+    return routeBase;
+  }
+
+  return `${routeBase}${route}`;
+}
 
 function sortEntries(entries: ContentEntry[]) {
   const typePriority: Record<ContentType, number> = {
@@ -96,7 +130,11 @@ function buildDomainTabs(entries: ContentEntry[], childrenByRoute: Map<string, C
   });
 }
 
-function buildSearchIndex(entries: ContentEntry[], domainTabs: DomainNavItem[]) {
+function buildSearchIndex(
+  entries: ContentEntry[],
+  domainTabs: DomainNavItem[],
+  siteConfig: typeof defaultSiteConfig,
+) {
   const domainTitleByKey = new Map(domainTabs.map((domain) => [domain.key, domain.title]));
 
   return entries.map((entry) => {
@@ -148,7 +186,11 @@ function buildSearchIndex(entries: ContentEntry[], domainTabs: DomainNavItem[]) 
   });
 }
 
-export function buildContentRegistry(rootDir = defaultContentRoot): ContentRegistry {
+export function buildContentRegistry(
+  rootDirOrOptions: string | BuildContentRegistryOptions = defaultContentRoot,
+): ContentRegistry {
+  const { rootDir, siteConfig, routeBase } = normalizeBuildOptions(rootDirOrOptions);
+
   if (!path.isAbsolute(rootDir)) {
     throw new Error(`Content root must be an absolute path: ${rootDir}`);
   }
@@ -173,18 +215,39 @@ export function buildContentRegistry(rootDir = defaultContentRoot): ContentRegis
 
   const childrenByRoute = buildChildrenMap(entries);
   const domainTabs = buildDomainTabs(entries, childrenByRoute);
-  const searchIndex = buildSearchIndex(entries, domainTabs);
-  const rootEntry = entryByRoute.get("/") ?? undefined;
+  const entriesWithHref = entries.map((entry) => ({
+    ...entry,
+    href: joinRouteBase(routeBase, entry.route),
+  }));
+  const childrenByRouteWithHref = new Map(
+    [...childrenByRoute.entries()].map(([route, children]) => [
+      route,
+      children.map((child) => ({
+        ...child,
+        href: joinRouteBase(routeBase, child.route),
+      })),
+    ]),
+  );
+  const searchIndex = buildSearchIndex(entriesWithHref, domainTabs, siteConfig);
+  const domainTabsWithHref = domainTabs.map((domain) => ({
+    ...domain,
+    href: joinRouteBase(routeBase, domain.href),
+    sections: domain.sections.map((section) => ({
+      ...section,
+      href: joinRouteBase(routeBase, section.href),
+    })),
+  }));
 
   return {
-    entries: sortEntries(entries),
-    entryByRoute,
-    entryByRelativePath: new Map(entries.map((entry) => [entry.relativePath, entry])),
-    childrenByRoute,
-    domainTabs,
+    entries: sortEntries(entriesWithHref),
+    entryByRoute: new Map(entriesWithHref.map((entry) => [entry.route, entry])),
+    entryByRelativePath: new Map(entriesWithHref.map((entry) => [entry.relativePath, entry])),
+    childrenByRoute: childrenByRouteWithHref,
+    domainTabs: domainTabsWithHref,
     searchIndex,
-    rootEntry,
+    rootEntry: entriesWithHref.find((entry) => entry.route === "/"),
     siteConfig,
+    routeBase,
   };
 }
 
@@ -225,16 +288,19 @@ export function getSectionRoute(entry: ContentEntry) {
 
 export function getActiveSectionRoute(entry: ContentEntry) {
   if (!entry.domain) {
-    return entry.route;
+    return entry.href;
   }
 
   const candidate = getSectionRoute(entry);
   const registry = getContentRegistry();
   if (registry.entryByRoute.has(candidate)) {
+    if (registry.routeBase) {
+      return entry.href;
+    }
     return candidate;
   }
 
-  return entry.route;
+  return entry.href;
 }
 
 export function getArchiveRoots() {
@@ -268,7 +334,11 @@ export function getVisibleDomainTabs() {
   return getContentRegistry().domainTabs.filter((domain) => domain.visibility !== "internal");
 }
 
-export function resolveContentHref(href: string, sourceRelativePath: string) {
+export function resolveContentHref(
+  href: string,
+  sourceRelativePath: string,
+  registry = getContentRegistry(),
+) {
   if (
     href.startsWith("#") ||
     href.startsWith("http://") ||
@@ -286,11 +356,11 @@ export function resolveContentHref(href: string, sourceRelativePath: string) {
 
   const sourceDir = path.posix.dirname(sourceRelativePath.replaceAll(path.sep, "/"));
   const resolvedRelative = path.posix.normalize(path.posix.join(sourceDir, pathPart));
-  const entry = getContentEntryByRelativePath(resolvedRelative);
+  const entry = registry.entryByRelativePath.get(resolvedRelative);
 
   if (!entry) {
     return href;
   }
 
-  return `${entry.route}${hashPart ? `#${hashPart}` : ""}`;
+  return `${entry.href}${hashPart ? `#${hashPart}` : ""}`;
 }

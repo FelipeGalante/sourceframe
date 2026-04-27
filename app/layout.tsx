@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
-import { SiteChrome } from "@/components/layout/SiteChrome";
-import { getContentRegistry } from "@/lib/content";
 import { siteConfig } from "@/site.config";
 
 import "@/styles/globals.css";
@@ -20,19 +18,9 @@ export default function RootLayout({
 }: Readonly<{
   children: ReactNode;
 }>) {
-  const registry = getContentRegistry();
-
   return (
     <html lang="en">
-      <body>
-        <SiteChrome
-          domains={registry.domainTabs}
-          searchIndex={registry.searchIndex}
-          config={registry.siteConfig}
-        >
-          {children}
-        </SiteChrome>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

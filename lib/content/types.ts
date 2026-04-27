@@ -122,4 +122,5 @@ export type ContentRegistry = {
   searchIndex: SearchRecord[];
   rootEntry?: ContentEntry;
   siteConfig: SiteConfig;
+  routeBase: string;
 };

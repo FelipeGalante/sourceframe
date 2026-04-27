@@ -7,6 +7,7 @@ export const siteConfigSchema = z.object({
   title: z.string().min(1),
   description: z.string().min(1),
   defaultDomain: z.string().min(1),
+  themeAccent: z.string().min(1).optional(),
   repositoryUrl: z.string().url().optional(),
   openapi: z
     .object({

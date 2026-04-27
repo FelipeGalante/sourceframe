@@ -14,6 +14,7 @@ import { CodeBlock } from "@/components/markdown/CodeBlock";
 import { MermaidBlock } from "@/components/markdown/MermaidBlock";
 import { TableWrapper } from "@/components/markdown/TableWrapper";
 import { resolveContentHref } from "@/lib/content";
+import type { ContentRegistry } from "@/lib/content";
 
 function flattenText(children: React.ReactNode): string {
   if (children === null || children === undefined || typeof children === "boolean") {
@@ -77,11 +78,11 @@ function InlineCode(props: React.ComponentPropsWithoutRef<"code">) {
   return <code {...props} />;
 }
 
-function createAnchor(sourceRelativePath: string) {
+function createAnchor(sourceRelativePath: string, contentRegistry?: ContentRegistry) {
   return function Anchor(props: React.ComponentPropsWithoutRef<"a">) {
     const href =
       typeof props.href === "string"
-        ? resolveContentHref(props.href, sourceRelativePath)
+        ? resolveContentHref(props.href, sourceRelativePath, contentRegistry)
         : props.href;
     return <a {...props} href={typeof href === "string" ? href : props.href} />;
   };
@@ -218,11 +219,13 @@ export function MarkdownRenderer({
   sourceRelativePath = "content/index.md",
   allowRawHtml = true,
   literalSource = false,
+  contentRegistry,
 }: {
   markdown: string;
   sourceRelativePath?: string;
   allowRawHtml?: boolean;
   literalSource?: boolean;
+  contentRegistry?: ContentRegistry;
 }) {
   if (literalSource || sourceRelativePath.endsWith("about/sources.md")) {
     // The source archive is intentionally rendered as literal text so the
@@ -273,7 +276,7 @@ export function MarkdownRenderer({
         jsx,
         jsxs,
         components: {
-          a: createAnchor(sourceRelativePath),
+          a: createAnchor(sourceRelativePath, contentRegistry),
           pre: PreBlock,
           code: InlineCode,
           table: TableWrapper,

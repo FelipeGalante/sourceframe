@@ -17,13 +17,13 @@ export function ArchiveIndex({ entries }: { entries: ContentEntry[] }) {
         </p>
         <div className="pm-product-list">
           {archivedEntries.map((entry) => (
-            <article key={entry.route} className="pm-product-card pm-archive-index-card">
+            <article key={entry.href} className="pm-product-card pm-archive-index-card">
               <div className="pm-schema-domain-head">
                 <strong>{entry.title}</strong>
                 <span>{entry.status ?? entry.contentType ?? "archived"}</span>
               </div>
               {entry.summary ? <p className="pm-subtitle">{entry.summary}</p> : null}
-              <p className="pm-schema-relation-body">{entry.route}</p>
+              <p className="pm-schema-relation-body">{entry.href}</p>
               <div className="pm-meta-row">
                 {entry.origin ? <span className="pm-pill">{entry.origin}</span> : null}
                 {entry.importedAt ? <span className="pm-pill">{entry.importedAt}</span> : null}
@@ -31,7 +31,7 @@ export function ArchiveIndex({ entries }: { entries: ContentEntry[] }) {
                   <span className="pm-pill">{entry.canonicalStatus}</span>
                 ) : null}
               </div>
-              <Link href={entry.route} className="pm-schema-link pm-archive-index-link">
+              <Link href={entry.href} className="pm-schema-link pm-archive-index-link">
                 <span className="pm-schema-list-label">Open archive page</span>
                 <span className="pm-schema-list-meta">→</span>
               </Link>

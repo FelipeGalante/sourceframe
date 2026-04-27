@@ -1,9 +1,18 @@
 import Link from "next/link";
 
 import type { ContentEntry, DomainNavItem } from "@/lib/content";
+import type { ContentRegistry } from "@/lib/content";
 import { ContentRenderer } from "@/components/markdown/ContentRenderer";
 
-export function HomeView({ entry, domains }: { entry: ContentEntry; domains: DomainNavItem[] }) {
+export function HomeView({
+  entry,
+  domains,
+  contentRegistry,
+}: {
+  entry: ContentEntry;
+  domains: DomainNavItem[];
+  contentRegistry?: ContentRegistry;
+}) {
   return (
     <div className="pm-home-grid">
       <section className="pm-domain-card">
@@ -25,6 +34,7 @@ export function HomeView({ entry, domains }: { entry: ContentEntry; domains: Dom
             format={entry.format}
             markdown={entry.body}
             sourceRelativePath={entry.relativePath}
+            contentRegistry={contentRegistry}
           />
         </div>
       </section>

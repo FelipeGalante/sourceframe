@@ -37,7 +37,7 @@ function getCodeLanguage(className) {
   return match?.[1] ?? "";
 }
 
-function resolveContentHref(href, sourceRelativePath) {
+function resolveContentHref(href, sourceRelativePath, contentRegistry) {
   if (
     href.startsWith("#") ||
     href.startsWith("http://") ||
@@ -55,12 +55,13 @@ function resolveContentHref(href, sourceRelativePath) {
 
   const sourceDir = path.posix.dirname(sourceRelativePath.replaceAll(path.sep, "/"));
   const resolved = path.posix.normalize(path.posix.join(sourceDir, pathPart));
-  const route = resolved
-    .replace(/^content/, "")
-    .replace(/\/index\.(md|mdx)$/, "/index")
-    .replace(/\.(md|mdx)$/, "");
+  const entry = contentRegistry?.entryByRelativePath?.get(resolved);
 
-  return `${route}${hashPart ? `#${hashPart}` : ""}`;
+  if (!entry) {
+    return href;
+  }
+
+  return `${entry.href}${hashPart ? `#${hashPart}` : ""}`;
 }
 
 function TableWrapper(props) {
@@ -139,27 +140,27 @@ function InlineCode(props) {
   return jsx("code", { ...props });
 }
 
-function createAnchor(sourceRelativePath) {
+function createAnchor(sourceRelativePath, contentRegistry) {
   return function Anchor(props) {
     const href =
       typeof props.href === "string"
-        ? resolveContentHref(props.href, sourceRelativePath)
+        ? resolveContentHref(props.href, sourceRelativePath, contentRegistry)
         : props.href;
     return jsx("a", { ...props, href: typeof href === "string" ? href : props.href });
   };
 }
 
-function getMarkdownComponents(sourceRelativePath) {
+function getMarkdownComponents(sourceRelativePath, contentRegistry) {
   return {
-    a: createAnchor(sourceRelativePath),
+    a: createAnchor(sourceRelativePath, contentRegistry),
     pre: PreBlock,
     code: InlineCode,
     table: TableWrapper,
   };
 }
 
-async function getCompiledMdx(markdown, sourceRelativePath) {
-  const cacheKey = `${sourceRelativePath}\0${markdown}`;
+async function getCompiledMdx(markdown, sourceRelativePath, contentRegistry) {
+  const cacheKey = `${contentRegistry?.routeBase ?? ""}\0${sourceRelativePath}\0${markdown}`;
   const cached = mdxModuleCache.get(cacheKey);
   if (cached) {
     return cached;
@@ -185,16 +186,20 @@ async function getCompiledMdx(markdown, sourceRelativePath) {
         },
       ],
     ],
-    useMDXComponents: () => getMarkdownComponents(sourceRelativePath),
+    useMDXComponents: () => getMarkdownComponents(sourceRelativePath, contentRegistry),
   });
 
   mdxModuleCache.set(cacheKey, compiled);
   return compiled;
 }
 
-export async function renderMdxToMarkup(markdown, sourceRelativePath = "content/index.mdx") {
-  const { default: Content } = await getCompiledMdx(markdown, sourceRelativePath);
-  const components = getMarkdownComponents(sourceRelativePath);
+export async function renderMdxToMarkup(
+  markdown,
+  sourceRelativePath = "content/index.mdx",
+  contentRegistry,
+) {
+  const { default: Content } = await getCompiledMdx(markdown, sourceRelativePath, contentRegistry);
+  const components = getMarkdownComponents(sourceRelativePath, contentRegistry);
 
   return jsx("div", {
     className: "pm-markdown",

@@ -1,23 +1,10 @@
 import { notFound } from "next/navigation";
 
-import { ArchiveIndex, ArchiveNotice, SourceProvenance } from "@/components/archive";
-import { DecisionIndex, DecisionRecord } from "@/components/decision";
+import { SiteChrome } from "@/components/layout/SiteChrome";
+import { ContentRouteView } from "@/components/layout/ContentRouteView";
 import { ContentRenderer } from "@/components/markdown/ContentRenderer";
-import { SectionLayout } from "@/components/layout/SectionLayout";
-import { EndpointCard, EndpointTable } from "@/components/api";
-import { ProductTemplate } from "@/components/product";
-import { SchemaDomainIndex } from "@/components/schema/SchemaDomainIndex";
-import { RelationshipMap } from "@/components/schema/RelationshipMap";
-import { SchemaTableCard } from "@/components/schema/SchemaTableCard";
-import {
-  getChildren,
-  getContentEntry,
-  getContentRegistry,
-  getDomainEntry,
-  getSectionRoute,
-} from "@/lib/content";
-import { buildDecisionCatalog } from "@/lib/decision-docs";
-import { buildSchemaCatalog } from "@/lib/schema-docs/loader";
+import { getChildren, getContentEntry, getContentRegistry, getDomainEntry } from "@/lib/content";
+import { buildProjectRuntime, getDefaultProject } from "@/lib/projects/catalog";
 
 export function generateStaticParams() {
   return getContentRegistry()
@@ -30,6 +17,9 @@ export function generateStaticParams() {
 export default async function ContentPage({ params }: { params: Promise<{ slug: string[] }> }) {
   const { slug } = await params;
   const route = `/${slug.join("/")}`;
+  const project = getDefaultProject();
+  const runtime = buildProjectRuntime(project, "root");
+  const registry = runtime.registry;
   const entry = getContentEntry(route);
 
   if (!entry) {
@@ -44,6 +34,7 @@ export default async function ContentPage({ params }: { params: Promise<{ slug: 
             format={entry.format}
             markdown={entry.body}
             sourceRelativePath={entry.relativePath}
+            contentRegistry={registry}
           />
         </div>
       </section>
@@ -55,116 +46,34 @@ export default async function ContentPage({ params }: { params: Promise<{ slug: 
     notFound();
   }
 
-  const registry = getContentRegistry();
-  const schemaDocument = entry.schema
-    ? {
-        route: entry.route,
-        href: entry.href,
-        relativePath: entry.relativePath,
-        sourcePath: entry.schemaSource ?? entry.relativePath,
-        sourceFormat: entry.schemaSourceFormat ?? "frontmatter",
-        definition: entry.schema,
-      }
-    : null;
-  const apiDefinition = entry.api ?? null;
-  const decisionCatalog = buildDecisionCatalog(
-    registry.entries,
-    new Map(registry.domainTabs.map((domain) => [domain.key, domain.title])),
-  );
-  const schemaCatalog = buildSchemaCatalog(
-    registry.entries,
-    new Map(registry.domainTabs.map((domain) => [domain.key, domain.title])),
-  );
   const sections = getChildren(domainEntry.href).filter((section) => section.type !== "site-index");
 
   return (
-    <SectionLayout
-      entry={entry}
-      domainTitle={domainEntry.title}
-      domainDescription={domainEntry.description}
-      domainEyebrow={domainEntry.eyebrow}
-      archiveHref={`${domainEntry.href}/archive`}
-      sections={sections.map((section) => ({
-        key: section.route,
-        title: section.title,
-        navLabel: section.navLabel,
-        order: section.order ?? 0,
-        href: section.href,
-        type: section.type,
-      }))}
-      activeSectionRoute={getSectionRoute(entry)}
+    <SiteChrome
+      domains={registry.domainTabs}
+      searchIndex={registry.searchIndex}
+      config={registry.siteConfig}
+      homeHref={runtime.homeHref}
+      archiveHref={runtime.archiveHref}
+      projects={runtime.projectSwitcher}
+      routeBase={runtime.routeBase}
+      themeAccent={project.themeAccent}
     >
-      {entry.route === "/about/archive" ? <ArchiveIndex entries={registry.entries} /> : null}
-      {(entry.route === "/about/decisions" || entry.contentType === "decision-log") &&
-      decisionCatalog.length ? (
-        <DecisionIndex groups={decisionCatalog} />
-      ) : null}
-      {entry.decision ? <DecisionRecord entry={entry} /> : null}
-      {entry.product ? <ProductTemplate entry={entry} /> : null}
-      {apiDefinition ? (
-        <section className="pm-card pm-content-card pm-api-summary-card">
-          <div className="pm-content-body">
-            <div className="pm-kicker">API reference</div>
-            <h2 className="pm-title pm-title-lg">{entry.title}</h2>
-            {entry.summary ? <p className="pm-subtitle">{entry.summary}</p> : null}
-            {apiDefinition.title ? <p className="pm-subtitle">{apiDefinition.title}</p> : null}
-            {apiDefinition.description ? (
-              <p className="pm-subtitle">{apiDefinition.description}</p>
-            ) : null}
-            <EndpointTable endpoints={apiDefinition.endpoints} />
-            <div className="pm-endpoint-grid">
-              {apiDefinition.endpoints.map((endpoint) => (
-                <EndpointCard
-                  key={`${endpoint.group}:${endpoint.method}:${endpoint.path}`}
-                  endpoint={endpoint}
-                />
-              ))}
-            </div>
-          </div>
-        </section>
-      ) : null}
-      {entry.route === "/technology/database" ||
-      (entry.type === "section-index" && entry.section === "database") ? (
-        <SchemaDomainIndex groups={schemaCatalog} />
-      ) : null}
-      {entry.type === "database-table" && schemaDocument ? (
-        <SchemaTableCard document={schemaDocument} />
-      ) : null}
-      {entry.type === "database-relationships" && schemaDocument ? (
-        <section className="pm-card pm-content-card">
-          <div className="pm-content-body">
-            <div className="pm-kicker">Relationships</div>
-            <h2 className="pm-title pm-title-lg">{entry.title}</h2>
-            {entry.description ? <p className="pm-subtitle">{entry.description}</p> : null}
-            <RelationshipMap relationships={schemaDocument.definition.relationships} />
-          </div>
-        </section>
-      ) : null}
-      {entry.contentType === "source-archive" ? (
-        <section className="pm-card pm-content-card pm-archive-card">
-          <div className="pm-content-body">
-            <ArchiveNotice entry={entry} />
-            <SourceProvenance entry={entry} />
-            <ContentRenderer
-              format={entry.format}
-              markdown={entry.body}
-              sourceRelativePath={entry.relativePath}
-              archiveMode
-            />
-          </div>
-        </section>
-      ) : null}
-      {entry.contentType !== "source-archive" ? (
-        <section className="pm-card pm-content-card">
-          <div className="pm-content-body">
-            <ContentRenderer
-              format={entry.format}
-              markdown={entry.body}
-              sourceRelativePath={entry.relativePath}
-            />
-          </div>
-        </section>
-      ) : null}
-    </SectionLayout>
+      <ContentRouteView
+        entry={entry}
+        registry={registry}
+        domainEntry={domainEntry}
+        sections={sections.map((section) => ({
+          key: section.route,
+          title: section.title,
+          navLabel: section.navLabel,
+          order: section.order ?? 0,
+          href: section.href,
+          type: section.type,
+        }))}
+        archiveHref={`${domainEntry.href}/archive`}
+        activeSectionRoute={entry.href}
+      />
+    </SiteChrome>
   );
 }

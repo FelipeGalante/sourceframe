@@ -1,4 +1,5 @@
 import type { ContentFormat } from "@/lib/content";
+import type { ContentRegistry } from "@/lib/content";
 
 import { MarkdownRenderer } from "@/lib/markdown";
 
@@ -8,22 +9,41 @@ export function ContentRenderer({
   format,
   markdown,
   sourceRelativePath,
+  contentRegistry,
   archiveMode = false,
 }: {
   format: ContentFormat;
   markdown: string;
   sourceRelativePath: string;
+  contentRegistry?: ContentRegistry;
   archiveMode?: boolean;
 }) {
   if (archiveMode) {
     return (
-      <MarkdownRenderer markdown={markdown} sourceRelativePath={sourceRelativePath} literalSource />
+      <MarkdownRenderer
+        markdown={markdown}
+        sourceRelativePath={sourceRelativePath}
+        literalSource
+        contentRegistry={contentRegistry}
+      />
     );
   }
 
   if (format === "mdx") {
-    return <MdxRenderer markdown={markdown} sourceRelativePath={sourceRelativePath} />;
+    return (
+      <MdxRenderer
+        markdown={markdown}
+        sourceRelativePath={sourceRelativePath}
+        contentRegistry={contentRegistry}
+      />
+    );
   }
 
-  return <MarkdownRenderer markdown={markdown} sourceRelativePath={sourceRelativePath} />;
+  return (
+    <MarkdownRenderer
+      markdown={markdown}
+      sourceRelativePath={sourceRelativePath}
+      contentRegistry={contentRegistry}
+    />
+  );
 }

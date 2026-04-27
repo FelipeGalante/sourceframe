@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { ContentRenderer } from "@/components/markdown/ContentRenderer";
-import type { ContentEntry } from "@/lib/content";
+import type { ContentEntry, ContentRegistry } from "@/lib/content";
 
 function archivePills(entry: ContentEntry) {
   const pills: Array<{ label: string; value: string }> = [];
@@ -33,12 +33,14 @@ export function ArchiveView({
   description,
   entries,
   archiveHref,
+  contentRegistry,
 }: {
   title: string;
   eyebrow?: string;
   description?: string;
   entries: ContentEntry[];
   archiveHref?: string;
+  contentRegistry?: ContentRegistry;
 }) {
   return (
     <div className="pm-archive-shell">
@@ -79,6 +81,7 @@ export function ArchiveView({
                 format={entry.format}
                 markdown={entry.body}
                 sourceRelativePath={entry.relativePath}
+                contentRegistry={contentRegistry}
               />
             </div>
           </article>

@@ -1,7 +1,9 @@
+import { SiteChrome } from "@/components/layout/SiteChrome";
 import { notFound } from "next/navigation";
 
 import { ArchiveView } from "@/components/layout/ArchiveView";
 import { getDomainArchiveEntries, getDomainEntry, getVisibleDomainTabs } from "@/lib/content";
+import { buildProjectRuntime, getDefaultProject } from "@/lib/projects/catalog";
 
 export function generateStaticParams() {
   return getVisibleDomainTabs().map((domain) => ({
@@ -26,13 +28,28 @@ export default async function DomainArchivePage({
     notFound();
   }
 
+  const project = getDefaultProject();
+  const runtime = buildProjectRuntime(project, "root");
+
   return (
-    <ArchiveView
-      title={`${domainEntry.title} archive`}
-      eyebrow={domainEntry.eyebrow ?? domainEntry.title}
-      description={domainEntry.description}
-      entries={entries}
-      archiveHref="/full-archive"
-    />
+    <SiteChrome
+      domains={runtime.registry.domainTabs}
+      searchIndex={runtime.registry.searchIndex}
+      config={runtime.registry.siteConfig}
+      homeHref={runtime.homeHref}
+      archiveHref={runtime.archiveHref}
+      projects={runtime.projectSwitcher}
+      routeBase={runtime.routeBase}
+      themeAccent={project.themeAccent}
+    >
+      <ArchiveView
+        title={`${domainEntry.title} archive`}
+        eyebrow={domainEntry.eyebrow ?? domainEntry.title}
+        description={domainEntry.description}
+        entries={entries}
+        archiveHref={runtime.archiveHref}
+        contentRegistry={runtime.registry}
+      />
+    </SiteChrome>
   );
 }
