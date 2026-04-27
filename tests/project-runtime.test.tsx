@@ -25,7 +25,8 @@ test("single-project mode keeps the default project working at the root route", 
 
   assert.equal(runtime.homeHref, "/");
   assert.equal(runtime.archiveHref, "/full-archive");
-  assert.match(runtime.registry.rootEntry?.title ?? "", /PathMerit/);
+  assert.ok(runtime.registry.rootEntry);
+  assert.equal(runtime.registry.rootEntry?.route, "/");
   assert.ok(runtime.projectSwitcher.some((project) => project.href === "/projects/client-portal"));
 });
 
@@ -66,5 +67,5 @@ test("project switcher renders active project state", () => {
 
   assert.match(html, /aria-current="page"/);
   assert.match(html, /Client Portal/);
-  assert.match(html, /PathMerit/);
+  assert.match(html, /projects\/pathmerit/);
 });
