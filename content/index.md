@@ -19,6 +19,6 @@ This version keeps the extensive source-of-truth content, but no longer presents
 **479k**source chars preserved
 
 
-## Latest execution update
+## Sample layout
 
-The package now includes the revised [Claude Code Phases v2](./technology/phases.md), replacing the stale post-Session-2a prompts with a full database-v2-aware execution plan.
+The public sample site stays intentionally small so the template remains easy to swap over. The private PathMerit fixture content used for routing tests now lives in a separate project root and is not part of the public build.
