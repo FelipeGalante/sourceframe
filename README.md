@@ -13,6 +13,7 @@ This template expects Node.js 24.
 - Generated domain tabs and section navigation from content metadata
 - Client-side search over titles, headings, and body text
 - Full archive view
+- Deterministic agent-context bundle generation for Codex and Claude Code
 - Markdown rendering for GFM tables, fenced code blocks, Mermaid, heading anchors, details/summary, and raw HTML from trusted content, plus a literal-text Source Archive exception for `content/about/sources.md`
 - Responsive and print-friendly styling
 - A documented authoring workflow, deployment guide, and screenshot capture script
@@ -44,6 +45,8 @@ Then open `http://localhost:3000`.
 - `pnpm format:check` - verify Prettier formatting
 - `pnpm lint` - run ESLint
 - `pnpm generate:content` - regenerate the checked-in content manifests and migration report
+- `pnpm generate:agent-context` - regenerate the deterministic agent-context bundle in `generated`
+- `pnpm generate:agent-context -- --help` - show the available bundle filters and examples
 - `pnpm screenshots` - capture template preview images into `public/screenshots`
 - `pnpm typegen` - generate Next.js route types without a full build
 - `pnpm typecheck` - generate Next.js route types and then run the TypeScript compiler in no-emit mode
@@ -64,7 +67,8 @@ Then open `http://localhost:3000`.
 9. Use nested Markdown files for sections and specialized content types.
 10. Read [`docs/content-authoring.md`](./docs/content-authoring.md) before adding new content.
 11. Read [`docs/vercel-deployment.md`](./docs/vercel-deployment.md) before deploying.
-12. Run `pnpm build` before publishing so frontmatter and routing errors are caught early.
+12. Read [`docs/agent-context.md`](./docs/agent-context.md) if you want to generate a Codex or Claude Code bundle.
+13. Run `pnpm build` before publishing so frontmatter and routing errors are caught early.
 
 ## Content Rules
 
@@ -98,4 +102,5 @@ Then open `http://localhost:3000`.
 - `content/about/sources.md` is rendered as literal source text so the archive stays auditable and cannot be reinterpreted as normal Markdown.
 - Mark template-only docs with `visibility: "internal"` when they should stay in the repo but be excluded from the public migration manifest.
 - Run `pnpm generate:content` after changing `/content` if you want to refresh the checked-in manifests in `/generated`.
+- Run `pnpm generate:agent-context` after changing content if you want to refresh the checked-in agent bundle in `/generated`.
 - Run `pnpm screenshots` after starting the app locally if you want fresh preview images in [`public/screenshots`](./public/screenshots).

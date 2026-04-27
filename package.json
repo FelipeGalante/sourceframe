@@ -13,6 +13,7 @@
     "format:check": "prettier . --check",
     "lint": "eslint . --max-warnings=0",
     "generate:content": "node --import tsx scripts/generate-content.ts",
+    "generate:agent-context": "node --import tsx scripts/generate-agent-context.ts",
     "screenshots": "node --import tsx scripts/capture-screenshots.ts",
     "typegen": "next typegen",
     "typecheck": "pnpm typegen && tsc --noEmit",
