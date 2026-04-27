@@ -13,4 +13,3 @@ source: "PathMerit source bundle"
 # Archive Index
 
 This page lists preserved source material that should remain searchable but visually distinct from canonical guidance.
-

@@ -1,12 +1,13 @@
 ---
 title: "Getting Started"
-nav_label: "Getting Started"
 domain: "guide"
 section: "getting-started"
 type: "section"
+contentType: "guide"
 order: 1
+summary: "A quick start page."
 ---
 
 # Getting Started
 
-Use this page for onboarding steps, setup notes, or the first thing a reader should do.
+Write the first steps a new reader should follow here.

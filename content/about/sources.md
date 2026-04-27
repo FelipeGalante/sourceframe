@@ -4296,92 +4296,94 @@ You are building the foundational infrastructure for **PathMerit**, a career acc
 ### Directory structure to create
 
 ```
+
 /pathmerit (root)
-  ├── package.json (root workspace config)
-  ├── pnpm-workspace.yaml
-  ├── turbo.json
-  ├── tsconfig.base.json
-  ├── .env.example
-  ├── .gitignore
-  ├── docker-compose.yml
-  ├── .github/workflows/deploy.yml (CI pipeline)
-  │
-  ├── /apps
-  │   ├── /web
-  │   │   ├── package.json
-  │   │   ├── tsconfig.json
-  │   │   ├── next.config.js
-  │   │   ├── tailwind.config.ts
-  │   │   ├── postcss.config.js
-  │   │   ├── /src
-  │   │   │   ├── /app
-  │   │   │   │   ├── layout.tsx
-  │   │   │   │   ├── page.tsx
-  │   │   │   │   ├── /auth
-  │   │   │   │   │   ├── layout.tsx
-  │   │   │   │   │   ├── /signup
-  │   │   │   │   │   │   └── page.tsx
-  │   │   │   │   │   └── /login
-  │   │   │   │   │       └── page.tsx
-  │   │   │   │   ├── /dashboard
-  │   │   │   │   │   ├── layout.tsx
-  │   │   │   │   │   └── page.tsx
-  │   │   │   ├── /lib
-  │   │   │   │   ├── api.ts (fetch client)
-  │   │   │   │   └── utils.ts
-  │   │   │   └── /components
-  │   │   │       └── Sidebar.tsx
-  │   └── /api
-  │       ├── package.json
-  │       ├── tsconfig.json
-  │       ├── src/
-  │       │   ├── main.ts (NestJS entry point)
-  │       │   ├── app.module.ts
-  │       │   ├── /modules
-  │       │   │   ├── /auth
-  │       │   │   │   ├── auth.module.ts
-  │       │   │   │   ├── auth.controller.ts
-  │       │   │   │   └── auth.service.ts
-  │       │   │   ├── /users
-  │       │   │   │   ├── users.module.ts
-  │       │   │   │   ├── users.controller.ts
-  │       │   │   │   └── users.service.ts
-  │       │   │   ├── /resumes
-  │       │   │   │   ├── resumes.module.ts
-  │       │   │   │   ├── resumes.controller.ts
-  │       │   │   │   └── resumes.service.ts
-  │       │   │   ├── /applications
-  │       │   │   ├── /prep
-  │       │   │   └── /jobs (background job orchestration)
-  │       │   ├── /db
-  │       │   │   ├── schema.ts (Drizzle schema — core entities)
-  │       │   │   ├── migrations/ (Drizzle migrations)
-  │       │   │   └── seed.ts (seed lookups database)
-  │       │   └── /common
-  │       │       ├── guards/ (AuthGuard)
-  │       │       └── interceptors/
-  │       └── ormconfig.ts (Drizzle config)
-  │
-  ├── /packages
-  │   ├── /types (shared TypeScript types)
-  │   │   ├── package.json
-  │   │   └── src/
-  │   │       ├── user.ts
-  │   │       ├── resume.ts
-  │   │       ├── application.ts
-  │   │       └── index.ts
-  │   └── /schemas (Zod validation schemas)
-  │       ├── package.json
-  │       └── src/
-  │           ├── auth.ts
-  │           ├── resume.ts
-  │           ├── application.ts
-  │           └── index.ts
-  │
-  ├── README.md (setup instructions)
-  └── docs/
-      ├── architecture.md
-      └── database-schema.md
+├── package.json (root workspace config)
+├── pnpm-workspace.yaml
+├── turbo.json
+├── tsconfig.base.json
+├── .env.example
+├── .gitignore
+├── docker-compose.yml
+├── .github/workflows/deploy.yml (CI pipeline)
+│
+├── /apps
+│ ├── /web
+│ │ ├── package.json
+│ │ ├── tsconfig.json
+│ │ ├── next.config.js
+│ │ ├── tailwind.config.ts
+│ │ ├── postcss.config.js
+│ │ ├── /src
+│ │ │ ├── /app
+│ │ │ │ ├── layout.tsx
+│ │ │ │ ├── page.tsx
+│ │ │ │ ├── /auth
+│ │ │ │ │ ├── layout.tsx
+│ │ │ │ │ ├── /signup
+│ │ │ │ │ │ └── page.tsx
+│ │ │ │ │ └── /login
+│ │ │ │ │ └── page.tsx
+│ │ │ │ ├── /dashboard
+│ │ │ │ │ ├── layout.tsx
+│ │ │ │ │ └── page.tsx
+│ │ │ ├── /lib
+│ │ │ │ ├── api.ts (fetch client)
+│ │ │ │ └── utils.ts
+│ │ │ └── /components
+│ │ │ └── Sidebar.tsx
+│ └── /api
+│ ├── package.json
+│ ├── tsconfig.json
+│ ├── src/
+│ │ ├── main.ts (NestJS entry point)
+│ │ ├── app.module.ts
+│ │ ├── /modules
+│ │ │ ├── /auth
+│ │ │ │ ├── auth.module.ts
+│ │ │ │ ├── auth.controller.ts
+│ │ │ │ └── auth.service.ts
+│ │ │ ├── /users
+│ │ │ │ ├── users.module.ts
+│ │ │ │ ├── users.controller.ts
+│ │ │ │ └── users.service.ts
+│ │ │ ├── /resumes
+│ │ │ │ ├── resumes.module.ts
+│ │ │ │ ├── resumes.controller.ts
+│ │ │ │ └── resumes.service.ts
+│ │ │ ├── /applications
+│ │ │ ├── /prep
+│ │ │ └── /jobs (background job orchestration)
+│ │ ├── /db
+│ │ │ ├── schema.ts (Drizzle schema — core entities)
+│ │ │ ├── migrations/ (Drizzle migrations)
+│ │ │ └── seed.ts (seed lookups database)
+│ │ └── /common
+│ │ ├── guards/ (AuthGuard)
+│ │ └── interceptors/
+│ └── ormconfig.ts (Drizzle config)
+│
+├── /packages
+│ ├── /types (shared TypeScript types)
+│ │ ├── package.json
+│ │ └── src/
+│ │ ├── user.ts
+│ │ ├── resume.ts
+│ │ ├── application.ts
+│ │ └── index.ts
+│ └── /schemas (Zod validation schemas)
+│ ├── package.json
+│ └── src/
+│ ├── auth.ts
+│ ├── resume.ts
+│ ├── application.ts
+│ └── index.ts
+│
+├── README.md (setup instructions)
+└── docs/
+├── architecture.md
+└── database-schema.md
+
 ```
 
 ### Your specific deliverables
@@ -4402,27 +4404,34 @@ You are building the foundational infrastructure for **PathMerit**, a career acc
 
 **3. .env.example**
 ```
+
 # Database
+
 DATABASE_URL=postgresql://postgres:postgres@localhost:5432/pathmerit
 
 # Auth
+
 GOOGLE_CLIENT_ID=your_google_client_id_here
 GOOGLE_CLIENT_SECRET=your_google_client_secret_here
 JWT_SECRET=your_jwt_secret_here
 
 # Stripe
+
 STRIPE_SECRET_KEY=your_stripe_secret_key_here
 STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key_here
 STRIPE_WEBHOOK_SECRET=your_stripe_webhook_secret_here
 
 # Resend (email)
+
 RESEND_API_KEY=your_resend_api_key_here
 
 # App
+
 NODE_ENV=development
 API_PORT=3001
 NEXT_PUBLIC_API_URL=http://localhost:3001
-```
+
+````
 
 **4. Next.js /apps/web scaffold**
 - Initialize with `create-next-app@latest` (App Router, TypeScript, Tailwind, ESLint)
@@ -4484,11 +4493,12 @@ Create the complete Drizzle schema with these core tables:
 
 // Background jobs
 - jobs (id, type, payload_json, status, attempts, run_at, locked_at, error, created_at, updated_at)
-```
+````
 
 Include all necessary relations, indexes, and foreign key constraints.
 
 **7. Database migrations**
+
 - Use Drizzle Kit to generate initial migration from schema.ts
 - Create a seed.ts file that populates:
   - 200+ technologies (Go, TypeScript, PostgreSQL, React, Node.js, Kubernetes, AWS, GCP, Docker, Rails, Python, etc.)
@@ -4497,12 +4507,14 @@ Include all necessary relations, indexes, and foreign key constraints.
   - 20+ default application statuses
 
 **8. Drizzle ORM configuration**
+
 - Create /apps/api/src/db/index.ts that exports the database client
 - Configure connection pooling
 - Export query functions for service layer
 
 **9. Auth module (/apps/api/src/modules/auth)**
 Create auth.controller.ts with endpoints:
+
 - POST /auth/signup — register with email/password
 - POST /auth/login — authenticate with email/password
 - POST /auth/google — Google SSO callback
@@ -4511,6 +4523,7 @@ Create auth.controller.ts with endpoints:
 - GET /auth/me — return current user
 
 Create auth.service.ts that:
+
 - Hashes passwords with bcrypt
 - Issues JWT tokens
 - Validates tokens
@@ -4518,6 +4531,7 @@ Create auth.service.ts that:
 
 **10. Shared type packages (/packages/types and /packages/schemas)**
 Create TypeScript types and Zod schemas for:
+
 - User
 - Resume
 - WorkExperience
@@ -4531,6 +4545,7 @@ Create TypeScript types and Zod schemas for:
 
 **11. GitHub Actions CI pipeline (.github/workflows/deploy.yml)**
 Create a workflow that:
+
 - Runs on push to main and PRs
 - Installs dependencies with pnpm
 - Runs `turbo lint`
@@ -4539,10 +4554,12 @@ Create a workflow that:
 - (Optional) Builds Docker image and pushes to registry for later Railway deployment
 
 **12. README.md with developer setup instructions**
+
 ```markdown
 # PathMerit — Developer Setup
 
 ## Prerequisites
+
 - Node.js 18+
 - pnpm 8+
 - Docker & Docker Compose
@@ -4577,12 +4594,14 @@ Create a workflow that:
    The API runs on http://localhost:3001
 
 ## Project structure
+
 - /apps/web — Next.js frontend (Vercel-ready)
 - /apps/api — NestJS backend (Railway-ready)
 - /packages/types — Shared TypeScript types
 - /packages/schemas — Shared Zod validation schemas
 
 ## Available scripts
+
 - `pnpm dev` — Start all dev servers
 - `pnpm build` — Build all packages
 - `pnpm lint` — Lint all packages
@@ -4591,6 +4610,7 @@ Create a workflow that:
 - `pnpm db:seed` — Seed database with lookups
 
 ## Deployment
+
 - Frontend deploys to Vercel
 - Backend deploys to Railway
 - Database uses Neon Postgres
@@ -4617,6 +4637,7 @@ See docs/deployment.md for detailed instructions.
 ## Success checklist
 
 After completion, verify:
+
 - [ ] `pnpm install` completes without errors
 - [ ] `docker-compose up -d` starts Postgres successfully
 - [ ] `pnpm db:migrate` runs migrations without errors
@@ -4649,11 +4670,13 @@ After completion, verify:
 ---
 
 Execute this scaffold from top to bottom. This session should produce a working local development environment with all core infrastructure in place.
+
 ```
 
 CLAUDE_CODE_SESSION_2A.md 12,956 chars
 
 ```
+
 # Claude Code Session 2a: Design System Package Integration
 
 You are building the **PathMerit design system package** and integrating it into the existing monorepo.
@@ -4665,6 +4688,7 @@ You are building the **PathMerit design system package** and integrating it into
 **What you're building now:** A centralized design system package that all UI components will use. This comes from your Claude Design export and becomes the source of truth for all styling and component patterns.
 
 **What you have:**
+
 - A monorepo at /pathmerit (or your local clone)
 - /apps/web (Next.js frontend)
 - /apps/api (NestJS backend)
@@ -4743,40 +4767,40 @@ Create `/packages/design-system/` with this structure:
 ```typescript
 export const colors = {
   // Core palette
-  bg: '#0d0d10',
-  bg2: '#13131a',
-  bg3: '#191921',
-  bg4: '#21212e',
+  bg: "#0d0d10",
+  bg2: "#13131a",
+  bg3: "#191921",
+  bg4: "#21212e",
 
   // Text
-  ink: '#ededf0',
-  'ink-soft': '#8888a0',
-  'ink-muted': '#444458',
+  ink: "#ededf0",
+  "ink-soft": "#8888a0",
+  "ink-muted": "#444458",
 
   // Accents
-  accent: '#7c6af7',
-  'accent-dark': '#6b59d9',
-  'accent-light': '#9b8fff',
+  accent: "#7c6af7",
+  "accent-dark": "#6b59d9",
+  "accent-light": "#9b8fff",
 
   // Semantic colors
-  success: '#5ecf8a',
-  warning: '#f0a060',
-  error: '#f07878',
-  info: '#6aadee',
+  success: "#5ecf8a",
+  warning: "#f0a060",
+  error: "#f07878",
+  info: "#6aadee",
 
   // Borders
-  border: 'rgba(255, 255, 255, 0.07)',
-  'border-light': 'rgba(255, 255, 255, 0.15)',
+  border: "rgba(255, 255, 255, 0.07)",
+  "border-light": "rgba(255, 255, 255, 0.15)",
 };
 
 export const colorPairs = {
   primary: {
-    light: '#7c6af7',
-    dark: '#6b59d9',
+    light: "#7c6af7",
+    dark: "#6b59d9",
   },
   secondary: {
-    light: '#13131a',
-    dark: '#0d0d10',
+    light: "#13131a",
+    dark: "#0d0d10",
   },
   // ... more pairs
 };
@@ -4793,15 +4817,15 @@ export const typography = {
   },
 
   sizes: {
-    xs: '0.75rem',    // 12px
-    sm: '0.875rem',   // 14px
-    base: '1rem',     // 16px
-    lg: '1.125rem',   // 18px
-    xl: '1.25rem',    // 20px
-    '2xl': '1.5rem',  // 24px
-    '3xl': '1.875rem', // 30px
-    '4xl': '2.25rem', // 36px
-    '5xl': '3rem',    // 48px
+    xs: "0.75rem", // 12px
+    sm: "0.875rem", // 14px
+    base: "1rem", // 16px
+    lg: "1.125rem", // 18px
+    xl: "1.25rem", // 20px
+    "2xl": "1.5rem", // 24px
+    "3xl": "1.875rem", // 30px
+    "4xl": "2.25rem", // 36px
+    "5xl": "3rem", // 48px
   },
 
   weights: {
@@ -4819,18 +4843,18 @@ export const typography = {
 
 ```typescript
 export const spacing = {
-  0: '0',
-  1: '0.25rem',  // 4px
-  2: '0.5rem',   // 8px
-  3: '0.75rem',  // 12px
-  4: '1rem',     // 16px
-  5: '1.25rem',  // 20px
-  6: '1.5rem',   // 24px
-  8: '2rem',     // 32px
-  10: '2.5rem',  // 40px
-  12: '3rem',    // 48px
-  16: '4rem',    // 64px
-  20: '5rem',    // 80px
+  0: "0",
+  1: "0.25rem", // 4px
+  2: "0.5rem", // 8px
+  3: "0.75rem", // 12px
+  4: "1rem", // 16px
+  5: "1.25rem", // 20px
+  6: "1.5rem", // 24px
+  8: "2rem", // 32px
+  10: "2.5rem", // 40px
+  12: "3rem", // 48px
+  16: "4rem", // 64px
+  20: "5rem", // 80px
 };
 ```
 
@@ -4838,11 +4862,11 @@ export const spacing = {
 
 ```typescript
 export const shadows = {
-  sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
-  base: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
-  md: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-  lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-  xl: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+  sm: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
+  base: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)",
+  md: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+  lg: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
+  xl: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
 };
 ```
 
@@ -4850,38 +4874,39 @@ export const shadows = {
 
 ```typescript
 export const radius = {
-  none: '0',
-  sm: '0.125rem',   // 2px
-  base: '0.375rem', // 6px
-  md: '0.5rem',     // 8px
-  lg: '0.75rem',    // 12px
-  xl: '1rem',       // 16px
-  full: '9999px',
+  none: "0",
+  sm: "0.125rem", // 2px
+  base: "0.375rem", // 6px
+  md: "0.5rem", // 8px
+  lg: "0.75rem", // 12px
+  xl: "1rem", // 16px
+  full: "9999px",
 };
 ```
 
 **tokens/index.ts** — Export all tokens:
 
 ```typescript
-export { colors, colorPairs } from './colors';
-export { typography } from './typography';
-export { spacing } from './spacing';
-export { shadows } from './shadows';
-export { radius } from './radius';
+export { colors, colorPairs } from "./colors";
+export { typography } from "./typography";
+export { spacing } from "./spacing";
+export { shadows } from "./shadows";
+export { radius } from "./radius";
 
 export const tokens = {
-  colors: require('./colors').colors,
-  colorPairs: require('./colors').colorPairs,
-  typography: require('./typography').typography,
-  spacing: require('./spacing').spacing,
-  shadows: require('./shadows').shadows,
-  radius: require('./radius').radius,
+  colors: require("./colors").colors,
+  colorPairs: require("./colors").colorPairs,
+  typography: require("./typography").typography,
+  spacing: require("./spacing").spacing,
+  shadows: require("./shadows").shadows,
+  radius: require("./radius").radius,
 };
 ```
 
 ### Step 4: Implement core components using CVA (Class Variance Authority)
 
 Create components using the CVA pattern. Each component should:
+
 - Be exported from /src/components/index.ts
 - Use Tailwind utilities with design tokens
 - Define variants using CVA
@@ -4942,20 +4967,20 @@ export { Button, buttonVariants };
 ### Step 5: Create components/index.ts barrel export
 
 ```typescript
-export { Button, buttonVariants } from './Button';
-export { Input, inputVariants } from './Input';
-export { Card } from './Card';
-export { Modal } from './Modal';
-export { Sidebar } from './Sidebar';
+export { Button, buttonVariants } from "./Button";
+export { Input, inputVariants } from "./Input";
+export { Card } from "./Card";
+export { Modal } from "./Modal";
+export { Sidebar } from "./Sidebar";
 // ... export all components
 ```
 
 ### Step 6: Create src/index.ts barrel export
 
 ```typescript
-export * from './components';
-export * from './tokens';
-export { default as tailwindConfig } from './tailwind.config';
+export * from "./components";
+export * from "./tokens";
+export { default as tailwindConfig } from "./tailwind.config";
 ```
 
 ### Step 7: Create tailwind.config.ts for design system
@@ -4963,31 +4988,25 @@ export { default as tailwindConfig } from './tailwind.config';
 This config extends Tailwind with design tokens:
 
 ```typescript
-import type { Config } from 'tailwindcss';
-import {
-  colors,
-  typography,
-  spacing,
-  shadows,
-  radius,
-} from './tokens';
+import type { Config } from "tailwindcss";
+import { colors, typography, spacing, shadows, radius } from "./tokens";
 
 export default {
-  content: ['./src/**/*.{js,ts,jsx,tsx}'],
+  content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       colors: {
         // Map token colors to Tailwind color names
         accent: colors.accent,
-        'accent-dark': colors['accent-dark'],
-        'accent-light': colors['accent-light'],
+        "accent-dark": colors["accent-dark"],
+        "accent-light": colors["accent-light"],
         bg: colors.bg,
         bg2: colors.bg2,
         bg3: colors.bg3,
         bg4: colors.bg4,
         ink: colors.ink,
-        'ink-soft': colors['ink-soft'],
-        'ink-muted': colors['ink-muted'],
+        "ink-soft": colors["ink-soft"],
+        "ink-muted": colors["ink-muted"],
         success: colors.success,
         warning: colors.warning,
         error: colors.error,
@@ -5026,14 +5045,11 @@ In `/apps/web/package.json`, add:
 In `/apps/web/tailwind.config.ts`:
 
 ```typescript
-import type { Config } from 'tailwindcss';
-import designSystemConfig from '@pathmerit/design-system/tailwind.config';
+import type { Config } from "tailwindcss";
+import designSystemConfig from "@pathmerit/design-system/tailwind.config";
 
 export default {
-  content: [
-    './src/**/*.{js,ts,jsx,tsx}',
-    '../../packages/design-system/**/*.{ts,tsx}',
-  ],
+  content: ["./src/**/*.{js,ts,jsx,tsx}", "../../packages/design-system/**/*.{ts,tsx}"],
   theme: {
     extend: {
       ...designSystemConfig.theme?.extend,
@@ -5135,11 +5151,13 @@ npm run build
 - Design tokens are the single source of truth. If you need to change a color, update the token once and it propagates everywhere.
 
 This session creates the design system as a publishable npm package. Future sessions will use this for all UI components.
+
 ```
 
 CLAUDE_CODE_SESSION_2B.md 18,506 chars
 
 ```
+
 # Claude Code Session 2b: Auth Module Implementation
 
 You are building the **complete authentication system** for PathMerit with email/password signup, login, Google SSO, JWT token refresh, and session management.
@@ -5149,6 +5167,7 @@ You are building the **complete authentication system** for PathMerit with email
 **Current state:** You have the monorepo scaffold with NestJS backend, PostgreSQL database with users and sessions tables, and the design system package integrated.
 
 **What you're building now:** A production-ready auth module that handles:
+
 - User signup with email/password (with validation)
 - User login with email/password (with JWT token generation)
 - Google OAuth SSO integration
@@ -5229,11 +5248,11 @@ This is the core business logic for authentication.
 ```typescript
 // /apps/api/src/modules/auth/auth.service.ts
 
-import { Injectable, BadRequestException, UnauthorizedException } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-import * as bcrypt from 'bcryptjs';
-import { PrismaService } from '../../common/prisma.service'; // or your DB service
-import { JwtPayload, TokenResponse } from './auth.types';
+import { Injectable, BadRequestException, UnauthorizedException } from "@nestjs/common";
+import { JwtService } from "@nestjs/jwt";
+import * as bcrypt from "bcryptjs";
+import { PrismaService } from "../../common/prisma.service"; // or your DB service
+import { JwtPayload, TokenResponse } from "./auth.types";
 
 @Injectable()
 export class AuthService {
@@ -5248,13 +5267,13 @@ export class AuthService {
   async signup(email: string, password: string, name: string): Promise<TokenResponse> {
     // Validate email format
     if (!this.isValidEmail(email)) {
-      throw new BadRequestException('Invalid email format');
+      throw new BadRequestException("Invalid email format");
     }
 
     // Check if user already exists
     const existingUser = await this.db.user.findUnique({ where: { email } });
     if (existingUser) {
-      throw new BadRequestException('User with this email already exists');
+      throw new BadRequestException("User with this email already exists");
     }
 
     // Hash password
@@ -5266,8 +5285,8 @@ export class AuthService {
         email,
         name,
         password: hashedPassword,
-        auth_provider: 'email',
-        tier: 'free',
+        auth_provider: "email",
+        tier: "free",
       },
     });
 
@@ -5312,13 +5331,13 @@ export class AuthService {
     });
 
     if (!user) {
-      throw new UnauthorizedException('Invalid email or password');
+      throw new UnauthorizedException("Invalid email or password");
     }
 
     // Verify password
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      throw new UnauthorizedException('Invalid email or password');
+      throw new UnauthorizedException("Invalid email or password");
     }
 
     // Generate tokens
@@ -5358,10 +5377,10 @@ export class AuthService {
     let payload: JwtPayload;
     try {
       payload = this.jwtService.verify(refreshToken, {
-        secret: process.env.JWT_REFRESH_SECRET || 'refresh-secret',
+        secret: process.env.JWT_REFRESH_SECRET || "refresh-secret",
       });
     } catch {
-      throw new UnauthorizedException('Invalid refresh token');
+      throw new UnauthorizedException("Invalid refresh token");
     }
 
     // Check if refresh token exists in DB
@@ -5370,7 +5389,7 @@ export class AuthService {
     });
 
     if (!session || session.refresh_token !== refreshToken) {
-      throw new UnauthorizedException('Refresh token not found or mismatch');
+      throw new UnauthorizedException("Refresh token not found or mismatch");
     }
 
     // Get user
@@ -5379,7 +5398,7 @@ export class AuthService {
     });
 
     if (!user) {
-      throw new UnauthorizedException('User not found');
+      throw new UnauthorizedException("User not found");
     }
 
     // Generate new tokens
@@ -5414,7 +5433,7 @@ export class AuthService {
     const name = googleProfile.displayName;
 
     if (!email) {
-      throw new BadRequestException('Email not provided by Google');
+      throw new BadRequestException("Email not provided by Google");
     }
 
     // Find or create user
@@ -5425,15 +5444,15 @@ export class AuthService {
         data: {
           email,
           name,
-          auth_provider: 'google',
-          tier: 'free',
+          auth_provider: "google",
+          tier: "free",
         },
       });
-    } else if (user.auth_provider !== 'google' && user.auth_provider !== 'email') {
+    } else if (user.auth_provider !== "google" && user.auth_provider !== "email") {
       // Allow users to link Google to existing account
       await this.db.user.update({
         where: { id: user.id },
-        data: { auth_provider: 'google' },
+        data: { auth_provider: "google" },
       });
     }
 
@@ -5508,13 +5527,13 @@ export class AuthService {
     const payload: JwtPayload = { id: userId, email };
 
     const accessToken = this.jwtService.sign(payload, {
-      secret: process.env.JWT_SECRET || 'secret',
-      expiresIn: '15m', // Short-lived access token
+      secret: process.env.JWT_SECRET || "secret",
+      expiresIn: "15m", // Short-lived access token
     });
 
     const refreshToken = this.jwtService.sign(payload, {
-      secret: process.env.JWT_REFRESH_SECRET || 'refresh-secret',
-      expiresIn: '7d', // Long-lived refresh token
+      secret: process.env.JWT_REFRESH_SECRET || "refresh-secret",
+      expiresIn: "7d", // Long-lived refresh token
     });
 
     return { accessToken, refreshToken };
@@ -5527,10 +5546,10 @@ export class AuthService {
 ```typescript
 // /apps/api/src/modules/auth/jwt.strategy.ts
 
-import { Injectable } from '@nestjs/common';
-import { PassportStrategy } from '@nestjs/passport';
-import { ExtractJwt, Strategy } from 'passport-jwt';
-import { JwtPayload } from './auth.types';
+import { Injectable } from "@nestjs/common";
+import { PassportStrategy } from "@nestjs/passport";
+import { ExtractJwt, Strategy } from "passport-jwt";
+import { JwtPayload } from "./auth.types";
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -5538,7 +5557,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
-      secretOrKey: process.env.JWT_SECRET || 'secret',
+      secretOrKey: process.env.JWT_SECRET || "secret",
     });
   }
 
@@ -5553,11 +5572,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 ```typescript
 // /apps/api/src/modules/auth/jwt.guard.ts
 
-import { Injectable } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
+import { Injectable } from "@nestjs/common";
+import { AuthGuard } from "@nestjs/passport";
 
 @Injectable()
-export class JwtAuthGuard extends AuthGuard('jwt') {}
+export class JwtAuthGuard extends AuthGuard("jwt") {}
 ```
 
 ### Step 6: Create auth.controller.ts
@@ -5576,30 +5595,30 @@ import {
   BadRequestException,
   HttpCode,
   HttpStatus,
-} from '@nestjs/common';
-import { Request, Response } from 'express';
-import { AuthService } from './auth.service';
-import { JwtAuthGuard } from './jwt.guard';
-import { ZodValidationPipe } from '../../common/zod-validation.pipe';
-import { z } from 'zod';
+} from "@nestjs/common";
+import { Request, Response } from "express";
+import { AuthService } from "./auth.service";
+import { JwtAuthGuard } from "./jwt.guard";
+import { ZodValidationPipe } from "../../common/zod-validation.pipe";
+import { z } from "zod";
 
 // Zod schemas for validation
 const signupSchema = z.object({
-  email: z.string().email('Invalid email'),
-  password: z.string().min(8, 'Password must be at least 8 characters'),
-  name: z.string().min(2, 'Name must be at least 2 characters'),
+  email: z.string().email("Invalid email"),
+  password: z.string().min(8, "Password must be at least 8 characters"),
+  name: z.string().min(2, "Name must be at least 2 characters"),
 });
 
 const loginSchema = z.object({
-  email: z.string().email('Invalid email'),
-  password: z.string().min(1, 'Password required'),
+  email: z.string().email("Invalid email"),
+  password: z.string().min(1, "Password required"),
 });
 
 const refreshSchema = z.object({
-  refreshToken: z.string().min(1, 'Refresh token required'),
+  refreshToken: z.string().min(1, "Refresh token required"),
 });
 
-@Controller('auth')
+@Controller("auth")
 export class AuthController {
   constructor(private authService: AuthService) {}
 
@@ -5607,7 +5626,7 @@ export class AuthController {
    * POST /auth/signup
    * Register a new user
    */
-  @Post('signup')
+  @Post("signup")
   @HttpCode(HttpStatus.CREATED)
   async signup(
     @Body(new ZodValidationPipe(signupSchema))
@@ -5615,10 +5634,10 @@ export class AuthController {
     @Res({ passthrough: true }) res: Response,
   ) {
     const result = await this.authService.signup(body.email, body.password, body.name);
-    res.cookie('refreshToken', result.refreshToken, {
+    res.cookie("refreshToken", result.refreshToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
     return {
@@ -5631,7 +5650,7 @@ export class AuthController {
    * POST /auth/login
    * Login with email and password
    */
-  @Post('login')
+  @Post("login")
   @HttpCode(HttpStatus.OK)
   async login(
     @Body(new ZodValidationPipe(loginSchema))
@@ -5639,10 +5658,10 @@ export class AuthController {
     @Res({ passthrough: true }) res: Response,
   ) {
     const result = await this.authService.login(body.email, body.password);
-    res.cookie('refreshToken', result.refreshToken, {
+    res.cookie("refreshToken", result.refreshToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
     return {
@@ -5655,11 +5674,13 @@ export class AuthController {
    * POST /auth/refresh
    * Refresh access token using refresh token
    */
-  @Post('refresh')
+  @Post("refresh")
   @HttpCode(HttpStatus.OK)
   async refresh(
     @Body(new ZodValidationPipe(refreshSchema))
-    body: { refreshToken: string },
+    body: {
+      refreshToken: string;
+    },
   ) {
     const result = await this.authService.refreshToken(body.refreshToken);
     return {
@@ -5672,17 +5693,14 @@ export class AuthController {
    * POST /auth/logout
    * Logout and delete session
    */
-  @Post('logout')
+  @Post("logout")
   @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.OK)
-  async logout(
-    @Req() req: any,
-    @Res({ passthrough: true }) res: Response,
-  ) {
+  async logout(@Req() req: any, @Res({ passthrough: true }) res: Response) {
     await this.authService.logout(req.user.userId);
-    res.clearCookie('refreshToken');
+    res.clearCookie("refreshToken");
     return {
-      data: { message: 'Logged out successfully' },
+      data: { message: "Logged out successfully" },
       error: null,
     };
   }
@@ -5691,13 +5709,13 @@ export class AuthController {
    * GET /auth/me
    * Get current user (protected route)
    */
-  @Get('me')
+  @Get("me")
   @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.OK)
   async getCurrentUser(@Req() req: any) {
     const user = await this.authService.getCurrentUser(req.user.userId);
     if (!user) {
-      throw new BadRequestException('User not found');
+      throw new BadRequestException("User not found");
     }
     return {
       data: user,
@@ -5709,11 +5727,11 @@ export class AuthController {
    * GET /auth/health
    * Health check (no auth required)
    */
-  @Get('health')
+  @Get("health")
   @HttpCode(HttpStatus.OK)
   async health() {
     return {
-      data: { status: 'ok' },
+      data: { status: "ok" },
       error: null,
     };
   }
@@ -5725,20 +5743,20 @@ export class AuthController {
 ```typescript
 // /apps/api/src/modules/auth/auth.module.ts
 
-import { Module } from '@nestjs/common';
-import { JwtModule } from '@nestjs/jwt';
-import { PassportModule } from '@nestjs/passport';
-import { AuthService } from './auth.service';
-import { AuthController } from './auth.controller';
-import { JwtStrategy } from './jwt.strategy';
-import { PrismaModule } from '../../common/prisma.module'; // adjust as needed
+import { Module } from "@nestjs/common";
+import { JwtModule } from "@nestjs/jwt";
+import { PassportModule } from "@nestjs/passport";
+import { AuthService } from "./auth.service";
+import { AuthController } from "./auth.controller";
+import { JwtStrategy } from "./jwt.strategy";
+import { PrismaModule } from "../../common/prisma.module"; // adjust as needed
 
 @Module({
   imports: [
     PassportModule,
     JwtModule.register({
-      secret: process.env.JWT_SECRET || 'secret',
-      signOptions: { expiresIn: '15m' },
+      secret: process.env.JWT_SECRET || "secret",
+      signOptions: { expiresIn: "15m" },
     }),
     PrismaModule,
   ],
@@ -5754,7 +5772,7 @@ export class AuthModule {}
 In `/apps/api/src/app.module.ts`:
 
 ```typescript
-import { AuthModule } from './modules/auth/auth.module';
+import { AuthModule } from "./modules/auth/auth.module";
 // ... other imports
 
 @Module({
@@ -5771,8 +5789,8 @@ export class AppModule {}
 ```typescript
 // /apps/api/src/common/zod-validation.pipe.ts
 
-import { PipeTransform, BadRequestException } from '@nestjs/common';
-import { ZodSchema } from 'zod';
+import { PipeTransform, BadRequestException } from "@nestjs/common";
+import { ZodSchema } from "zod";
 
 export class ZodValidationPipe implements PipeTransform {
   constructor(private schema: ZodSchema) {}
@@ -5781,7 +5799,7 @@ export class ZodValidationPipe implements PipeTransform {
     try {
       return this.schema.parse(value);
     } catch (error: any) {
-      throw new BadRequestException(error.errors[0]?.message || 'Validation failed');
+      throw new BadRequestException(error.errors[0]?.message || "Validation failed");
     }
   }
 }
@@ -5860,11 +5878,13 @@ SELECT * FROM sessions;
 - Google OAuth integration is set up for Phase 2 (session 2b extended).
 
 The auth module is now complete and production-ready. All subsequent sessions can use JwtAuthGuard to protect routes.
+
 ```
 
 CLAUDE_CODE_SESSION_3.md 31,177 chars
 
 ```
+
 # Claude Code Session 3: Resume Builder + Application Tracker APIs
 
 You are building the **Resume Builder module** and **Application Tracker module** with complete CRUD operations, variants, PDF export job queueing, and contact logging.
@@ -5874,6 +5894,7 @@ You are building the **Resume Builder module** and **Application Tracker module*
 **Current state:** You have the monorepo with NestJS backend, design system, and complete auth module. Database schema includes all resume, application, and contact tables. Auth endpoints are working.
 
 **What you're building now:**
+
 - **Resume Builder API**: Create, read, update, delete resumes. Create variants. Add/edit work experiences, education, skills. Queue PDF exports.
 - **Application Tracker API**: Create, read, update, delete applications. Add/edit contact logs. Filter and search. Pipeline analytics.
 
@@ -5888,15 +5909,20 @@ Both modules will use the Postgres jobs table to queue PDF exports (processed by
 ```typescript
 // /apps/api/src/modules/resumes/resumes.service.ts
 
-import { Injectable, BadRequestException, NotFoundException, ForbiddenException } from '@nestjs/common';
-import { PrismaService } from '../../common/prisma.service';
+import {
+  Injectable,
+  BadRequestException,
+  NotFoundException,
+  ForbiddenException,
+} from "@nestjs/common";
+import { PrismaService } from "../../common/prisma.service";
 import {
   CreateResumeDto,
   UpdateResumeDto,
   AddWorkExperienceDto,
   UpdateWorkExperienceDto,
   CreateVariantDto,
-} from './resumes.dto';
+} from "./resumes.dto";
 
 @Injectable()
 export class ResumesService {
@@ -5911,8 +5937,8 @@ export class ResumesService {
         user_id: userId,
         name: dto.name,
         is_base: true,
-        template_id: 'template-1', // Default template
-        section_order: ['header', 'summary', 'experience', 'education', 'skills'],
+        template_id: "template-1", // Default template
+        section_order: ["header", "summary", "experience", "education", "skills"],
       },
       include: {
         header: true,
@@ -5931,7 +5957,7 @@ export class ResumesService {
         work_experiences: true,
         educations: true,
       },
-      orderBy: { created_at: 'desc' },
+      orderBy: { created_at: "desc" },
     });
   }
 
@@ -5959,11 +5985,11 @@ export class ResumesService {
     });
 
     if (!resume) {
-      throw new NotFoundException('Resume not found');
+      throw new NotFoundException("Resume not found");
     }
 
     if (resume.user_id !== userId) {
-      throw new ForbiddenException('Not authorized to access this resume');
+      throw new ForbiddenException("Not authorized to access this resume");
     }
 
     return resume;
@@ -6024,22 +6050,26 @@ export class ResumesService {
         parent_resume_id: resumeId,
         template_id: parent.template_id,
         section_order: parent.section_order,
-        header: parent.header ? {
-          create: {
-            full_name: parent.header.full_name,
-            title: parent.header.title,
-            email: parent.header.email,
-            phone: parent.header.phone,
-            city: parent.header.city,
-            linkedin_url: parent.header.linkedin_url,
-            github_url: parent.header.github_url,
-          },
-        } : undefined,
-        summary: parent.summary ? {
-          create: {
-            text: parent.summary.text,
-          },
-        } : undefined,
+        header: parent.header
+          ? {
+              create: {
+                full_name: parent.header.full_name,
+                title: parent.header.title,
+                email: parent.header.email,
+                phone: parent.header.phone,
+                city: parent.header.city,
+                linkedin_url: parent.header.linkedin_url,
+                github_url: parent.header.github_url,
+              },
+            }
+          : undefined,
+        summary: parent.summary
+          ? {
+              create: {
+                text: parent.summary.text,
+              },
+            }
+          : undefined,
       },
     });
 
@@ -6057,7 +6087,7 @@ export class ResumesService {
         resume_id: resumeId,
         company_name: dto.company_name,
         company_city: dto.company_city,
-        company_country: dto.company_country || 'US',
+        company_country: dto.company_country || "US",
         is_remote: dto.is_remote || false,
         role_id: dto.role_id,
         role_title: dto.role_title,
@@ -6065,9 +6095,11 @@ export class ResumesService {
         end_date: dto.end_date ? new Date(dto.end_date) : null,
         description: dto.description,
         sort_order: 0,
-        technologies: dto.technologies ? {
-          connect: dto.technologies.map(id => ({ id })),
-        } : undefined,
+        technologies: dto.technologies
+          ? {
+              connect: dto.technologies.map((id) => ({ id })),
+            }
+          : undefined,
       },
       include: { technologies: true },
     });
@@ -6089,7 +6121,7 @@ export class ResumesService {
     });
 
     if (!exp || exp.resume_id !== resumeId) {
-      throw new NotFoundException('Work experience not found');
+      throw new NotFoundException("Work experience not found");
     }
 
     return this.db.work_experience.update({
@@ -6100,9 +6132,11 @@ export class ResumesService {
         description: dto.description || exp.description,
         start_date: dto.start_date ? new Date(dto.start_date) : exp.start_date,
         end_date: dto.end_date ? new Date(dto.end_date) : exp.end_date,
-        technologies: dto.technologies ? {
-          set: dto.technologies.map(id => ({ id })),
-        } : undefined,
+        technologies: dto.technologies
+          ? {
+              set: dto.technologies.map((id) => ({ id })),
+            }
+          : undefined,
       },
       include: { technologies: true },
     });
@@ -6128,21 +6162,21 @@ export class ResumesService {
     // Create job entry
     const job = await this.db.job.create({
       data: {
-        type: 'pdf_export',
+        type: "pdf_export",
         payload_json: JSON.stringify({
           resume_id: resumeId,
           user_id: userId,
           template_id: resume.template_id,
         }),
-        status: 'pending',
+        status: "pending",
         run_at: new Date(),
       },
     });
 
     return {
       jobId: job.id,
-      status: 'queued',
-      message: 'PDF export queued. Check back in a few moments.',
+      status: "queued",
+      message: "PDF export queued. Check back in a few moments.",
     };
   }
 
@@ -6154,16 +6188,16 @@ export class ResumesService {
 
     const latestJob = await this.db.job.findFirst({
       where: {
-        type: 'pdf_export',
+        type: "pdf_export",
         payload_json: {
           contains: resumeId,
         },
       },
-      orderBy: { created_at: 'desc' },
+      orderBy: { created_at: "desc" },
     });
 
     if (!latestJob) {
-      return { status: 'not_started', message: 'No export job found' };
+      return { status: "not_started", message: "No export job found" };
     }
 
     return {
@@ -6171,7 +6205,7 @@ export class ResumesService {
       status: latestJob.status,
       createdAt: latestJob.created_at,
       error: latestJob.error,
-      downloadUrl: latestJob.status === 'done' ? `/api/resumes/${resumeId}/export/download` : null,
+      downloadUrl: latestJob.status === "done" ? `/api/resumes/${resumeId}/export/download` : null,
     };
   }
 
@@ -6184,11 +6218,11 @@ export class ResumesService {
     });
 
     if (!resume) {
-      throw new NotFoundException('Resume not found');
+      throw new NotFoundException("Resume not found");
     }
 
     if (resume.user_id !== userId) {
-      throw new ForbiddenException('Not authorized to access this resume');
+      throw new ForbiddenException("Not authorized to access this resume");
     }
 
     return resume;
@@ -6213,19 +6247,19 @@ import {
   Req,
   HttpCode,
   HttpStatus,
-} from '@nestjs/common';
-import { JwtAuthGuard } from '../auth/jwt.guard';
-import { ResumesService } from './resumes.service';
-import { ZodValidationPipe } from '../../common/zod-validation.pipe';
+} from "@nestjs/common";
+import { JwtAuthGuard } from "../auth/jwt.guard";
+import { ResumesService } from "./resumes.service";
+import { ZodValidationPipe } from "../../common/zod-validation.pipe";
 import {
   createResumeSchema,
   updateResumeSchema,
   addWorkExperienceSchema,
   updateWorkExperienceSchema,
   createVariantSchema,
-} from './resumes.schemas';
+} from "./resumes.schemas";
 
-@Controller('resumes')
+@Controller("resumes")
 @UseGuards(JwtAuthGuard)
 export class ResumesController {
   constructor(private service: ResumesService) {}
@@ -6236,10 +6270,7 @@ export class ResumesController {
    */
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  async createResume(
-    @Req() req: any,
-    @Body(new ZodValidationPipe(createResumeSchema)) dto: any,
-  ) {
+  async createResume(@Req() req: any, @Body(new ZodValidationPipe(createResumeSchema)) dto: any) {
     const resume = await this.service.createResume(req.user.userId, dto);
     return { data: resume, error: null };
   }
@@ -6258,8 +6289,8 @@ export class ResumesController {
    * GET /resumes/:id
    * Get single resume
    */
-  @Get(':id')
-  async getResume(@Req() req: any, @Param('id') id: string) {
+  @Get(":id")
+  async getResume(@Req() req: any, @Param("id") id: string) {
     const resume = await this.service.getResumeById(req.user.userId, id);
     return { data: resume, error: null };
   }
@@ -6268,10 +6299,10 @@ export class ResumesController {
    * PUT /resumes/:id
    * Update resume
    */
-  @Put(':id')
+  @Put(":id")
   async updateResume(
     @Req() req: any,
-    @Param('id') id: string,
+    @Param("id") id: string,
     @Body(new ZodValidationPipe(updateResumeSchema)) dto: any,
   ) {
     const resume = await this.service.updateResume(req.user.userId, id, dto);
@@ -6282,9 +6313,9 @@ export class ResumesController {
    * DELETE /resumes/:id
    * Delete resume (soft delete)
    */
-  @Delete(':id')
+  @Delete(":id")
   @HttpCode(HttpStatus.NO_CONTENT)
-  async deleteResume(@Req() req: any, @Param('id') id: string) {
+  async deleteResume(@Req() req: any, @Param("id") id: string) {
     await this.service.deleteResume(req.user.userId, id);
     return { data: null, error: null };
   }
@@ -6293,11 +6324,11 @@ export class ResumesController {
    * POST /resumes/:id/variants
    * Create variant
    */
-  @Post(':id/variants')
+  @Post(":id/variants")
   @HttpCode(HttpStatus.CREATED)
   async createVariant(
     @Req() req: any,
-    @Param('id') id: string,
+    @Param("id") id: string,
     @Body(new ZodValidationPipe(createVariantSchema)) dto: any,
   ) {
     const variant = await this.service.createVariant(req.user.userId, id, dto);
@@ -6308,11 +6339,11 @@ export class ResumesController {
    * POST /resumes/:id/work-experience
    * Add work experience
    */
-  @Post(':id/work-experience')
+  @Post(":id/work-experience")
   @HttpCode(HttpStatus.CREATED)
   async addWorkExperience(
     @Req() req: any,
-    @Param('id') id: string,
+    @Param("id") id: string,
     @Body(new ZodValidationPipe(addWorkExperienceSchema)) dto: any,
   ) {
     const exp = await this.service.addWorkExperience(req.user.userId, id, dto);
@@ -6323,11 +6354,11 @@ export class ResumesController {
    * PUT /resumes/:id/work-experience/:expId
    * Update work experience
    */
-  @Put(':id/work-experience/:expId')
+  @Put(":id/work-experience/:expId")
   async updateWorkExperience(
     @Req() req: any,
-    @Param('id') id: string,
-    @Param('expId') expId: string,
+    @Param("id") id: string,
+    @Param("expId") expId: string,
     @Body(new ZodValidationPipe(updateWorkExperienceSchema)) dto: any,
   ) {
     const exp = await this.service.updateWorkExperience(req.user.userId, id, expId, dto);
@@ -6338,12 +6369,12 @@ export class ResumesController {
    * DELETE /resumes/:id/work-experience/:expId
    * Delete work experience
    */
-  @Delete(':id/work-experience/:expId')
+  @Delete(":id/work-experience/:expId")
   @HttpCode(HttpStatus.NO_CONTENT)
   async deleteWorkExperience(
     @Req() req: any,
-    @Param('id') id: string,
-    @Param('expId') expId: string,
+    @Param("id") id: string,
+    @Param("expId") expId: string,
   ) {
     await this.service.deleteWorkExperience(req.user.userId, id, expId);
     return { data: null, error: null };
@@ -6353,9 +6384,9 @@ export class ResumesController {
    * POST /resumes/:id/export-pdf
    * Queue PDF export
    */
-  @Post(':id/export-pdf')
+  @Post(":id/export-pdf")
   @HttpCode(HttpStatus.ACCEPTED)
-  async queuePdfExport(@Req() req: any, @Param('id') id: string) {
+  async queuePdfExport(@Req() req: any, @Param("id") id: string) {
     const result = await this.service.queuePdfExport(req.user.userId, id);
     return { data: result, error: null };
   }
@@ -6364,8 +6395,8 @@ export class ResumesController {
    * GET /resumes/:id/export-status
    * Check PDF export status
    */
-  @Get(':id/export-status')
-  async getExportStatus(@Req() req: any, @Param('id') id: string) {
+  @Get(":id/export-status")
+  async getExportStatus(@Req() req: any, @Param("id") id: string) {
     const status = await this.service.getExportStatus(req.user.userId, id);
     return { data: status, error: null };
   }
@@ -6377,10 +6408,10 @@ export class ResumesController {
 ```typescript
 // /apps/api/src/modules/resumes/resumes.schemas.ts
 
-import { z } from 'zod';
+import { z } from "zod";
 
 export const createResumeSchema = z.object({
-  name: z.string().min(1, 'Resume name required'),
+  name: z.string().min(1, "Resume name required"),
 });
 
 export const updateResumeSchema = z.object({
@@ -6390,15 +6421,15 @@ export const updateResumeSchema = z.object({
 });
 
 export const addWorkExperienceSchema = z.object({
-  company_name: z.string().min(1, 'Company name required'),
-  company_city: z.string().min(1, 'City required'),
+  company_name: z.string().min(1, "Company name required"),
+  company_city: z.string().min(1, "City required"),
   company_country: z.string().optional(),
   is_remote: z.boolean().optional(),
   role_id: z.string().optional(),
-  role_title: z.string().min(1, 'Job title required'),
+  role_title: z.string().min(1, "Job title required"),
   start_date: z.string(), // ISO date
   end_date: z.string().optional(),
-  description: z.string().min(10, 'Description must be at least 10 characters'),
+  description: z.string().min(10, "Description must be at least 10 characters"),
   technologies: z.array(z.string()).optional(),
 });
 
@@ -6412,7 +6443,7 @@ export const updateWorkExperienceSchema = z.object({
 });
 
 export const createVariantSchema = z.object({
-  name: z.string().min(1, 'Variant name required'),
+  name: z.string().min(1, "Variant name required"),
 });
 ```
 
@@ -6421,10 +6452,10 @@ export const createVariantSchema = z.object({
 ```typescript
 // /apps/api/src/modules/resumes/resumes.module.ts
 
-import { Module } from '@nestjs/common';
-import { ResumesService } from './resumes.service';
-import { ResumesController } from './resumes.controller';
-import { PrismaModule } from '../../common/prisma.module';
+import { Module } from "@nestjs/common";
+import { ResumesService } from "./resumes.service";
+import { ResumesController } from "./resumes.controller";
+import { PrismaModule } from "../../common/prisma.module";
 
 @Module({
   imports: [PrismaModule],
@@ -6441,13 +6472,9 @@ export class ResumesModule {}
 ```typescript
 // /apps/api/src/modules/applications/applications.service.ts
 
-import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/common';
-import { PrismaService } from '../../common/prisma.service';
-import {
-  CreateApplicationDto,
-  UpdateApplicationDto,
-  AddContactLogDto,
-} from './applications.dto';
+import { Injectable, NotFoundException, ForbiddenException } from "@nestjs/common";
+import { PrismaService } from "../../common/prisma.service";
+import { CreateApplicationDto, UpdateApplicationDto, AddContactLogDto } from "./applications.dto";
 
 @Injectable()
 export class ApplicationsService {
@@ -6465,12 +6492,12 @@ export class ApplicationsService {
         role_title: dto.role_title,
         job_url: dto.job_url,
         applied_date: new Date(dto.applied_date),
-        source: dto.source || 'other',
+        source: dto.source || "other",
         status_id: dto.status_id,
         technologies: dto.technologies,
         salary_offered: dto.salary_offered,
         salary_currency: dto.salary_currency,
-        priority: dto.priority || 'medium',
+        priority: dto.priority || "medium",
         notes: dto.notes,
         resume_variant_id: dto.resume_variant_id,
       },
@@ -6504,7 +6531,7 @@ export class ApplicationsService {
     if (filters?.company) {
       where.company_name = {
         contains: filters.company,
-        mode: 'insensitive',
+        mode: "insensitive",
       };
     }
 
@@ -6513,7 +6540,7 @@ export class ApplicationsService {
       include: {
         contacts: true,
       },
-      orderBy: { applied_date: 'desc' },
+      orderBy: { applied_date: "desc" },
       skip: filters?.skip || 0,
       take: filters?.take || 20,
     });
@@ -6531,11 +6558,11 @@ export class ApplicationsService {
     });
 
     if (!app) {
-      throw new NotFoundException('Application not found');
+      throw new NotFoundException("Application not found");
     }
 
     if (app.user_id !== userId) {
-      throw new ForbiddenException('Not authorized');
+      throw new ForbiddenException("Not authorized");
     }
 
     return app;
@@ -6592,7 +6619,7 @@ export class ApplicationsService {
         email: dto.email,
         phone: dto.phone,
         linkedin_url: dto.linkedin_url,
-        outcome: dto.outcome || 'pending',
+        outcome: dto.outcome || "pending",
         notes: dto.notes,
         follow_up_at: dto.follow_up_at ? new Date(dto.follow_up_at) : null,
       },
@@ -6623,7 +6650,7 @@ export class ApplicationsService {
 
     return this.db.application_contact.findMany({
       where: { application_id: appId },
-      orderBy: { contact_date: 'desc' },
+      orderBy: { contact_date: "desc" },
     });
   }
 
@@ -6638,19 +6665,28 @@ export class ApplicationsService {
       },
     });
 
-    const byStatus = applications.reduce((acc, app) => {
-      const status = app.status_id || 'unknown';
-      acc[status] = (acc[status] || 0) + 1;
-      return acc;
-    }, {} as Record<string, number>);
+    const byStatus = applications.reduce(
+      (acc, app) => {
+        const status = app.status_id || "unknown";
+        acc[status] = (acc[status] || 0) + 1;
+        return acc;
+      },
+      {} as Record<string, number>,
+    );
 
     return {
       total: applications.length,
       byStatus,
-      averageTimeInPipeline: applications.length > 0 ?
-        Math.round(applications.reduce((sum, app) => {
-          return sum + (new Date().getTime() - app.applied_date.getTime());
-        }, 0) / applications.length / (1000 * 60 * 60 * 24)) : 0,
+      averageTimeInPipeline:
+        applications.length > 0
+          ? Math.round(
+              applications.reduce((sum, app) => {
+                return sum + (new Date().getTime() - app.applied_date.getTime());
+              }, 0) /
+                applications.length /
+                (1000 * 60 * 60 * 24),
+            )
+          : 0,
     };
   }
 
@@ -6663,11 +6699,11 @@ export class ApplicationsService {
     });
 
     if (!app) {
-      throw new NotFoundException('Application not found');
+      throw new NotFoundException("Application not found");
     }
 
     if (app.user_id !== userId) {
-      throw new ForbiddenException('Not authorized');
+      throw new ForbiddenException("Not authorized");
     }
 
     return app;
@@ -6693,17 +6729,17 @@ import {
   Req,
   HttpCode,
   HttpStatus,
-} from '@nestjs/common';
-import { JwtAuthGuard } from '../auth/jwt.guard';
-import { ApplicationsService } from './applications.service';
-import { ZodValidationPipe } from '../../common/zod-validation.pipe';
+} from "@nestjs/common";
+import { JwtAuthGuard } from "../auth/jwt.guard";
+import { ApplicationsService } from "./applications.service";
+import { ZodValidationPipe } from "../../common/zod-validation.pipe";
 import {
   createApplicationSchema,
   updateApplicationSchema,
   addContactLogSchema,
-} from './applications.schemas';
+} from "./applications.schemas";
 
-@Controller('applications')
+@Controller("applications")
 @UseGuards(JwtAuthGuard)
 export class ApplicationsController {
   constructor(private service: ApplicationsService) {}
@@ -6729,10 +6765,10 @@ export class ApplicationsController {
   @Get()
   async getApplications(
     @Req() req: any,
-    @Query('status') status?: string,
-    @Query('company') company?: string,
-    @Query('skip') skip?: string,
-    @Query('take') take?: string,
+    @Query("status") status?: string,
+    @Query("company") company?: string,
+    @Query("skip") skip?: string,
+    @Query("take") take?: string,
   ) {
     const apps = await this.service.getApplications(req.user.userId, {
       status,
@@ -6747,7 +6783,7 @@ export class ApplicationsController {
    * GET /applications/stats
    * Get pipeline stats (put before /:id to avoid conflict)
    */
-  @Get('stats')
+  @Get("stats")
   async getStats(@Req() req: any) {
     const stats = await this.service.getStats(req.user.userId);
     return { data: stats, error: null };
@@ -6757,8 +6793,8 @@ export class ApplicationsController {
    * GET /applications/:id
    * Get single application
    */
-  @Get(':id')
-  async getApplication(@Req() req: any, @Param('id') id: string) {
+  @Get(":id")
+  async getApplication(@Req() req: any, @Param("id") id: string) {
     const app = await this.service.getApplication(req.user.userId, id);
     return { data: app, error: null };
   }
@@ -6767,10 +6803,10 @@ export class ApplicationsController {
    * PUT /applications/:id
    * Update application
    */
-  @Put(':id')
+  @Put(":id")
   async updateApplication(
     @Req() req: any,
-    @Param('id') id: string,
+    @Param("id") id: string,
     @Body(new ZodValidationPipe(updateApplicationSchema)) dto: any,
   ) {
     const app = await this.service.updateApplication(req.user.userId, id, dto);
@@ -6781,9 +6817,9 @@ export class ApplicationsController {
    * DELETE /applications/:id
    * Delete application
    */
-  @Delete(':id')
+  @Delete(":id")
   @HttpCode(HttpStatus.NO_CONTENT)
-  async deleteApplication(@Req() req: any, @Param('id') id: string) {
+  async deleteApplication(@Req() req: any, @Param("id") id: string) {
     await this.service.deleteApplication(req.user.userId, id);
     return { data: null, error: null };
   }
@@ -6792,11 +6828,11 @@ export class ApplicationsController {
    * POST /applications/:id/contacts
    * Add contact log
    */
-  @Post(':id/contacts')
+  @Post(":id/contacts")
   @HttpCode(HttpStatus.CREATED)
   async addContact(
     @Req() req: any,
-    @Param('id') id: string,
+    @Param("id") id: string,
     @Body(new ZodValidationPipe(addContactLogSchema)) dto: any,
   ) {
     const contact = await this.service.addContact(req.user.userId, id, dto);
@@ -6807,8 +6843,8 @@ export class ApplicationsController {
    * GET /applications/:id/contacts
    * Get contact logs
    */
-  @Get(':id/contacts')
-  async getContacts(@Req() req: any, @Param('id') id: string) {
+  @Get(":id/contacts")
+  async getContacts(@Req() req: any, @Param("id") id: string) {
     const contacts = await this.service.getContacts(req.user.userId, id);
     return { data: contacts, error: null };
   }
@@ -6817,11 +6853,11 @@ export class ApplicationsController {
    * PUT /applications/:id/contacts/:contactId
    * Update contact
    */
-  @Put(':id/contacts/:contactId')
+  @Put(":id/contacts/:contactId")
   async updateContact(
     @Req() req: any,
-    @Param('id') id: string,
-    @Param('contactId') contactId: string,
+    @Param("id") id: string,
+    @Param("contactId") contactId: string,
     @Body() dto: any,
   ) {
     const contact = await this.service.updateContact(req.user.userId, id, contactId, dto);
@@ -6835,20 +6871,22 @@ export class ApplicationsController {
 ```typescript
 // /apps/api/src/modules/applications/applications.schemas.ts
 
-import { z } from 'zod';
+import { z } from "zod";
 
 export const createApplicationSchema = z.object({
-  company_name: z.string().min(1, 'Company name required'),
+  company_name: z.string().min(1, "Company name required"),
   role_id: z.string().optional(),
-  role_title: z.string().min(1, 'Role title required'),
-  job_url: z.string().url('Invalid URL').optional(),
+  role_title: z.string().min(1, "Role title required"),
+  job_url: z.string().url("Invalid URL").optional(),
   applied_date: z.string(),
-  source: z.enum(['linkedin', 'company_site', 'recruiter', 'referral', 'job_board', 'hackathon', 'other']).optional(),
+  source: z
+    .enum(["linkedin", "company_site", "recruiter", "referral", "job_board", "hackathon", "other"])
+    .optional(),
   status_id: z.string().optional(),
   technologies: z.array(z.string()).optional(),
   salary_offered: z.number().optional(),
   salary_currency: z.string().optional(),
-  priority: z.enum(['low', 'medium', 'high', 'dream']).optional(),
+  priority: z.enum(["low", "medium", "high", "dream"]).optional(),
   notes: z.string().optional(),
   resume_variant_id: z.string().optional(),
 });
@@ -6857,21 +6895,21 @@ export const updateApplicationSchema = z.object({
   company_name: z.string().optional(),
   role_title: z.string().optional(),
   status_id: z.string().optional(),
-  priority: z.enum(['low', 'medium', 'high', 'dream']).optional(),
+  priority: z.enum(["low", "medium", "high", "dream"]).optional(),
   salary_offered: z.number().optional(),
   notes: z.string().optional(),
 });
 
 export const addContactLogSchema = z.object({
   contact_date: z.string(),
-  contact_name: z.string().min(1, 'Contact name required'),
+  contact_name: z.string().min(1, "Contact name required"),
   contact_title: z.string().optional(),
   department: z.string().optional(),
-  contact_type: z.enum(['phone', 'video', 'in-person', 'email', 'message']),
+  contact_type: z.enum(["phone", "video", "in-person", "email", "message"]),
   email: z.string().email().optional(),
   phone: z.string().optional(),
   linkedin_url: z.string().url().optional(),
-  outcome: z.enum(['positive', 'neutral', 'negative', 'pending']).optional(),
+  outcome: z.enum(["positive", "neutral", "negative", "pending"]).optional(),
   notes: z.string().optional(),
   follow_up_at: z.string().optional(),
 });
@@ -6882,10 +6920,10 @@ export const addContactLogSchema = z.object({
 ```typescript
 // /apps/api/src/modules/applications/applications.module.ts
 
-import { Module } from '@nestjs/common';
-import { ApplicationsService } from './applications.service';
-import { ApplicationsController } from './applications.controller';
-import { PrismaModule } from '../../common/prisma.module';
+import { Module } from "@nestjs/common";
+import { ApplicationsService } from "./applications.service";
+import { ApplicationsController } from "./applications.controller";
+import { PrismaModule } from "../../common/prisma.module";
 
 @Module({
   imports: [PrismaModule],
@@ -6900,8 +6938,8 @@ export class ApplicationsModule {}
 In `/apps/api/src/app.module.ts`:
 
 ```typescript
-import { ResumesModule } from './modules/resumes/resumes.module';
-import { ApplicationsModule } from './modules/applications/applications.module';
+import { ResumesModule } from "./modules/resumes/resumes.module";
+import { ApplicationsModule } from "./modules/applications/applications.module";
 
 @Module({
   imports: [
@@ -7013,11 +7051,13 @@ curl http://localhost:3001/applications/stats \
 ```
 
 This session completes the core CRUD APIs. Session 4 will build the interview prep module with spaced repetition.
+
 ```
 
 CLAUDE_CODE_SESSION_4.md 24,700 chars
 
 ```
+
 # Claude Code Session 4: Interview Prep Module
 
 You are building the **Interview Prep module** with questions, study guides, flashcard logic, progress tracking, and spaced repetition scheduling.
@@ -7027,6 +7067,7 @@ You are building the **Interview Prep module** with questions, study guides, fla
 **Current state:** You have complete auth, design system, resume builder, and application tracker APIs. Database includes questions and study_guides tables. Your 813 interview prep questions are ready to be imported.
 
 **What you're building now:**
+
 - Questions CRUD and bulk import
 - Study guides (create, update, list)
 - Flashcard endpoint that returns next card to review using spaced repetition
@@ -7067,11 +7108,11 @@ export class SpacedRepetitionUtil {
   static calculateNextReviewDate(confidence: number): Date {
     const now = new Date();
     const intervals: Record<number, number> = {
-      5: 7 * 24 * 60 * 60 * 1000,      // 7 days
-      4: 3 * 24 * 60 * 60 * 1000,      // 3 days
-      3: 1 * 24 * 60 * 60 * 1000,      // 1 day
-      2: 12 * 60 * 60 * 1000,          // 12 hours
-      1: 4 * 60 * 60 * 1000,           // 4 hours
+      5: 7 * 24 * 60 * 60 * 1000, // 7 days
+      4: 3 * 24 * 60 * 60 * 1000, // 3 days
+      3: 1 * 24 * 60 * 60 * 1000, // 1 day
+      2: 12 * 60 * 60 * 1000, // 12 hours
+      1: 4 * 60 * 60 * 1000, // 4 hours
     };
 
     const interval = intervals[Math.max(1, Math.min(5, confidence))] || intervals[3];
@@ -7146,14 +7187,10 @@ import {
   NotFoundException,
   ForbiddenException,
   BadRequestException,
-} from '@nestjs/common';
-import { PrismaService } from '../../common/prisma.service';
-import { SpacedRepetitionUtil } from './spaced-repetition.util';
-import {
-  CreateStudyGuideDto,
-  UpdateStudyGuideDto,
-  RecordAnswerDto,
-} from './prep.dto';
+} from "@nestjs/common";
+import { PrismaService } from "../../common/prisma.service";
+import { SpacedRepetitionUtil } from "./spaced-repetition.util";
+import { CreateStudyGuideDto, UpdateStudyGuideDto, RecordAnswerDto } from "./prep.dto";
 
 @Injectable()
 export class PrepService {
@@ -7163,14 +7200,16 @@ export class PrepService {
    * Bulk import questions
    * Used to populate the database with question banks
    */
-  async importQuestions(questions: Array<{
-    question_text: string;
-    module_type: string;
-    difficulty: string;
-    tags?: string[];
-    recency?: string;
-    answer?: string;
-  }>) {
+  async importQuestions(
+    questions: Array<{
+      question_text: string;
+      module_type: string;
+      difficulty: string;
+      tags?: string[];
+      recency?: string;
+      answer?: string;
+    }>,
+  ) {
     const created = [];
 
     for (const q of questions) {
@@ -7238,7 +7277,7 @@ export class PrepService {
         target_date: new Date(dto.target_date),
         hours_per_week: dto.hours_per_week,
         tags: dto.tags || [],
-        visibility: dto.visibility || 'private',
+        visibility: dto.visibility || "private",
       },
     });
   }
@@ -7249,7 +7288,7 @@ export class PrepService {
   async getUserStudyGuides(userId: string) {
     return this.db.study_guide.findMany({
       where: { user_id: userId },
-      orderBy: { created_at: 'desc' },
+      orderBy: { created_at: "desc" },
     });
   }
 
@@ -7265,11 +7304,11 @@ export class PrepService {
     });
 
     if (!guide) {
-      throw new NotFoundException('Study guide not found');
+      throw new NotFoundException("Study guide not found");
     }
 
     if (guide.user_id !== userId) {
-      throw new ForbiddenException('Not authorized');
+      throw new ForbiddenException("Not authorized");
     }
 
     return guide;
@@ -7318,11 +7357,11 @@ export class PrepService {
     if (guideModules.length === 0) {
       return {
         card: null,
-        message: 'No modules selected for this study guide',
+        message: "No modules selected for this study guide",
       };
     }
 
-    const moduleTypes = guideModules.map(m => m.module_type);
+    const moduleTypes = guideModules.map((m) => m.module_type);
 
     // Find all questions for these modules
     const questions = await this.db.question.findMany({
@@ -7336,7 +7375,7 @@ export class PrepService {
     if (questions.length === 0) {
       return {
         card: null,
-        message: 'No questions available for selected modules',
+        message: "No questions available for selected modules",
       };
     }
 
@@ -7345,16 +7384,16 @@ export class PrepService {
       where: {
         user_id: userId,
         question_id: {
-          in: questions.map(q => q.id),
+          in: questions.map((q) => q.id),
         },
       },
     });
 
     // Create a map of question IDs to responses
-    const responseMap = new Map(responses.map(r => [r.question_id, r]));
+    const responseMap = new Map(responses.map((r) => [r.question_id, r]));
 
     // Score each question: overdue first, then lowest confidence, then unanswered
-    const scoredQuestions = questions.map(q => {
+    const scoredQuestions = questions.map((q) => {
       const response = responseMap.get(q.id);
 
       if (!response) {
@@ -7375,7 +7414,8 @@ export class PrepService {
       }
 
       // Not yet due: score = 2 + (days until due / 10)
-      const daysUntilDue = (response.next_review_at.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);
+      const daysUntilDue =
+        (response.next_review_at.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);
       return {
         question: q,
         response,
@@ -7395,8 +7435,13 @@ export class PrepService {
         tags: nextCard.question.tags,
         isReview: nextCard.response ? true : false,
       },
-      nextReviewIn: nextCard.response ?
-        Math.max(0, Math.round((nextCard.response.next_review_at.getTime() - new Date().getTime()) / (1000 * 60)))
+      nextReviewIn: nextCard.response
+        ? Math.max(
+            0,
+            Math.round(
+              (nextCard.response.next_review_at.getTime() - new Date().getTime()) / (1000 * 60),
+            ),
+          )
         : null,
     };
   }
@@ -7413,11 +7458,11 @@ export class PrepService {
     });
 
     if (!question) {
-      throw new NotFoundException('Question not found');
+      throw new NotFoundException("Question not found");
     }
 
     if (!Number.isInteger(dto.confidence) || dto.confidence < 1 || dto.confidence > 5) {
-      throw new BadRequestException('Confidence must be 1-5');
+      throw new BadRequestException("Confidence must be 1-5");
     }
 
     const nextReviewAt = SpacedRepetitionUtil.calculateNextReviewDate(dto.confidence);
@@ -7465,7 +7510,7 @@ export class PrepService {
       where: { study_guide_id: guideId },
     });
 
-    const moduleTypes = guideModules.map(m => m.module_type);
+    const moduleTypes = guideModules.map((m) => m.module_type);
 
     // Get questions
     const totalQuestions = await this.db.question.count({
@@ -7486,28 +7531,26 @@ export class PrepService {
     const averageConfidence =
       responses.length > 0
         ? Math.round(
-            responses.reduce((sum, r) => sum + r.confidence, 0) / responses.length * 10
+            (responses.reduce((sum, r) => sum + r.confidence, 0) / responses.length) * 10,
           ) / 10
         : 0;
 
     // Count by confidence
     const byConfidence = {
-      5: responses.filter(r => r.confidence === 5).length,
-      4: responses.filter(r => r.confidence === 4).length,
-      3: responses.filter(r => r.confidence === 3).length,
-      2: responses.filter(r => r.confidence === 2).length,
-      1: responses.filter(r => r.confidence === 1).length,
+      5: responses.filter((r) => r.confidence === 5).length,
+      4: responses.filter((r) => r.confidence === 4).length,
+      3: responses.filter((r) => r.confidence === 3).length,
+      2: responses.filter((r) => r.confidence === 2).length,
+      1: responses.filter((r) => r.confidence === 1).length,
     };
 
     // Find overdue cards
     const now = new Date();
-    const overdueCards = responses.filter(r => r.next_review_at < now).length;
+    const overdueCards = responses.filter((r) => r.next_review_at < now).length;
 
     // Estimate remaining study time
     const unreviewed = totalQuestions - totalReviewed;
-    const estimatedMinutes = SpacedRepetitionUtil.estimateStudyTime(
-      unreviewed + overdueCards,
-    );
+    const estimatedMinutes = SpacedRepetitionUtil.estimateStudyTime(unreviewed + overdueCards);
 
     return {
       totalQuestions,
@@ -7536,11 +7579,11 @@ export class PrepService {
     });
 
     if (!guide) {
-      throw new NotFoundException('Study guide not found');
+      throw new NotFoundException("Study guide not found");
     }
 
     if (guide.user_id !== userId) {
-      throw new ForbiddenException('Not authorized');
+      throw new ForbiddenException("Not authorized");
     }
 
     return guide;
@@ -7566,18 +7609,18 @@ import {
   Req,
   HttpCode,
   HttpStatus,
-} from '@nestjs/common';
-import { JwtAuthGuard } from '../auth/jwt.guard';
-import { PrepService } from './prep.service';
-import { ZodValidationPipe } from '../../common/zod-validation.pipe';
+} from "@nestjs/common";
+import { JwtAuthGuard } from "../auth/jwt.guard";
+import { PrepService } from "./prep.service";
+import { ZodValidationPipe } from "../../common/zod-validation.pipe";
 import {
   createStudyGuideSchema,
   updateStudyGuideSchema,
   recordAnswerSchema,
   importQuestionsSchema,
-} from './prep.schemas';
+} from "./prep.schemas";
 
-@Controller('prep')
+@Controller("prep")
 @UseGuards(JwtAuthGuard)
 export class PrepController {
   constructor(private service: PrepService) {}
@@ -7586,11 +7629,9 @@ export class PrepController {
    * POST /prep/questions/import
    * Bulk import questions
    */
-  @Post('questions/import')
+  @Post("questions/import")
   @HttpCode(HttpStatus.CREATED)
-  async importQuestions(
-    @Body(new ZodValidationPipe(importQuestionsSchema)) dto: any,
-  ) {
+  async importQuestions(@Body(new ZodValidationPipe(importQuestionsSchema)) dto: any) {
     const result = await this.service.importQuestions(dto.questions);
     return { data: result, error: null };
   }
@@ -7599,12 +7640,12 @@ export class PrepController {
    * GET /prep/questions
    * Search questions with filters
    */
-  @Get('questions')
+  @Get("questions")
   async searchQuestions(
-    @Query('module') module?: string,
-    @Query('difficulty') difficulty?: string,
-    @Query('skip') skip?: string,
-    @Query('take') take?: string,
+    @Query("module") module?: string,
+    @Query("difficulty") difficulty?: string,
+    @Query("skip") skip?: string,
+    @Query("take") take?: string,
   ) {
     const result = await this.service.searchQuestions({
       module,
@@ -7619,7 +7660,7 @@ export class PrepController {
    * POST /prep/study-guides
    * Create study guide
    */
-  @Post('study-guides')
+  @Post("study-guides")
   @HttpCode(HttpStatus.CREATED)
   async createStudyGuide(
     @Req() req: any,
@@ -7633,7 +7674,7 @@ export class PrepController {
    * GET /prep/study-guides
    * Get user's study guides
    */
-  @Get('study-guides')
+  @Get("study-guides")
   async getStudyGuides(@Req() req: any) {
     const guides = await this.service.getUserStudyGuides(req.user.userId);
     return { data: guides, error: null };
@@ -7643,8 +7684,8 @@ export class PrepController {
    * GET /prep/study-guides/:guideId
    * Get single study guide
    */
-  @Get('study-guides/:guideId')
-  async getStudyGuide(@Req() req: any, @Param('guideId') guideId: string) {
+  @Get("study-guides/:guideId")
+  async getStudyGuide(@Req() req: any, @Param("guideId") guideId: string) {
     const guide = await this.service.getStudyGuide(req.user.userId, guideId);
     return { data: guide, error: null };
   }
@@ -7653,10 +7694,10 @@ export class PrepController {
    * PUT /prep/study-guides/:guideId
    * Update study guide
    */
-  @Put('study-guides/:guideId')
+  @Put("study-guides/:guideId")
   async updateStudyGuide(
     @Req() req: any,
-    @Param('guideId') guideId: string,
+    @Param("guideId") guideId: string,
     @Body(new ZodValidationPipe(updateStudyGuideSchema)) dto: any,
   ) {
     const guide = await this.service.updateStudyGuide(req.user.userId, guideId, dto);
@@ -7667,9 +7708,9 @@ export class PrepController {
    * DELETE /prep/study-guides/:guideId
    * Delete study guide
    */
-  @Delete('study-guides/:guideId')
+  @Delete("study-guides/:guideId")
   @HttpCode(HttpStatus.NO_CONTENT)
-  async deleteStudyGuide(@Req() req: any, @Param('guideId') guideId: string) {
+  async deleteStudyGuide(@Req() req: any, @Param("guideId") guideId: string) {
     await this.service.deleteStudyGuide(req.user.userId, guideId);
     return { data: null, error: null };
   }
@@ -7678,8 +7719,8 @@ export class PrepController {
    * GET /prep/study-guides/:guideId/flashcard
    * Get next flashcard to review
    */
-  @Get('study-guides/:guideId/flashcard')
-  async getNextFlashcard(@Req() req: any, @Param('guideId') guideId: string) {
+  @Get("study-guides/:guideId/flashcard")
+  async getNextFlashcard(@Req() req: any, @Param("guideId") guideId: string) {
     const card = await this.service.getNextFlashcard(req.user.userId, guideId);
     return { data: card, error: null };
   }
@@ -7688,12 +7729,12 @@ export class PrepController {
    * POST /prep/study-guides/:guideId/flashcard/:questionId/response
    * Record answer to a question
    */
-  @Post('study-guides/:guideId/flashcard/:questionId/response')
+  @Post("study-guides/:guideId/flashcard/:questionId/response")
   @HttpCode(HttpStatus.CREATED)
   async recordAnswer(
     @Req() req: any,
-    @Param('guideId') guideId: string,
-    @Param('questionId') questionId: string,
+    @Param("guideId") guideId: string,
+    @Param("questionId") questionId: string,
     @Body(new ZodValidationPipe(recordAnswerSchema)) dto: any,
   ) {
     const result = await this.service.recordAnswer(req.user.userId, guideId, {
@@ -7708,8 +7749,8 @@ export class PrepController {
    * GET /prep/study-guides/:guideId/progress
    * Get progress stats
    */
-  @Get('study-guides/:guideId/progress')
-  async getProgress(@Req() req: any, @Param('guideId') guideId: string) {
+  @Get("study-guides/:guideId/progress")
+  async getProgress(@Req() req: any, @Param("guideId") guideId: string) {
     const progress = await this.service.getProgress(req.user.userId, guideId);
     return { data: progress, error: null };
   }
@@ -7721,14 +7762,14 @@ export class PrepController {
 ```typescript
 // /apps/api/src/modules/prep/prep.schemas.ts
 
-import { z } from 'zod';
+import { z } from "zod";
 
 export const createStudyGuideSchema = z.object({
-  name: z.string().min(1, 'Name required'),
+  name: z.string().min(1, "Name required"),
   target_date: z.string(),
-  hours_per_week: z.number().min(1, 'Hours per week must be at least 1'),
+  hours_per_week: z.number().min(1, "Hours per week must be at least 1"),
   tags: z.array(z.string()).optional(),
-  visibility: z.enum(['private', 'link', 'public']).optional(),
+  visibility: z.enum(["private", "link", "public"]).optional(),
 });
 
 export const updateStudyGuideSchema = z.object({
@@ -7747,7 +7788,7 @@ export const importQuestionsSchema = z.object({
     z.object({
       question_text: z.string(),
       module_type: z.string(),
-      difficulty: z.enum(['easy', 'medium', 'hard']),
+      difficulty: z.enum(["easy", "medium", "hard"]),
       tags: z.array(z.string()).optional(),
       recency: z.string().optional(),
       answer: z.string().optional(),
@@ -7761,10 +7802,10 @@ export const importQuestionsSchema = z.object({
 ```typescript
 // /apps/api/src/modules/prep/prep.module.ts
 
-import { Module } from '@nestjs/common';
-import { PrepService } from './prep.service';
-import { PrepController } from './prep.controller';
-import { PrismaModule } from '../../common/prisma.module';
+import { Module } from "@nestjs/common";
+import { PrepService } from "./prep.service";
+import { PrepController } from "./prep.controller";
+import { PrismaModule } from "../../common/prisma.module";
 
 @Module({
   imports: [PrismaModule],
@@ -7777,7 +7818,7 @@ export class PrepModule {}
 #### Step 6: Register PrepModule in app.module.ts
 
 ```typescript
-import { PrepModule } from './modules/prep/prep.module';
+import { PrepModule } from "./modules/prep/prep.module";
 
 @Module({
   imports: [
@@ -7885,12 +7926,14 @@ This completes Session 4. All backend APIs are now complete and production-ready
 After all 4 sessions:
 
 ✅ **Auth Module**
+
 - Signup, login, logout
 - JWT token refresh
 - Google OAuth integration (stubbed)
 - Protected routes with JwtAuthGuard
 
 ✅ **Resume Builder Module**
+
 - Create, read, update, delete resumes
 - Create variants (tailored resumes)
 - Add/edit work experiences
@@ -7900,6 +7943,7 @@ After all 4 sessions:
 - Check export status
 
 ✅ **Application Tracker Module**
+
 - Create, read, update, delete applications
 - Add/edit contact logs
 - Filter and search applications
@@ -7907,6 +7951,7 @@ After all 4 sessions:
 - Salary tracking
 
 ✅ **Interview Prep Module**
+
 - Bulk import questions (813+ questions)
 - Search/filter questions
 - Create study guides
@@ -7916,6 +7961,7 @@ After all 4 sessions:
 - Automatic review scheduling
 
 All APIs are:
+
 - Protected with authentication
 - Owned by the user (can't access other users' data)
 - Returning consistent `{ data, error }` format
@@ -7923,24 +7969,26 @@ All APIs are:
 - Fully typed with TypeScript
 
 The platform is now ready for frontend UI development.
+
 ```
 
 CLAUDE_CODE_SESSIONS_MASTER.md 11,962 chars
 
 ```
+
 # PathMerit: Claude Code Sessions — Complete Build Plan
 
 You have **4 ready-to-execute Claude Code prompts** that will build PathMerit to MVP in 4 weeks.
 
 ## 📋 Session Overview
 
-| Session | Focus | Duration | Deliverable |
-|---------|-------|----------|-------------|
-| **1** (Already done) | Monorepo scaffold + database | 2.5–3 hrs | Working dev environment, Postgres schema, seed data |
-| **2a** (Next) | Design system package | 1.5 hrs | `/packages/design-system` with components + tokens |
-| **2b** (Then) | Auth module | 2 hrs | Signup, login, refresh, logout, protected routes |
-| **3** (Week 3) | Resume + Application APIs | 3 hrs | Full CRUD for both modules + PDF export queueing |
-| **4** (Week 4) | Interview prep + SRS | 2.5 hrs | Study guides, flashcards, spaced repetition algorithm |
+| Session              | Focus                        | Duration  | Deliverable                                           |
+| -------------------- | ---------------------------- | --------- | ----------------------------------------------------- |
+| **1** (Already done) | Monorepo scaffold + database | 2.5–3 hrs | Working dev environment, Postgres schema, seed data   |
+| **2a** (Next)        | Design system package        | 1.5 hrs   | `/packages/design-system` with components + tokens    |
+| **2b** (Then)        | Auth module                  | 2 hrs     | Signup, login, refresh, logout, protected routes      |
+| **3** (Week 3)       | Resume + Application APIs    | 3 hrs     | Full CRUD for both modules + PDF export queueing      |
+| **4** (Week 4)       | Interview prep + SRS         | 2.5 hrs   | Study guides, flashcards, spaced repetition algorithm |
 
 ---
 
@@ -7949,6 +7997,7 @@ You have **4 ready-to-execute Claude Code prompts** that will build PathMerit to
 ### Session 1: Already Complete ✅
 
 You've already executed the initial scaffold. You have:
+
 - ✅ Monorepo at /pathmerit
 - ✅ Database schema with all tables
 - ✅ Seed data (200+ technologies, 100+ institutions, 50+ roles)
@@ -7962,12 +8011,14 @@ You've already executed the initial scaffold. You have:
 ### Session 2a: Design System Package
 
 **What to do:**
+
 1. Open `CLAUDE_CODE_SESSION_2A.md`
 2. Copy the entire content
 3. Paste into Claude Code with instruction: "Build the design system package for PathMerit. Create `/packages/design-system` with all components from my Claude Design export, design tokens, Tailwind config, and CVA-based component variants. Make sure Next.js can import @pathmerit/design-system."
 4. When complete, test by navigating to `http://localhost:3000/design-test`
 
 **Expected output:**
+
 - `/packages/design-system` package
 - Components using CVA pattern
 - Design tokens (colors, typography, spacing)
@@ -7983,12 +8034,14 @@ You've already executed the initial scaffold. You have:
 ### Session 2b: Auth Module
 
 **What to do:**
+
 1. Open `CLAUDE_CODE_SESSION_2B.md`
 2. Copy the entire content
 3. Paste into Claude Code: "Build the auth module for NestJS. Implement signup, login, logout, JWT refresh, session management in Postgres, protected routes with JwtAuthGuard. Return consistent { data, error } format."
 4. Test endpoints with curl commands provided in the validation section
 
 **Expected output:**
+
 - AuthModule with service, controller, schemas
 - Signup endpoint that hashes passwords and returns tokens
 - Login endpoint that verifies credentials
@@ -8000,6 +8053,7 @@ You've already executed the initial scaffold. You have:
 **Time:** 2 hours Claude Code + 30 mins validation
 
 **Success**:
+
 ```bash
 curl -X POST http://localhost:3001/auth/signup \
   -H "Content-Type: application/json" \
@@ -8012,12 +8066,14 @@ curl -X POST http://localhost:3001/auth/signup \
 ### Session 3: Resume Builder + Application Tracker APIs
 
 **What to do:**
+
 1. Open `CLAUDE_CODE_SESSION_3.md`
 2. Copy the entire content
 3. Paste into Claude Code: "Build the resume builder and application tracker modules for NestJS. Implement full CRUD for resumes with variants, work experiences, and resume templates. Implement full CRUD for applications with contact logs. Queue PDF exports to Postgres jobs table. All endpoints protected and user-scoped."
 4. Test endpoints with curl commands in validation section
 
 **Expected output:**
+
 - ResumesModule with service, controller, schemas
 - Resume CRUD: create, list, fetch, update, delete
 - Resume variants: create variant (fork)
@@ -8032,6 +8088,7 @@ curl -X POST http://localhost:3001/auth/signup \
 **Time:** 3 hours Claude Code + 45 mins validation
 
 **Success**:
+
 ```bash
 # Create resume
 curl -X POST http://localhost:3001/resumes \
@@ -8052,6 +8109,7 @@ SELECT * FROM jobs WHERE type='pdf_export';
 ### Session 4: Interview Prep Module with Spaced Repetition
 
 **What to do:**
+
 1. Open `CLAUDE_CODE_SESSION_4.md`
 2. Copy the entire content
 3. Paste into Claude Code: "Build the interview prep module for NestJS. Implement questions CRUD with bulk import. Implement study guides (create, list, update, delete). Implement flashcard endpoint that returns next card based on spaced repetition algorithm. Implement progress tracking with confidence scoring. Implement the SRS utility that calculates next review dates based on confidence levels (1-5)."
@@ -8059,6 +8117,7 @@ SELECT * FROM jobs WHERE type='pdf_export';
 5. Test endpoints with curl commands in validation section
 
 **Expected output:**
+
 - PrepModule with service, controller, schemas, utilities
 - SpacedRepetitionUtil with SRS algorithm
 - Questions endpoints: bulk import, search/filter
@@ -8071,6 +8130,7 @@ SELECT * FROM jobs WHERE type='pdf_export';
 **Time:** 2.5 hours Claude Code + 30 mins validation
 
 **Success**:
+
 ```bash
 # Create study guide
 curl -X POST http://localhost:3001/prep/study-guides \
@@ -8098,19 +8158,24 @@ WHERE confidence=3 LIMIT 1;
 ## 📅 Weekly Timeline
 
 **Week 1:**
+
 - ✅ Session 1: Scaffold (already done)
 
 **Week 2:**
+
 - ▶️ Session 2a: Design system
 - ▶️ Session 2b: Auth module
 
 **Week 3:**
+
 - ▶️ Session 3: Resume + Application APIs
 
 **Week 4:**
+
 - ▶️ Session 4: Interview Prep APIs
 
 **Week 5+:**
+
 - Manual or Claude Code Session 5+: Frontend UI (React components + pages)
 - Deployment to Vercel + Railway + Neon
 
@@ -8119,6 +8184,7 @@ WHERE confidence=3 LIMIT 1;
 ## 📊 Complete API Specification After All Sessions
 
 ### Authentication
+
 - `POST /auth/signup` — Register
 - `POST /auth/login` — Login
 - `POST /auth/refresh` — Refresh token
@@ -8126,6 +8192,7 @@ WHERE confidence=3 LIMIT 1;
 - `GET /auth/me` — Current user (protected)
 
 ### Resume Builder
+
 - `POST /resumes` — Create
 - `GET /resumes` — List
 - `GET /resumes/:id` — Fetch
@@ -8139,6 +8206,7 @@ WHERE confidence=3 LIMIT 1;
 - `GET /resumes/:id/export-status` — Check export status
 
 ### Application Tracker
+
 - `POST /applications` — Create
 - `GET /applications` — List (with filters)
 - `GET /applications/:id` — Fetch
@@ -8150,6 +8218,7 @@ WHERE confidence=3 LIMIT 1;
 - `GET /applications/stats` — Pipeline stats
 
 ### Interview Prep
+
 - `POST /prep/questions/import` — Bulk import
 - `GET /prep/questions` — Search (with filters)
 - `POST /prep/study-guides` — Create
@@ -8168,12 +8237,14 @@ WHERE confidence=3 LIMIT 1;
 ## ✅ Execution Checklist
 
 ### Before Session 2a
+
 - [ ] Session 1 is complete and working locally
 - [ ] `pnpm dev` starts both Next.js and NestJS without errors
 - [ ] Database has seed data (verify: `SELECT COUNT(*) FROM technologies;` = 200+)
 - [ ] Design system exported from Claude Design (components, tokens, Tailwind config)
 
 ### During/After Each Session
+
 - [ ] Copy full prompt from markdown file
 - [ ] Paste into Claude Code
 - [ ] Wait for completion
@@ -8182,6 +8253,7 @@ WHERE confidence=3 LIMIT 1;
 - [ ] Check GitHub Actions CI passes
 
 ### Before Moving to Next Session
+
 - [ ] All endpoints respond correctly
 - [ ] Authentication works (can get access token)
 - [ ] Data persists in Postgres
@@ -8220,15 +8292,15 @@ WHERE confidence=3 LIMIT 1;
 
 ## 🛠️ Troubleshooting Quick Reference
 
-| Issue | Solution |
-|-------|----------|
-| Claude Code times out | Break into smaller sections. Prompt is modular, can be run partially. |
-| `pnpm install` fails | Delete pnpm-lock.yaml and node_modules. Run `pnpm install` again. |
-| Postgres won't start | Check port 5432 is free. Restart Docker: `docker-compose down && docker-compose up -d` |
-| TypeScript errors | Check all imports are correct. Some types might need to be exported from packages. |
-| Auth endpoints return 401 | Make sure JWT_SECRET matches between signing and verification. |
-| Design system not importing | Check `/packages/design-system/package.json` exports. Verify `pnpm install` ran. |
-| SRS not working | Verify Postgres has `next_review_at` being set correctly. Check confidence is 1-5. |
+| Issue                       | Solution                                                                               |
+| --------------------------- | -------------------------------------------------------------------------------------- |
+| Claude Code times out       | Break into smaller sections. Prompt is modular, can be run partially.                  |
+| `pnpm install` fails        | Delete pnpm-lock.yaml and node_modules. Run `pnpm install` again.                      |
+| Postgres won't start        | Check port 5432 is free. Restart Docker: `docker-compose down && docker-compose up -d` |
+| TypeScript errors           | Check all imports are correct. Some types might need to be exported from packages.     |
+| Auth endpoints return 401   | Make sure JWT_SECRET matches between signing and verification.                         |
+| Design system not importing | Check `/packages/design-system/package.json` exports. Verify `pnpm install` ran.       |
+| SRS not working             | Verify Postgres has `next_review_at` being set correctly. Check confidence is 1-5.     |
 
 ---
 
@@ -8249,6 +8321,7 @@ You'll have:
 ✅ Production-ready backend
 
 At this point, building the frontend UI is straightforward:
+
 - React components use the design system
 - Components call the APIs
 - State management with TanStack Query + Zustand
@@ -8277,14 +8350,16 @@ At this point, building the frontend UI is straightforward:
 **You're ready. Start with Session 2a.**
 
 Good luck. 🚀
+
 ```
 
 BUILD_CHECKLIST.md 16,074 chars
 
 ```
+
 # PathMerit MVP Build Execution Checklist
 
-**Start Date:** ____________________
+**Start Date:** **\*\*\*\***\_\_\_\_**\*\*\*\***
 **Target Launch Date:** 4 weeks from start
 
 ---
@@ -8292,6 +8367,7 @@ BUILD_CHECKLIST.md 16,074 chars
 ## WEEK 1: Foundation
 
 ### [ ] Pre-work (Before Claude Code)
+
 - [ ] Export Claude Design system as .tsx files
   - [ ] All components exported
   - [ ] Design tokens extracted (colors, typography, spacing)
@@ -8307,6 +8383,7 @@ BUILD_CHECKLIST.md 16,074 chars
 - [ ] Have this checklist printed or open in separate window
 
 ### [ ] Claude Code Session 1: Monorepo Scaffold
+
 **Status:** ⭕ Pending · 🟡 In Progress · ✅ Complete
 
 - [ ] Copy CLAUDE_CODE_PROMPT.md content
@@ -8315,12 +8392,15 @@ BUILD_CHECKLIST.md 16,074 chars
 - [ ] Wait for completion (2.5–3 hours)
 
 **While waiting:**
+
 - [ ] Review CLAUDE_CODE_PROMPT.md for any questions
 - [ ] Prepare design system export directory structure
 - [ ] Check GitHub repo is created and accessible
 
 ### [ ] Validation: Local Environment Works
+
 **Checklist:**
+
 ```bash
 cd pathmerit
 pnpm install          # Should complete without errors
@@ -8342,12 +8422,14 @@ pnpm dev              # Start both frontend + backend
 - [ ] Can query Postgres: `SELECT COUNT(*) FROM technologies` returns ~200
 
 **Issues encountered:**
-- Issue 1: _________________________________________________________
-  - Resolution: __________________________________________________
-- Issue 2: _________________________________________________________
-  - Resolution: __________________________________________________
+
+- Issue 1: ****\*\*\*\*****\*\*\*\*****\*\*\*\*****\_****\*\*\*\*****\*\*\*\*****\*\*\*\*****
+  - Resolution: ****\*\*****\*\*\*\*****\*\*****\_\_****\*\*****\*\*\*\*****\*\*****
+- Issue 2: ****\*\*\*\*****\*\*\*\*****\*\*\*\*****\_****\*\*\*\*****\*\*\*\*****\*\*\*\*****
+  - Resolution: ****\*\*****\*\*\*\*****\*\*****\_\_****\*\*****\*\*\*\*****\*\*****
 
 ### [ ] Post-validation: First commit
+
 ```bash
 git add .
 git commit -m "feat: monorepo scaffold with database schema and seed data"
@@ -8365,6 +8447,7 @@ git push origin main
 ## WEEK 2: Design System + Auth
 
 ### [ ] Claude Code Session 2a: Design System Package
+
 **Status:** ⭕ Pending · 🟡 In Progress · ✅ Complete
 
 - [ ] Prepare design system files from Claude Design export
@@ -8373,6 +8456,7 @@ git push origin main
 - [ ] Execute (1.5 hours expected)
 
 **Deliverable checklist:**
+
 - [ ] `/packages/design-system` package created
 - [ ] `/components` folder with all .tsx files
   - [ ] Button.tsx, Input.tsx, Card.tsx, Modal.tsx, Sidebar.tsx (core components)
@@ -8387,6 +8471,7 @@ git push origin main
 - [ ] `package.json` configured correctly
 
 ### [ ] Validation: Design System Works
+
 ```bash
 cd packages/design-system
 npm list  # Check dependencies
@@ -8400,6 +8485,7 @@ npm ls @pathmerit/design-system  # Check it's linked
 - [ ] Tailwind class extensions work (custom colors show up)
 
 ### [ ] Claude Code Session 2b: Auth Module
+
 **Status:** ⭕ Pending · 🟡 In Progress · ✅ Complete
 
 - [ ] Open Claude Code
@@ -8407,6 +8493,7 @@ npm ls @pathmerit/design-system  # Check it's linked
 - [ ] Execute (2 hours expected)
 
 **Deliverable checklist:**
+
 - [ ] `/apps/api/src/modules/auth` folder created
   - [ ] `auth.controller.ts` with all endpoints:
     - [ ] POST /auth/signup
@@ -8425,6 +8512,7 @@ npm ls @pathmerit/design-system  # Check it's linked
 - [ ] `auth.module.ts` registered in `app.module.ts`
 
 ### [ ] Validation: Auth Endpoints Work
+
 ```bash
 # Test signup
 curl -X POST http://localhost:3001/auth/signup \
@@ -8452,6 +8540,7 @@ SELECT * FROM sessions LIMIT 1;  # Should show session records
 - [ ] GET /auth/me returns current user (when authenticated)
 
 ### [ ] Post-validation: Second commit
+
 ```bash
 git add .
 git commit -m "feat: design system package and auth module with Better Auth"
@@ -8469,6 +8558,7 @@ git push origin main
 ## WEEK 3: Core CRUD APIs
 
 ### [ ] Claude Code Session 3: Resume + Application Tracker APIs
+
 **Status:** ⭕ Pending · 🟡 In Progress · ✅ Complete
 
 - [ ] Open Claude Code
@@ -8476,6 +8566,7 @@ git push origin main
 - [ ] Execute (3 hours expected)
 
 **Resume module deliverables:**
+
 - [ ] `/apps/api/src/modules/resumes` created
 - [ ] Endpoints:
   - [ ] POST /resumes (create base)
@@ -8493,6 +8584,7 @@ git push origin main
 - [ ] Soft deletes implemented
 
 **Application tracker module deliverables:**
+
 - [ ] `/apps/api/src/modules/applications` created
 - [ ] Endpoints:
   - [ ] POST /applications (create)
@@ -8511,6 +8603,7 @@ git push origin main
 - [ ] Soft deletes
 
 ### [ ] Validation: CRUD Operations Work
+
 ```bash
 # Create resume
 curl -X POST http://localhost:3001/resumes \
@@ -8559,6 +8652,7 @@ curl "http://localhost:3001/applications?status=applied&company=Stripe" \
 - [ ] Soft deletes work
 
 ### [ ] Post-validation: Third commit
+
 ```bash
 git add .
 git commit -m "feat: resume builder and application tracker full CRUD APIs"
@@ -8575,6 +8669,7 @@ git push origin main
 ## WEEK 4: Interview Prep APIs
 
 ### [ ] Claude Code Session 4: Interview Prep Module
+
 **Status:** ⭕ Pending · 🟡 In Progress · ✅ Complete
 
 - [ ] Open Claude Code
@@ -8582,6 +8677,7 @@ git push origin main
 - [ ] Execute (2.5 hours expected)
 
 **Interview prep module deliverables:**
+
 - [ ] `/apps/api/src/modules/prep` created
 - [ ] Endpoints:
   - [ ] POST /questions/import (bulk import)
@@ -8608,6 +8704,7 @@ git push origin main
 - [ ] Progress tracking and stats
 
 ### [ ] Validation: Interview Prep Works
+
 ```bash
 # Create study guide
 curl -X POST http://localhost:3001/study-guides \
@@ -8644,6 +8741,7 @@ LIMIT 5;  # Should show varied next_review_at times
 - [ ] Search and filtering by module/difficulty work
 
 ### [ ] Post-validation: Fourth commit
+
 ```bash
 git add .
 git commit -m "feat: interview prep module with spaced repetition algorithm"
@@ -8661,6 +8759,7 @@ git push origin main
 ## AFTER WEEK 4: Decision Point
 
 ### [ ] Review: All APIs Complete?
+
 - [ ] Auth working
 - [ ] Resume builder API complete
 - [ ] Application tracker API complete
@@ -8670,19 +8769,22 @@ git push origin main
 - [ ] Zero blocking issues
 
 ### [ ] Decision: How to build the frontend?
+
 - [ ] Option A: Continue with Claude Code (Sessions 5+)
 - [ ] Option B: Build manually with React
 - [ ] Option C: Hybrid (Claude Code for complex, manual for simple)
 
-**Selected option:** ___________________________
+**Selected option:** \***\*\*\*\*\*\*\***\_\_\_\***\*\*\*\*\*\*\***
 
 ### [ ] If Option A or C: Prepare next Claude Code prompts
+
 - [ ] Auth UI prompt (signup, login pages)
 - [ ] Resume builder form prompt (multi-section form)
 - [ ] Application tracker UI prompt (Kanban board, list view)
 - [ ] Study guide UI prompt (flashcard interface)
 
 ### [ ] If Option B or C: Set up React development
+
 - [ ] Install ESLint + Prettier
 - [ ] Create component structure in `/apps/web/src/components`
 - [ ] Create page structure in `/apps/web/src/app`
@@ -8693,6 +8795,7 @@ git push origin main
 ## FINAL WEEK: Deployment Prep
 
 ### [ ] Vercel Deployment
+
 - [ ] Connect GitHub repo to Vercel
 - [ ] Set environment variable: NEXT_PUBLIC_API_URL = http://localhost:3001 (for dev)
 - [ ] Create production environment variable
@@ -8700,6 +8803,7 @@ git push origin main
 - [ ] Deploy main branch
 
 ### [ ] Railway Deployment
+
 - [ ] Create Railway account
 - [ ] Create project
 - [ ] Connect GitHub repo
@@ -8714,6 +8818,7 @@ git push origin main
 - [ ] Test production API endpoints
 
 ### [ ] Neon Database Setup
+
 - [ ] Create Neon account
 - [ ] Create production database
 - [ ] Run migrations on production database
@@ -8721,6 +8826,7 @@ git push origin main
 - [ ] Test production database connection
 
 ### [ ] Domain + DNS
+
 - [ ] Purchase domain (pathmerit.com or .dev)
 - [ ] Point domain to Vercel (frontend)
 - [ ] Set up api.pathmerit.com subdomain for Railway backend
@@ -8728,6 +8834,7 @@ git push origin main
 - [ ] Test HTTPS working
 
 ### [ ] Go-Live Checklist
+
 - [ ] All environment variables set in production
 - [ ] Full signup → create resume → export PDF flow works
 - [ ] Application tracking workflow complete
@@ -8737,6 +8844,7 @@ git push origin main
 - [ ] Mobile responsive (test on phone)
 
 ### [ ] Public Launch
+
 - [ ] Write Product Hunt post
 - [ ] Share with network
 - [ ] Announce on Twitter/LinkedIn
@@ -8748,28 +8856,40 @@ git push origin main
 ## Notes & Issues
 
 ### Week 1 notes:
-_________________________________________________________________
-_________________________________________________________________
+
+---
+
+---
 
 ### Week 2 notes:
-_________________________________________________________________
-_________________________________________________________________
+
+---
+
+---
 
 ### Week 3 notes:
-_________________________________________________________________
-_________________________________________________________________
+
+---
+
+---
 
 ### Week 4 notes:
-_________________________________________________________________
-_________________________________________________________________
+
+---
+
+---
 
 ### Blockers encountered:
-_________________________________________________________________
-_________________________________________________________________
+
+---
+
+---
 
 ### Questions for later:
-_________________________________________________________________
-_________________________________________________________________
+
+---
+
+---
 
 ---
 
@@ -8782,51 +8902,58 @@ _________________________________________________________________
 - [ ] Ready to build frontend
 - [ ] Ready to deploy to production
 
-**Signed:** _________________________ **Date:** ______________
+**Signed:** \***\*\*\*\*\*\*\***\_\***\*\*\*\*\*\*\*** **Date:** **\*\***\_\_**\*\***
+
 ```
 
 SESSIONS_READY.txt 4,587 chars
 
 ```
+
 ╔════════════════════════════════════════════════════════════════════════════╗
-║                                                                            ║
-║              🎉 PATHMERIT: ALL CLAUDE CODE SESSIONS READY                 ║
-║                                                                            ║
-║                     4 Prompts · 3,254 Lines of Code                       ║
-║                  Ready to Build to MVP in 4 Weeks                        ║
-║                                                                            ║
+║ ║
+║ 🎉 PATHMERIT: ALL CLAUDE CODE SESSIONS READY ║
+║ ║
+║ 4 Prompts · 3,254 Lines of Code ║
+║ Ready to Build to MVP in 4 Weeks ║
+║ ║
 ╚════════════════════════════════════════════════════════════════════════════╝
 
 YOU HAVE 4 COMPLETE CLAUDE CODE PROMPTS
 ═══════════════════════════════════════════════════════════════════════════
 
 SESSION 1 (Already Done) ✅
-  - Monorepo scaffold + database foundation
-  - Status: COMPLETE
+
+- Monorepo scaffold + database foundation
+- Status: COMPLETE
 
 SESSION 2a (Ready to Execute)
-  - Design system package integration
-  - File: CLAUDE_CODE_SESSION_2A.md (481 lines)
-  - Expected time: 1.5 hours Claude Code + 20 mins validation
-  - Deliverable: /packages/design-system with all components + tokens
+
+- Design system package integration
+- File: CLAUDE_CODE_SESSION_2A.md (481 lines)
+- Expected time: 1.5 hours Claude Code + 20 mins validation
+- Deliverable: /packages/design-system with all components + tokens
 
 SESSION 2b (Ready to Execute)
-  - Auth module (signup, login, refresh, logout)
-  - File: CLAUDE_CODE_SESSION_2B.md (720 lines)
-  - Expected time: 2 hours Claude Code + 30 mins validation
-  - Deliverable: Complete auth system with JWT tokens
+
+- Auth module (signup, login, refresh, logout)
+- File: CLAUDE_CODE_SESSION_2B.md (720 lines)
+- Expected time: 2 hours Claude Code + 30 mins validation
+- Deliverable: Complete auth system with JWT tokens
 
 SESSION 3 (Ready to Execute)
-  - Resume builder + Application tracker APIs
-  - File: CLAUDE_CODE_SESSION_3.md (1,148 lines)
-  - Expected time: 3 hours Claude Code + 45 mins validation
-  - Deliverable: Full CRUD for resumes and applications
+
+- Resume builder + Application tracker APIs
+- File: CLAUDE_CODE_SESSION_3.md (1,148 lines)
+- Expected time: 3 hours Claude Code + 45 mins validation
+- Deliverable: Full CRUD for resumes and applications
 
 SESSION 4 (Ready to Execute)
-  - Interview prep module with spaced repetition
-  - File: CLAUDE_CODE_SESSION_4.md (905 lines)
-  - Expected time: 2.5 hours Claude Code + 30 mins validation
-  - Deliverable: Study guides, flashcards, SRS algorithm
+
+- Interview prep module with spaced repetition
+- File: CLAUDE_CODE_SESSION_4.md (905 lines)
+- Expected time: 2.5 hours Claude Code + 30 mins validation
+- Deliverable: Study guides, flashcards, SRS algorithm
 
 ═══════════════════════════════════════════════════════════════════════════════
 
@@ -8866,30 +8993,35 @@ WEEKLY BREAKDOWN
 WEEK 1: Session 1 (Already done) ✅
 
 WEEK 2: Sessions 2a + 2b
-  - Design system package
-  - Auth module with signup/login/refresh
+
+- Design system package
+- Auth module with signup/login/refresh
 
 WEEK 3: Session 3
-  - Resume builder APIs
-  - Application tracker APIs
-  - PDF export queueing
+
+- Resume builder APIs
+- Application tracker APIs
+- PDF export queueing
 
 WEEK 4: Session 4
-  - Interview prep APIs
-  - Spaced repetition algorithm
-  - Progress tracking
+
+- Interview prep APIs
+- Spaced repetition algorithm
+- Progress tracking
 
 WEEK 5+: Frontend UI
-  - React components using design system
-  - Pages and forms
-  - API integration
-  - Testing
+
+- React components using design system
+- Pages and forms
+- API integration
+- Testing
 
 WEEK 6+: Deployment
-  - Vercel (frontend)
-  - Railway (backend)
-  - Neon (database)
-  - Go live
+
+- Vercel (frontend)
+- Railway (backend)
+- Neon (database)
+- Go live
 
 ═══════════════════════════════════════════════════════════════════════════════
 
@@ -8897,11 +9029,11 @@ MASTER REFERENCE
 ═══════════════════════════════════════════════════════════════════════════
 
 📄 CLAUDE_CODE_SESSIONS_MASTER.md
-   Complete overview of all 4 sessions
-   Execution order
-   Timeline
-   API spec after all sessions
-   Troubleshooting
+Complete overview of all 4 sessions
+Execution order
+Timeline
+API spec after all sessions
+Troubleshooting
 
 ═══════════════════════════════════════════════════════════════════════════════
 
@@ -8929,11 +9061,13 @@ YOU'RE COMPLETELY READY.
 - ✅ Timeline
 
 Start with Session 2a. Go. 🚀
+
 ```
 
 INDEX.md 5,206 chars
 
 ```
+
 # PathMerit Complete Build Package — Index
 
 ## 📋 Reading Order
@@ -8950,6 +9084,7 @@ INDEX.md 5,206 chars
 ## 📦 Files in This Folder
 
 ### Execution Documents
+
 - **00_START_HERE.txt** (ASCII visual guide)
 - **NEXT_STEPS.md** (Immediate action plan)
 - **CLAUDE_CODE_PROMPT.md** (375 lines, ready to execute)
@@ -8958,9 +9093,11 @@ INDEX.md 5,206 chars
 - **INDEX.md** (This file)
 
 ### Product Specification
+
 - **product_brief.html** (Complete feature spec, pricing, tech stack, 97 KB)
 
 ### Interview Prep Question Banks (813 total questions + narratives)
+
 - **principal_interview_prep.html** (Master prep guide, 169 KB)
 - **behavioral_narratives.html** (45 STAR-L stories, 87 KB)
 - **nodejs_typescript_bank.html** (47 Qs, 78 KB)
@@ -8976,20 +9113,21 @@ INDEX.md 5,206 chars
 - **redis_bank.html** (50 Qs, 94 KB)
 
 ### UI Pattern Examples
+
 - **prepos_dashboard.html** (Navigation pattern example, 50 KB)
 
 ---
 
 ## ⏱️ Timeline at a Glance
 
-| Week | Claude Code | Deliverable | Your Time |
-|------|-----------|-------------|-----------|
-| 1 | Session 1: Scaffold | Monorepo, Postgres, schema, seed data | 30 mins validation |
-| 2 | Sessions 2a, 2b: Design + Auth | Design system, auth endpoints | 1 hour validation |
-| 3 | Session 3: Resume + App APIs | Full CRUD for both modules | 45 mins validation |
-| 4 | Session 4: Interview Prep | Study guides, flashcards, SRS | 30 mins validation |
-| 5+ | Sessions 5+: Frontend UI | React components, pages, integration | Build or manual |
-| 6+ | Manual: Deploy | Vercel + Railway + Neon | Setup & launch |
+| Week | Claude Code                    | Deliverable                           | Your Time          |
+| ---- | ------------------------------ | ------------------------------------- | ------------------ |
+| 1    | Session 1: Scaffold            | Monorepo, Postgres, schema, seed data | 30 mins validation |
+| 2    | Sessions 2a, 2b: Design + Auth | Design system, auth endpoints         | 1 hour validation  |
+| 3    | Session 3: Resume + App APIs   | Full CRUD for both modules            | 45 mins validation |
+| 4    | Session 4: Interview Prep      | Study guides, flashcards, SRS         | 30 mins validation |
+| 5+   | Sessions 5+: Frontend UI       | React components, pages, integration  | Build or manual    |
+| 6+   | Manual: Deploy                 | Vercel + Railway + Neon               | Setup & launch     |
 
 ---
 
@@ -9014,6 +9152,7 @@ INDEX.md 5,206 chars
 **PathMerit** — A complete career acceleration platform for software engineers.
 
 ### Core Features
+
 1. **Interview Prep** — 813+ curated questions, study guides, spaced repetition flashcards
 2. **Resume Builder** — ATS-native resume builder with 3 templates, variants, PDF/DOCX export
 3. **Cover Letters** — Template-based cover letter generator with versioning
@@ -9022,16 +9161,19 @@ INDEX.md 5,206 chars
 6. **AI Drill Mode** — Claude-powered answer evaluation and weak-area detection (Phase 2)
 
 ### Target Market
+
 - Mid-career engineers (3–12 years experience) targeting Senior/Staff/Principal roles
 - Junior engineers in first/second job search
 - Engineers from non-US markets (exchange rate pricing)
 
 ### Pricing
+
 - **Free**: $0 (genuine free tier, not crippled)
 - **Pro**: $12/month or $99/year (with PPP discounts)
 - **Team**: $8/seat/month (min 5 seats, for bootcamps/companies)
 
 ### Tech Stack
+
 - Frontend: Next.js 14 + Vercel
 - Backend: NestJS + Railway
 - Database: Neon Postgres
@@ -9042,6 +9184,7 @@ INDEX.md 5,206 chars
 - Monitoring: Sentry
 
 ### Infrastructure Cost
+
 ~$5–15/month for PoC/MVP (zero fixed costs, pay-per-use).
 
 ---
@@ -9069,6 +9212,7 @@ INDEX.md 5,206 chars
 ## 🎉 You're Ready
 
 You have:
+
 - ✓ Complete product specification
 - ✓ Lean tech stack (chosen, documented, locked in)
 - ✓ Claude Code prompts (4 ready to execute)
@@ -9082,11 +9226,13 @@ Everything is specified. Everything is ready. The only thing between you and a w
 **Next action: Open 00_START_HERE.txt**
 
 Good luck. 🚀
+
 ```
 
 NEXT_STEPS.md 10,289 chars
 
 ```
+
 # PathMerit: Your Complete Build Package
 
 ## What You Have
@@ -9094,7 +9240,9 @@ NEXT_STEPS.md 10,289 chars
 You now have **everything** needed to build PathMerit to MVP in 4 weeks using Claude Code. Here's what's in your `/mnt/user-data/outputs/` folder:
 
 ### 1. **product_brief.html** (92 KB)
+
 The complete product conceptualization document. Contains:
+
 - PathMerit positioning and market analysis
 - Complete feature specification for all 6 modules
 - Lean MVP tech stack (Railway + Neon + Postgres jobs)
@@ -9106,7 +9254,9 @@ The complete product conceptualization document. Contains:
 **Use it for:** Reference guide when Claude Code asks for clarification, product decisions, feature edge cases.
 
 ### 2. **CLAUDE_CODE_PROMPT.md** (375 lines)
+
 The master scaffold prompt for your first Claude Code session. Specifies:
+
 - Complete monorepo structure (Next.js + NestJS + shared packages)
 - All dependencies and versions
 - Database schema (15+ tables)
@@ -9117,7 +9267,9 @@ The master scaffold prompt for your first Claude Code session. Specifies:
 **Use it for:** Copy the entire content directly into Claude Code Terminal and execute. This is your foundation.
 
 ### 3. **BUILD_ROADMAP.html** (Interactive guide)
+
 Week-by-week phased build plan with:
+
 - Design system integration strategy (CVA + Tailwind tokens)
 - 4 sequential Claude Code sessions (scaffold, design+auth, resume+app, prep)
 - Specific prompts for each session
@@ -9128,7 +9280,9 @@ Week-by-week phased build plan with:
 **Use it for:** Main reference for your build timeline. Follow the timeline, check off each Claude Code session as you complete them.
 
 ### 4. **BUILD_CHECKLIST.md** (501 lines)
+
 Printable/digital checklist for tracking progress week-by-week:
+
 - Pre-work checklist (design system export, GitHub setup)
 - Per-session validation steps with curl commands
 - Issue tracking (what went wrong, how you fixed it)
@@ -9138,6 +9292,7 @@ Printable/digital checklist for tracking progress week-by-week:
 **Use it for:** Print it out or keep it open. Check off items as you complete them. Track issues and blockers.
 
 ### 5. **Principal Interview Prep Materials** (10 banks)
+
 - nodejs_typescript_bank.html (47 Qs)
 - go_bank.html (53 Qs)
 - distributed_systems_bank.html (48 Qs)
@@ -9155,6 +9310,7 @@ Printable/digital checklist for tracking progress week-by-week:
 **Use it for:** The question bank content will be imported into the PathMerit platform as seed data. These are the assets that differentiate PathMerit from generic interview prep platforms.
 
 ### 6. **prepos_dashboard.html** (Navigation hub)
+
 A product dashboard showing all prep resources in one place. This is a pattern you can adapt for PathMerit's UI later.
 
 ---
@@ -9164,6 +9320,7 @@ A product dashboard showing all prep resources in one place. This is a pattern y
 ### RIGHT NOW (Next 2 hours)
 
 **1. Export your Claude Design system**
+
 - Open Claude Design
 - Export all components as .tsx files
 - Save colors, typography, spacing as TypeScript constants
@@ -9179,9 +9336,11 @@ A product dashboard showing all prep resources in one place. This is a pattern y
 - Keep this folder accessible for Session 2
 
 **2. Set up GitHub**
+
 - Create a new GitHub repo: `pathmerit`
 - Clone it locally: `git clone https://github.com/YOU/pathmerit.git`
 - Create a basic README with:
+
   ```markdown
   # PathMerit
 
@@ -9189,18 +9348,22 @@ A product dashboard showing all prep resources in one place. This is a pattern y
   Interview prep + resume building + application tracking + ATS intelligence.
 
   ## Tech Stack
+
   - Frontend: Next.js + Vercel
   - Backend: NestJS + Railway
   - Database: Neon Postgres
   - Design: Custom design system
 
   ## Local Development
+
   See CLAUDE_CODE_PROMPT.md for setup instructions.
   ```
+
 - Commit and push
 
 **3. Prepare GitHub Actions secrets**
 In your GitHub repo settings → Secrets and variables → Actions:
+
 - Add secrets (leave values blank for now, fill in later):
   - GOOGLE_CLIENT_ID
   - GOOGLE_CLIENT_SECRET
@@ -9213,12 +9376,14 @@ In your GitHub repo settings → Secrets and variables → Actions:
 **4. Execute Claude Code Session 1: Monorepo Scaffold**
 
 Open Claude Code (Terminal or VS Code extension):
+
 - Copy the entire content of `CLAUDE_CODE_PROMPT.md`
 - Paste it into Claude Code
 - Add this instruction: "Execute this scaffold for PathMerit. Build the complete monorepo structure, install all dependencies, create the database schema with all tables, seed with lookups data, and verify a working local dev environment with both Next.js and NestJS running."
 - Let it run (expect 2.5–3 hours)
 
 While Claude Code is working:
+
 - Read through the product brief again
 - Think about any product questions or clarifications you need
 - Prepare the design system export files (you'll need them for Session 2)
@@ -9226,6 +9391,7 @@ While Claude Code is working:
 **5. Validate the scaffold**
 
 After Claude Code completes:
+
 ```bash
 cd pathmerit
 pnpm install          # Should finish without errors
@@ -9238,12 +9404,14 @@ pnpm dev              # Both frontend + backend should start
 ```
 
 Check:
+
 - [ ] Next.js runs on http://localhost:3000
 - [ ] NestJS runs on http://localhost:3001
 - [ ] GET http://localhost:3001/health returns 200
 - [ ] Database has data: `SELECT COUNT(*) FROM technologies;` should return ~200
 
 **6. First Git commit**
+
 ```bash
 git add .
 git commit -m "feat: monorepo scaffold with database and seed data"
@@ -9257,14 +9425,17 @@ git push origin main
 Once the scaffold is validated, you have a solid foundation. Then:
 
 **Week 2:** Claude Code Session 2 (Design System + Auth)
+
 - Integrate your design system into the monorepo
 - Build auth module with Better Auth + Google SSO
 
 **Week 3:** Claude Code Session 3 (Core APIs)
+
 - Resume builder CRUD
 - Application tracker CRUD
 
 **Week 4:** Claude Code Session 4 (Interview Prep)
+
 - Questions and study guides
 - Spaced repetition flashcard algorithm
 
@@ -9340,14 +9511,14 @@ If you can't answer "yes" to all of these before starting, you'll hit blockers i
 
 ## Timeline Summary
 
-| Week | Task | Claude Code Sessions | Deliverable |
-|------|------|-------------------|-------------|
-| **1** | Foundation | Session 1: Scaffold | Working monorepo, Postgres, schema, seed data |
-| **2** | Design + Auth | Sessions 2a, 2b: Design system + Auth | Design system package, auth endpoints |
-| **3** | Core APIs | Session 3: Resume + App | Full CRUD for resumes and applications |
-| **4** | Interview Prep | Session 4: Prep module | Study guides, flashcards, spaced rep |
-| **5** | Frontend UI | Sessions 5+: React components | UI layer for all features |
-| **6** | Deployment | Manual: Vercel + Railway + Neon | Production-ready platform |
+| Week  | Task           | Claude Code Sessions                  | Deliverable                                   |
+| ----- | -------------- | ------------------------------------- | --------------------------------------------- |
+| **1** | Foundation     | Session 1: Scaffold                   | Working monorepo, Postgres, schema, seed data |
+| **2** | Design + Auth  | Sessions 2a, 2b: Design system + Auth | Design system package, auth endpoints         |
+| **3** | Core APIs      | Session 3: Resume + App               | Full CRUD for resumes and applications        |
+| **4** | Interview Prep | Session 4: Prep module                | Study guides, flashcards, spaced rep          |
+| **5** | Frontend UI    | Sessions 5+: React components         | UI layer for all features                     |
+| **6** | Deployment     | Manual: Vercel + Railway + Neon       | Production-ready platform                     |
 
 ---
 
@@ -9362,17 +9533,19 @@ Good luck. You've got this. 🚀
 ---
 
 **Next action:** Export your Claude Design system. Expected time: 30 minutes.
+
 ```
 
 00_START_HERE.txt 8,097 chars
 
 ```
+
 ╔════════════════════════════════════════════════════════════════════════════╗
-║                                                                            ║
-║                    🚀 PATHMERIT: COMPLETE BUILD PACKAGE                   ║
-║                                                                            ║
-║                      You're ready to build to MVP in 4 weeks              ║
-║                                                                            ║
+║ ║
+║ 🚀 PATHMERIT: COMPLETE BUILD PACKAGE ║
+║ ║
+║ You're ready to build to MVP in 4 weeks ║
+║ ║
 ╚════════════════════════════════════════════════════════════════════════════╝
 
 📦 WHAT'S IN YOUR OUTPUTS FOLDER
@@ -9380,57 +9553,57 @@ Good luck. You've got this. 🚀
 
 📋 EXECUTION DOCUMENTS (Read in this order)
 
-  1. NEXT_STEPS.md
-     ↳ READ THIS FIRST. Your immediate action plan.
-     ↳ What to do right now, before Claude Code.
-     ↳ Success criteria and common pitfalls.
+1. NEXT_STEPS.md
+   ↳ READ THIS FIRST. Your immediate action plan.
+   ↳ What to do right now, before Claude Code.
+   ↳ Success criteria and common pitfalls.
 
-  2. CLAUDE_CODE_PROMPT.md
-     ↳ Copy this entirely into Claude Code.
-     ↳ Generates your complete monorepo scaffold.
-     ↳ Detailed, step-by-step instructions.
+2. CLAUDE_CODE_PROMPT.md
+   ↳ Copy this entirely into Claude Code.
+   ↳ Generates your complete monorepo scaffold.
+   ↳ Detailed, step-by-step instructions.
 
-  3. BUILD_ROADMAP.html
-     ↳ Visual 4-week timeline with 4 Claude Code sessions.
-     ↳ Design system integration strategy.
-     ↳ Week-by-week deliverables.
-     ↳ Deployment plan.
+3. BUILD_ROADMAP.html
+   ↳ Visual 4-week timeline with 4 Claude Code sessions.
+   ↳ Design system integration strategy.
+   ↳ Week-by-week deliverables.
+   ↳ Deployment plan.
 
-  4. BUILD_CHECKLIST.md
-     ↳ Printable weekly checklist.
-     ↳ Validation steps with curl commands.
-     ↳ Issue tracking and notes sections.
-     ↳ Print this or keep it open during build.
+4. BUILD_CHECKLIST.md
+   ↳ Printable weekly checklist.
+   ↳ Validation steps with curl commands.
+   ↳ Issue tracking and notes sections.
+   ↳ Print this or keep it open during build.
 
 ───────────────────────────────────────────────────────────────────────────
 
 📚 REFERENCE DOCUMENTS (As-needed reference)
 
-  5. product_brief.html
-     ↳ Complete product specification.
-     ↳ Feature specs, pricing, tech stack.
-     ↳ Reference when Claude Code needs clarification.
+5. product_brief.html
+   ↳ Complete product specification.
+   ↳ Feature specs, pricing, tech stack.
+   ↳ Reference when Claude Code needs clarification.
 
-  6. Interview Prep Question Banks (10 files, 813 total questions)
-     ├── nodejs_typescript_bank.html (47 questions)
-     ├── go_bank.html (53 questions)
-     ├── distributed_systems_bank.html (48 questions)
-     ├── rails_bank.html (41 questions)
-     ├── postgres_bank.html (45 questions)
-     ├── aws_bank.html (61 questions)
-     ├── react_bank.html (53 questions)
-     ├── docker_bank.html (52 questions)
-     ├── kubernetes_bank.html (57 questions)
-     ├── gcp_bank.html (51 questions)
-     ├── redis_bank.html (50 questions)
-     ├── behavioral_narratives.html (45 STAR-L stories)
-     └── principal_interview_prep.html (master guide)
+6. Interview Prep Question Banks (10 files, 813 total questions)
+   ├── nodejs_typescript_bank.html (47 questions)
+   ├── go_bank.html (53 questions)
+   ├── distributed_systems_bank.html (48 questions)
+   ├── rails_bank.html (41 questions)
+   ├── postgres_bank.html (45 questions)
+   ├── aws_bank.html (61 questions)
+   ├── react_bank.html (53 questions)
+   ├── docker_bank.html (52 questions)
+   ├── kubernetes_bank.html (57 questions)
+   ├── gcp_bank.html (51 questions)
+   ├── redis_bank.html (50 questions)
+   ├── behavioral_narratives.html (45 STAR-L stories)
+   └── principal_interview_prep.html (master guide)
 
-     These are the intellectual assets for PathMerit. They'll be imported
-     as seed data into the platform during the build.
+   These are the intellectual assets for PathMerit. They'll be imported
+   as seed data into the platform during the build.
 
-  7. prepos_dashboard.html
-     ↳ Example dashboard UI pattern you can adapt.
+7. prepos_dashboard.html
+   ↳ Example dashboard UI pattern you can adapt.
 
 ───────────────────────────────────────────────────────────────────────────
 
@@ -9439,23 +9612,23 @@ Good luck. You've got this. 🚀
 
 RIGHT NOW:
 
-  1. Read NEXT_STEPS.md completely.
-     ↳ 10 minutes. This is your immediate roadmap.
+1. Read NEXT_STEPS.md completely.
+   ↳ 10 minutes. This is your immediate roadmap.
 
-  2. Export your Claude Design system.
-     ↳ 30 minutes. Get all components, tokens, Tailwind config ready.
+2. Export your Claude Design system.
+   ↳ 30 minutes. Get all components, tokens, Tailwind config ready.
 
-  3. Create GitHub repo.
-     ↳ 15 minutes. pathmerit repo, add README, add secrets.
+3. Create GitHub repo.
+   ↳ 15 minutes. pathmerit repo, add README, add secrets.
 
-  4. Prepare authentication credentials.
-     ↳ 15 minutes. Get Google OAuth, Stripe test key, Resend key.
+4. Prepare authentication credentials.
+   ↳ 15 minutes. Get Google OAuth, Stripe test key, Resend key.
 
-  5. Review CLAUDE_CODE_PROMPT.md.
-     ↳ 10 minutes. Understand what you're about to execute.
+5. Review CLAUDE_CODE_PROMPT.md.
+   ↳ 10 minutes. Understand what you're about to execute.
 
 THEN: Execute Claude Code Session 1 (2.5–3 hours of Claude Code work)
-      Copy CLAUDE_CODE_PROMPT.md into Claude Code and run it.
+Copy CLAUDE_CODE_PROMPT.md into Claude Code and run it.
 
 ───────────────────────────────────────────────────────────────────────────
 
@@ -9463,20 +9636,20 @@ THEN: Execute Claude Code Session 1 (2.5–3 hours of Claude Code work)
 ═══════════════════════════════════════════════════════════════════════════
 
 WEEK 1: Foundation
-  Claude Code: Scaffold (monorepo, database, seed data)
-  You: Design system export, GitHub setup, validation
+Claude Code: Scaffold (monorepo, database, seed data)
+You: Design system export, GitHub setup, validation
 
 WEEK 2: Design + Auth
-  Claude Code: Design system package + auth module (2 sessions)
-  You: Validate, commit, integrate design system
+Claude Code: Design system package + auth module (2 sessions)
+You: Validate, commit, integrate design system
 
 WEEK 3: Core APIs
-  Claude Code: Resume builder + application tracker APIs
-  You: Test endpoints, validate CRUD operations
+Claude Code: Resume builder + application tracker APIs
+You: Test endpoints, validate CRUD operations
 
 WEEK 4: Interview Prep
-  Claude Code: Interview prep module with spaced repetition
-  You: Validate flashcard algorithm, test SRS scheduling
+Claude Code: Interview prep module with spaced repetition
+You: Validate flashcard algorithm, test SRS scheduling
 
 AFTER WEEK 4: Frontend UI (Claude Code Sessions 5+ or manual React)
 
@@ -9489,15 +9662,15 @@ AFTER WEEK 5: Deploy to production (Vercel + Railway + Neon)
 
 You'll know you're on track when:
 
-  ✓ Local dev runs without errors (Postgres, Next.js, NestJS healthy)
-  ✓ Can test auth with curl (signup, login, token refresh work)
-  ✓ Database has seed data (200+ technologies, 100+ institutions)
-  ✓ Design system integrated (components render in Next.js)
-  ✓ Resume builder APIs respond (create, list, update, delete)
-  ✓ Application tracker APIs respond (full CRUD works)
-  ✓ Interview prep APIs respond (study guides, flashcards work)
-  ✓ All tests pass in CI
-  ✓ Ready to build frontend UI
+✓ Local dev runs without errors (Postgres, Next.js, NestJS healthy)
+✓ Can test auth with curl (signup, login, token refresh work)
+✓ Database has seed data (200+ technologies, 100+ institutions)
+✓ Design system integrated (components render in Next.js)
+✓ Resume builder APIs respond (create, list, update, delete)
+✓ Application tracker APIs respond (full CRUD works)
+✓ Interview prep APIs respond (study guides, flashcards work)
+✓ All tests pass in CI
+✓ Ready to build frontend UI
 
 ───────────────────────────────────────────────────────────────────────────
 
@@ -9537,19 +9710,19 @@ You'll know you're on track when:
 
 "What if Postgres won't start?"
 → Check Docker is running. Check port 5432 is free.
-  `docker-compose up -d` should work. See BUILD_CHECKLIST.md.
+`docker-compose up -d` should work. See BUILD_CHECKLIST.md.
 
 "What if I don't have Google OAuth set up?"
 → Do it now before Session 1. Create a Google Cloud project.
-  See NEXT_STEPS.md for the exact steps.
+See NEXT_STEPS.md for the exact steps.
 
 "What if design system doesn't integrate?"
 → Session 2a is specifically for this. Don't skip it.
-  Use CVA + Tailwind tokens as the pattern.
+Use CVA + Tailwind tokens as the pattern.
 
 "What if I need to change something mid-build?"
 → Document it. Commit it. Move forward.
-  You can iterate later. MVP first.
+You can iterate later. MVP first.
 
 ───────────────────────────────────────────────────────────────────────────
 
@@ -9557,15 +9730,15 @@ You'll know you're on track when:
 ═══════════════════════════════════════════════════════════════════════════
 
 Questions during the build?
-  → Check the BUILD_ROADMAP.html for that week's context
-  → Check the BUILD_CHECKLIST.md for validation steps
-  → Review the product_brief.html for feature clarification
-  → Ask Claude Code directly (it has full context)
+→ Check the BUILD_ROADMAP.html for that week's context
+→ Check the BUILD_CHECKLIST.md for validation steps
+→ Review the product_brief.html for feature clarification
+→ Ask Claude Code directly (it has full context)
 
 Stuck on a technical problem?
-  → Add to your notes in BUILD_CHECKLIST.md
-  → Describe it to Claude Code in the next session
-  → Claude Code can often fix issues by re-executing parts
+→ Add to your notes in BUILD_CHECKLIST.md
+→ Describe it to Claude Code in the next session
+→ Claude Code can often fix issues by re-executing parts
 
 ───────────────────────────────────────────────────────────────────────────
 
@@ -9573,13 +9746,13 @@ Stuck on a technical problem?
 ═══════════════════════════════════════════════════════════════════════════
 
 You have:
-  ✓ Complete product specification
-  ✓ Detailed tech stack and architecture
-  ✓ Claude Code prompts ready to execute
-  ✓ Week-by-week build timeline
-  ✓ 813 interview prep questions
-  ✓ Design system (from Claude Design)
-  ✓ Validation checklists for every step
+✓ Complete product specification
+✓ Detailed tech stack and architecture
+✓ Claude Code prompts ready to execute
+✓ Week-by-week build timeline
+✓ 813 interview prep questions
+✓ Design system (from Claude Design)
+✓ Validation checklists for every step
 
 Everything is in place.
 
@@ -9600,16 +9773,23 @@ You can do this. 🚀
 Questions before you start? Review NEXT_STEPS.md.
 
 Ready to go? → Open NEXT_STEPS.md now.
+
 ```
 
 path-merit-chat-history.pdf — extracted text from PDF 42 chars
 
 ```
+
 [PDF text unavailable in extraction cache]
+
 ```
 
 path-merit-product-chatgpt.pdf — extracted text from PDF 42 chars
 
 ```
+
 [PDF text unavailable in extraction cache]
+
+```
+
 ```

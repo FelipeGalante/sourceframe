@@ -20,4 +20,3 @@ relatedCanonicalPages:
 ---
 
 The original brief framed PathMerit as a complete career platform for software engineers, with tracker and preparation working together rather than as separate products. This archive page preserves that early direction so the product pages can reference it without blending it into canonical guidance.
-

@@ -1,10 +1,18 @@
-# Example Content Tree
+# Minimal Content Example
 
-Copy this folder into `/content` when you want a minimal starter set instead of the PathMerit sample content.
+This folder shows the smallest practical content tree you can copy into a fresh project.
 
-Files here show the expected structure:
+## Includes
 
-- `index.md` for the site overview
-- `guide/index.md` for a domain landing page
-- `guide/getting-started.md` for a section page
-- `guide/reference.md` for a supporting reference page
+- `site.config.example.ts`
+- `content/index.md`
+- `content/guide/index.md`
+- `content/guide/getting-started.md`
+- `content/guide/reference.md`
+
+## Example Routes
+
+- `/`
+- `/guide`
+- `/guide/getting-started`
+- `/guide/reference`

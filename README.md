@@ -55,14 +55,15 @@ Then open `http://localhost:3000`.
 
 1. Copy the repository into a new workspace.
 2. Copy [`templates/site.config.example.ts`](./templates/site.config.example.ts) to `site.config.ts` and edit the values for your project.
-3. Replace the files in [`/content`](./content) with your own Markdown, or start from the example tree in [`templates/content-example`](./templates/content-example).
-4. Keep frontmatter on every content file.
-5. Use `content/index.md` for the site overview.
-6. Use one `index.md` file per top-level domain folder, such as `content/technology/index.md`.
-7. Use nested Markdown files for sections and specialized content types.
-8. Read [`docs/content-authoring.md`](./docs/content-authoring.md) before adding new content.
-9. Read [`docs/vercel-deployment.md`](./docs/vercel-deployment.md) before deploying.
-10. Run `pnpm build` before publishing so frontmatter and routing errors are caught early.
+3. If you want a focused starting point, copy one of the starter packs from [`templates/starter-packs`](./templates/starter-packs) instead of beginning from the raw sample tree.
+4. Replace the files in [`/content`](./content) with your own Markdown, or start from the example tree in [`templates/content-example`](./templates/content-example).
+5. Keep frontmatter on every content file.
+6. Use `content/index.md` for the site overview.
+7. Use one `index.md` file per top-level domain folder, such as `content/technology/index.md`.
+8. Use nested Markdown files for sections and specialized content types.
+9. Read [`docs/content-authoring.md`](./docs/content-authoring.md) before adding new content.
+10. Read [`docs/vercel-deployment.md`](./docs/vercel-deployment.md) before deploying.
+11. Run `pnpm build` before publishing so frontmatter and routing errors are caught early.
 
 ## Content Rules
 
@@ -82,6 +83,7 @@ Then open `http://localhost:3000`.
 - [`lib`](./lib) - content loading, registry building, and Markdown helpers
 - [`public/screenshots`](./public/screenshots) - captured preview images for the template
 - [`templates`](./templates) - starter config, content examples, and frontmatter references
+- [`templates/starter-packs`](./templates/starter-packs) - copyable starter configs and content roots for common documentation styles
 - [`styles`](./styles) - global CSS and design tokens
 
 ## Notes For Maintainers
