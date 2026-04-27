@@ -4,6 +4,7 @@ import { DecisionIndex, DecisionRecord } from "@/components/decision";
 import { ContentRenderer } from "@/components/markdown/ContentRenderer";
 import { SectionLayout } from "@/components/layout/SectionLayout";
 import { EndpointCard, EndpointTable } from "@/components/api";
+import { ProductTemplate } from "@/components/product";
 import { SchemaDomainIndex } from "@/components/schema/SchemaDomainIndex";
 import { RelationshipMap } from "@/components/schema/RelationshipMap";
 import { SchemaTableCard } from "@/components/schema/SchemaTableCard";
@@ -97,6 +98,7 @@ export default async function ContentPage({ params }: { params: Promise<{ slug: 
         <DecisionIndex groups={decisionCatalog} />
       ) : null}
       {entry.decision ? <DecisionRecord entry={entry} /> : null}
+      {entry.product ? <ProductTemplate entry={entry} /> : null}
       {apiDefinition ? (
         <section className="pm-card pm-content-card pm-api-summary-card">
           <div className="pm-content-body">

@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { apiDefinitionSchema } from "@/lib/api-docs";
 import { decisionDefinitionSchema } from "@/lib/decision-docs";
+import { productTemplateDefinitionSchema } from "@/lib/product-docs";
 import { schemaDefinitionSchema } from "@/lib/schema-docs/types";
 
 const contentTypeValueSchema = z.enum([
@@ -26,6 +27,10 @@ const contentTypeValueSchema = z.enum([
   "guide",
   "tutorial",
   "changelog",
+  "feature-matrix",
+  "personas",
+  "success-metrics",
+  "release-plan",
 ]);
 
 const contentTypeSchema = z.union([
@@ -56,6 +61,7 @@ const sharedSchema = z.object({
   api: apiDefinitionSchema.optional(),
   schema: schemaDefinitionSchema.optional(),
   decision: decisionDefinitionSchema.optional(),
+  product: productTemplateDefinitionSchema.optional(),
   domain: z.string().min(1).optional(),
   section: z.string().min(1).optional(),
   order: z.coerce.number().int().nonnegative().optional(),

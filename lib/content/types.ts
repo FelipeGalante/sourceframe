@@ -2,6 +2,7 @@ import type { Frontmatter } from "./schemas";
 import type { SiteConfig } from "@/lib/site-config";
 import type { ApiDefinition, ApiSourceFormat } from "@/lib/api-docs";
 import type { DecisionDefinition, DecisionSourceFormat } from "@/lib/decision-docs";
+import type { ProductSourceFormat, ProductTemplateDefinition } from "@/lib/product-docs";
 import type { SchemaDefinition, SchemaSourceFormat } from "@/lib/schema-docs/types";
 
 export type ContentType =
@@ -46,6 +47,9 @@ export type ContentEntry = {
   decision?: DecisionDefinition;
   decisionSource?: string;
   decisionSourceFormat?: DecisionSourceFormat;
+  product?: ProductTemplateDefinition;
+  productSource?: string;
+  productSourceFormat?: ProductSourceFormat;
   schema?: SchemaDefinition;
   schemaSource?: string;
   schemaSourceFormat?: SchemaSourceFormat;

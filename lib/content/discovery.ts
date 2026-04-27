@@ -14,6 +14,7 @@ import {
 import type { ContentEntry, ContentFormat } from "./types";
 import { loadApiDocument } from "@/lib/api-docs";
 import { loadDecisionDocument } from "@/lib/decision-docs";
+import { loadProductTemplate } from "@/lib/product-docs";
 import { loadSchemaDocument } from "@/lib/schema-docs/loader";
 
 function isContentFile(name: string) {
@@ -100,6 +101,7 @@ export function readContentFile(filePath: string, rootDir: string) {
   const navLabel = frontmatter.nav_label ?? frontmatter.title;
   const apiDocument = loadApiDocument(filePath, relativePath, frontmatter.api);
   const decisionDocument = loadDecisionDocument(filePath, relativePath, frontmatter.decision);
+  const productDocument = loadProductTemplate(filePath, relativePath, frontmatter.product);
   const schemaDocument = loadSchemaDocument(filePath, relativePath, frontmatter.schema);
 
   return {
@@ -129,6 +131,9 @@ export function readContentFile(filePath: string, rootDir: string) {
     decision: decisionDocument?.definition,
     decisionSource: decisionDocument?.sourcePath,
     decisionSourceFormat: decisionDocument?.sourceFormat,
+    product: productDocument?.definition,
+    productSource: productDocument?.sourcePath,
+    productSourceFormat: productDocument?.sourceFormat,
     schema: schemaDocument?.definition,
     schemaSource: schemaDocument?.sourcePath,
     schemaSourceFormat: schemaDocument?.sourceFormat,

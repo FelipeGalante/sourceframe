@@ -539,6 +539,20 @@ select {
   color: var(--pm-muted);
 }
 
+.pm-schema-relation-group {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--pm-border-soft);
+}
+
+.pm-schema-relation-label {
+  color: var(--pm-text);
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+}
+
 .pm-schema-footer {
   margin-top: 18px;
 }
@@ -578,6 +592,39 @@ select {
 
 .pm-decision-links {
   margin-top: 18px;
+}
+
+.pm-product-template,
+.pm-product-card {
+  overflow: clip;
+}
+
+.pm-product-block {
+  margin-top: 18px;
+}
+
+.pm-product-list {
+  display: grid;
+  gap: 12px;
+}
+
+.pm-product-card {
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid var(--pm-border-soft);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.pm-product-timeline {
+  display: grid;
+  gap: 12px;
+}
+
+.pm-product-timeline-item {
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid var(--pm-border-soft);
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .pm-api-summary-card,
@@ -1273,6 +1320,8 @@ select {
   .pm-schema-index,
   .pm-decision-card,
   .pm-decision-index,
+  .pm-product-template,
+  .pm-product-card,
   .pm-api-summary-card,
   .pm-endpoint-card,
   .pm-archive-header,

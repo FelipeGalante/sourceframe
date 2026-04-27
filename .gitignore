@@ -8,4 +8,8 @@ dist
 generated/*.tmp
 generated/*.cache
 content/*
+!content/product/
+content/product/*
+!content/product/templates/
+!content/product/templates/**
 specs/*
