@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { apiDefinitionSchema } from "@/lib/api-docs";
+import { decisionDefinitionSchema } from "@/lib/decision-docs";
 import { schemaDefinitionSchema } from "@/lib/schema-docs/types";
 
 const contentTypeValueSchema = z.enum([
@@ -12,6 +13,7 @@ const contentTypeValueSchema = z.enum([
   "schema",
   "adr",
   "decision-log",
+  "product-decision",
   "roadmap",
   "release-note",
   "runbook",
@@ -43,7 +45,9 @@ const sharedSchema = z.object({
   title: z.string().min(1),
   type: contentTypeSchema,
   contentType: contentTypeValueSchema.optional(),
-  status: z.enum(["draft", "active", "archived", "deprecated"]).optional(),
+  status: z
+    .enum(["draft", "active", "archived", "deprecated", "proposed", "accepted", "superseded"])
+    .optional(),
   visibility: z.enum(["public", "internal"]).optional(),
   summary: z.string().min(1).optional(),
   tags: z.array(z.string().min(1)).optional(),
@@ -51,6 +55,7 @@ const sharedSchema = z.object({
   updated: z.string().min(1).optional(),
   api: apiDefinitionSchema.optional(),
   schema: schemaDefinitionSchema.optional(),
+  decision: decisionDefinitionSchema.optional(),
   domain: z.string().min(1).optional(),
   section: z.string().min(1).optional(),
   order: z.coerce.number().int().nonnegative().optional(),

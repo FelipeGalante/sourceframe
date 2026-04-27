@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 
+import { DecisionIndex, DecisionRecord } from "@/components/decision";
 import { ContentRenderer } from "@/components/markdown/ContentRenderer";
 import { SectionLayout } from "@/components/layout/SectionLayout";
 import { EndpointCard, EndpointTable } from "@/components/api";
@@ -13,6 +14,7 @@ import {
   getDomainEntry,
   getSectionRoute,
 } from "@/lib/content";
+import { buildDecisionCatalog } from "@/lib/decision-docs";
 import { buildSchemaCatalog } from "@/lib/schema-docs/loader";
 
 export function generateStaticParams() {
@@ -63,6 +65,10 @@ export default async function ContentPage({ params }: { params: Promise<{ slug: 
       }
     : null;
   const apiDefinition = entry.api ?? null;
+  const decisionCatalog = buildDecisionCatalog(
+    registry.entries,
+    new Map(registry.domainTabs.map((domain) => [domain.key, domain.title])),
+  );
   const schemaCatalog = buildSchemaCatalog(
     registry.entries,
     new Map(registry.domainTabs.map((domain) => [domain.key, domain.title])),
@@ -86,6 +92,11 @@ export default async function ContentPage({ params }: { params: Promise<{ slug: 
       }))}
       activeSectionRoute={getSectionRoute(entry)}
     >
+      {(entry.route === "/about/decisions" || entry.contentType === "decision-log") &&
+      decisionCatalog.length ? (
+        <DecisionIndex groups={decisionCatalog} />
+      ) : null}
+      {entry.decision ? <DecisionRecord entry={entry} /> : null}
       {apiDefinition ? (
         <section className="pm-card pm-content-card pm-api-summary-card">
           <div className="pm-content-body">
