@@ -18,6 +18,7 @@ This template expects Node.js 24.
 - Markdown rendering for GFM tables, fenced code blocks, Mermaid, heading anchors, details/summary, and raw HTML from trusted content, plus a literal-text Source Archive exception for `content/about/sources.md`
 - Responsive and print-friendly styling
 - A documented authoring workflow, deployment guide, and screenshot capture script
+- A GitHub Actions CI workflow and production-readiness notes
 
 ## Screenshots
 
@@ -54,6 +55,7 @@ Then open `http://localhost:3000`.
 - `pnpm typegen` - generate Next.js route types without a full build
 - `pnpm typecheck` - generate Next.js route types and then run the TypeScript compiler in no-emit mode
 - `pnpm build` - create a production build
+- `pnpm build:prod` - create a production build for deployment parity
 - `pnpm test` - run content loader tests
 - `pnpm validate:content` - validate the real content tree
 
@@ -72,7 +74,9 @@ Then open `http://localhost:3000`.
 11. Read [`docs/vercel-deployment.md`](./docs/vercel-deployment.md) before deploying.
 12. Read [`docs/agent-context.md`](./docs/agent-context.md) if you want to generate a Codex or Claude Code bundle.
 13. Read [`docs/importing.md`](./docs/importing.md) if you are migrating Markdown or HTML content.
-14. Run `pnpm build` before publishing so frontmatter and routing errors are caught early.
+14. Read [`docs/troubleshooting.md`](./docs/troubleshooting.md) if a build, content, or deployment step fails.
+15. Run `pnpm build:prod` before publishing so frontmatter and routing errors are caught early.
+16. Review [`docs/smoke-checklist.md`](./docs/smoke-checklist.md) before merging or deploying changes.
 
 ## Content Rules
 
@@ -110,3 +114,13 @@ Then open `http://localhost:3000`.
 - Run `pnpm generate:content` after changing `/content` if you want to refresh the checked-in manifests in `/generated`.
 - Run `pnpm generate:agent-context` after changing content if you want to refresh the checked-in agent bundle in `/generated`.
 - Run `pnpm screenshots` after starting the app locally if you want fresh preview images in [`public/screenshots`](./public/screenshots).
+- Run `pnpm build:prod` before tagging or deploying to confirm the production build still succeeds.
+
+## Deployment Path
+
+1. Read [`docs/content-authoring.md`](./docs/content-authoring.md) if you are editing or importing docs.
+2. Read [`docs/vercel-deployment.md`](./docs/vercel-deployment.md) for the recommended Vercel settings.
+3. Run `pnpm validate:content`.
+4. Run `pnpm build:prod`.
+5. Review [`docs/smoke-checklist.md`](./docs/smoke-checklist.md).
+6. Deploy to Vercel with Node.js 24.
