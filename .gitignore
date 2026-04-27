@@ -12,6 +12,7 @@ content/*
 !content/about/**
 !content/product/
 content/product/*
+!content/product/index.md
 !content/product/templates/
 !content/product/templates/**
 specs/*
