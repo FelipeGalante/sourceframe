@@ -38,9 +38,13 @@ export type ContentEntry = {
   contentType?: string;
   summary?: string;
   owner?: string;
+  version?: string;
   status?: string;
   visibility?: "public" | "internal";
   updated?: string;
+  lastReviewed?: string;
+  reviewAfter?: string;
+  deprecatedSince?: string;
   api?: ApiDefinition;
   apiSource?: string;
   apiSourceFormat?: ApiSourceFormat;

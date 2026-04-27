@@ -1,6 +1,7 @@
 import { ArchiveIndex, ArchiveNotice, SourceProvenance } from "@/components/archive";
 import { DecisionIndex, DecisionRecord } from "@/components/decision";
 import { EndpointCard, EndpointTable } from "@/components/api";
+import { ChangelogIndex, ReleaseNoteIndex, StaleContentWarning } from "@/components/lifecycle";
 import { ContentRenderer } from "@/components/markdown/ContentRenderer";
 import { ProductTemplate } from "@/components/product";
 import { RelationshipMap } from "@/components/schema/RelationshipMap";
@@ -9,6 +10,7 @@ import { SchemaTableCard } from "@/components/schema/SchemaTableCard";
 import { SectionLayout } from "@/components/layout/SectionLayout";
 import { buildDecisionCatalog } from "@/lib/decision-docs";
 import { buildSchemaCatalog } from "@/lib/schema-docs/loader";
+import { getStaleContentState } from "@/lib/content";
 import type { ContentEntry, ContentRegistry, SectionNavItem } from "@/lib/content";
 
 function buildSchemaDocument(entry: ContentEntry) {
@@ -41,6 +43,7 @@ export function ContentRouteView({
 }) {
   const schemaDocument = buildSchemaDocument(entry);
   const apiDefinition = entry.api ?? null;
+  const staleState = getStaleContentState(entry);
   const decisionCatalog = buildDecisionCatalog(
     registry.entries,
     new Map(registry.domainTabs.map((domain) => [domain.key, domain.title])),
@@ -60,7 +63,12 @@ export function ContentRouteView({
       sections={sections}
       activeSectionRoute={activeSectionRoute}
     >
+      {staleState.isStale ? (
+        <StaleContentWarning entry={entry} reason={staleState.reason ?? "review-due"} />
+      ) : null}
       {entry.route === "/about/archive" ? <ArchiveIndex entries={registry.entries} /> : null}
+      {entry.route === "/about/changelog" ? <ChangelogIndex entries={registry.entries} /> : null}
+      {entry.route === "/about/releases" ? <ReleaseNoteIndex entries={registry.entries} /> : null}
       {(entry.route === "/about/decisions" || entry.contentType === "decision-log") &&
       decisionCatalog.length ? (
         <DecisionIndex groups={decisionCatalog} />

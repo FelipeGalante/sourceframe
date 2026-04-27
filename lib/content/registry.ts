@@ -1,6 +1,6 @@
 import path from "node:path";
 
-import { siteConfig as defaultSiteConfig } from "@/site.config";
+import { siteConfig as defaultSiteConfig } from "@/site.config.base";
 
 import { discoverMarkdownFiles, readMarkdownFile } from "./discovery";
 import { toKebabCase } from "./routes";
@@ -153,7 +153,12 @@ function buildSearchIndex(
       sectionTitle,
       contentType,
       entry.owner,
+      entry.version,
       entry.status,
+      entry.updated,
+      entry.lastReviewed,
+      entry.reviewAfter,
+      entry.deprecatedSince,
       entry.origin,
       entry.sourceFile,
       entry.importedAt,

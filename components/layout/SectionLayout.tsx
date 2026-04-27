@@ -13,6 +13,9 @@ function sourcePills(entry: ContentEntry) {
   if (entry.order !== undefined) {
     pills.push({ label: "Order", value: String(entry.order) });
   }
+  if (entry.version) {
+    pills.push({ label: "Version", value: entry.version });
+  }
   if (entry.sourcePanel) {
     pills.push({ label: "Source panel", value: entry.sourcePanel });
   }
@@ -21,6 +24,18 @@ function sourcePills(entry: ContentEntry) {
   }
   if (entry.tableName) {
     pills.push({ label: "Table", value: entry.tableName });
+  }
+  if (entry.updated) {
+    pills.push({ label: "Updated", value: entry.updated });
+  }
+  if (entry.lastReviewed) {
+    pills.push({ label: "Reviewed", value: entry.lastReviewed });
+  }
+  if (entry.reviewAfter) {
+    pills.push({ label: "Review after", value: entry.reviewAfter });
+  }
+  if (entry.deprecatedSince) {
+    pills.push({ label: "Deprecated", value: entry.deprecatedSince });
   }
 
   return pills;

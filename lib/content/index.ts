@@ -6,3 +6,4 @@ export * from "./routes";
 export * from "./discovery";
 export * from "./registry";
 export * from "./validation";
+export * from "./staleness";

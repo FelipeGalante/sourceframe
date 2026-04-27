@@ -31,7 +31,6 @@ const contentTypeValueSchema = z.enum([
   "personas",
   "success-metrics",
   "release-plan",
-  "source-archive",
 ]);
 
 const contentTypeSchema = z.union([
@@ -58,7 +57,11 @@ const sharedSchema = z.object({
   summary: z.string().min(1).optional(),
   tags: z.array(z.string().min(1)).optional(),
   owner: z.string().min(1).optional(),
+  version: z.string().min(1).optional(),
   updated: z.string().min(1).optional(),
+  lastReviewed: z.string().min(1).optional(),
+  reviewAfter: z.string().min(1).optional(),
+  deprecatedSince: z.string().min(1).optional(),
   api: apiDefinitionSchema.optional(),
   schema: schemaDefinitionSchema.optional(),
   decision: decisionDefinitionSchema.optional(),

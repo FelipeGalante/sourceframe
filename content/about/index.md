@@ -18,5 +18,7 @@ Governance layer for this master source: update protocol, decision log, audit tr
 - [Document Overview](./top.mdx)
 - [Control Center](./control.md)
 - [Decision Log](./decisions.md)
+- [Changelog](./changelog.md)
+- [Release Notes](./releases.md)
 - [Archive Index](./archive.md)
 - [Source Archive](./sources.md)

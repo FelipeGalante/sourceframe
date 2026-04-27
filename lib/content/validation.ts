@@ -1,6 +1,7 @@
 import path from "node:path";
 
 import { buildContentRegistry } from "./registry";
+import { getStaleContentState } from "./staleness";
 import type { ContentEntry, ContentRegistry } from "./types";
 
 export type ContentValidationIssue = {
@@ -233,4 +234,8 @@ export function summarizeContentTree(registry: ContentRegistry): ContentValidati
       );
     }, 0),
   };
+}
+
+export function isContentStale(entry: ContentEntry, now = new Date()) {
+  return getStaleContentState(entry, now);
 }
