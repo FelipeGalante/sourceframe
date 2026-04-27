@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 
 import type { ContentEntry, SectionNavItem } from "@/lib/content";
+import { VisibilityBadge } from "./VisibilityBadge";
 
 function sourcePills(entry: ContentEntry) {
   const pills: Array<{ label: string; value: string }> = [];
@@ -70,6 +71,7 @@ export function SectionLayout({
           <h1 className="pm-title pm-title-lg">{domainTitle}</h1>
           {domainDescription ? <p className="pm-subtitle">{domainDescription}</p> : null}
           <div className="pm-meta-row">
+            <VisibilityBadge visibility={entry.visibility} />
             {pills.map((pill) => (
               <span key={`${pill.label}:${pill.value}`} className="pm-pill">
                 <strong>{pill.label}:</strong> {pill.value}
@@ -93,7 +95,10 @@ export function SectionLayout({
                 <span className="pm-section-link-title">
                   <span>{section.navLabel}</span>
                 </span>
-                <span className="pm-section-link-type">{section.type.replace(/-/g, " ")}</span>
+                <span className="pm-section-link-type">
+                  {section.type.replace(/-/g, " ")}
+                  <VisibilityBadge visibility={section.visibility} />
+                </span>
               </Link>
             ))}
           </nav>

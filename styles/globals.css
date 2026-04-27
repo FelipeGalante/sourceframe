@@ -413,6 +413,24 @@ select {
   font-size: 0.84rem;
 }
 
+.pm-visibility-badge {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.pm-visibility-internal {
+  color: color-mix(in srgb, var(--pm-warning) 92%, white);
+  border-color: color-mix(in srgb, var(--pm-warning) 28%, transparent);
+  background: rgba(243, 196, 106, 0.12);
+}
+
+.pm-visibility-private {
+  color: color-mix(in srgb, var(--pm-danger) 92%, white);
+  border-color: color-mix(in srgb, var(--pm-danger) 28%, transparent);
+  background: rgba(240, 138, 138, 0.12);
+}
+
 .pm-section-nav {
   margin-top: 18px;
   display: grid;
@@ -464,6 +482,11 @@ select {
 }
 
 .pm-section-link-type {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 8px;
   font-size: 0.74rem;
   color: var(--pm-soft);
   text-transform: uppercase;

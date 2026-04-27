@@ -29,7 +29,8 @@ const categoryDefinitions: AgentContextCategory[] = [
       entry.contentType === "prd" &&
       entry.status !== "deprecated" &&
       entry.status !== "superseded" &&
-      entry.visibility !== "internal",
+      entry.visibility !== "internal" &&
+      entry.visibility !== "private",
   },
   {
     key: "architecture-pages",
@@ -220,6 +221,10 @@ function toDocument(source: AgentContextSource, entry: ContentEntry): AgentConte
 
 function selectEntries(source: AgentContextSource, filters: NormalizedFilters) {
   return source.registry.entries.filter((entry) => {
+    if (entry.visibility === "private") {
+      return false;
+    }
+
     if (filters.domains.length && !matchesFilter(entry.domain, filters.domains)) {
       return false;
     }

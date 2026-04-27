@@ -1,4 +1,6 @@
 import type { Frontmatter } from "./schemas";
+import type { ContentVisibility } from "./visibility";
+export type { ContentVisibility } from "./visibility";
 import type { SiteConfig } from "@/lib/site-config";
 import type { ApiDefinition, ApiSourceFormat } from "@/lib/api-docs";
 import type { DecisionDefinition, DecisionSourceFormat } from "@/lib/decision-docs";
@@ -40,7 +42,7 @@ export type ContentEntry = {
   owner?: string;
   version?: string;
   status?: string;
-  visibility?: "public" | "internal";
+  visibility?: ContentVisibility;
   updated?: string;
   lastReviewed?: string;
   reviewAfter?: string;
@@ -86,6 +88,7 @@ export type SectionNavItem = {
   order: number;
   href: string;
   type: string;
+  visibility?: ContentVisibility;
 };
 
 export type DomainNavItem = {
@@ -97,7 +100,7 @@ export type DomainNavItem = {
   href: string;
   sectionCount: number;
   sections: SectionNavItem[];
-  visibility?: "public" | "internal";
+  visibility?: ContentVisibility;
 };
 
 export type SearchRecord = {
@@ -115,6 +118,7 @@ export type SearchRecord = {
   headings: string[];
   text: string;
   excerpt: string;
+  visibility?: ContentVisibility;
 };
 
 export type ContentRegistry = {

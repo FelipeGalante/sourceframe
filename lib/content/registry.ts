@@ -4,6 +4,11 @@ import { siteConfig as defaultSiteConfig } from "@/site.config.base";
 
 import { discoverMarkdownFiles, readMarkdownFile } from "./discovery";
 import { toKebabCase } from "./routes";
+import {
+  normalizeContentVisibilityPolicy,
+  resolveContentVisibility,
+  type NormalizedContentVisibilityPolicy,
+} from "./visibility";
 import type {
   ContentEntry,
   ContentRegistry,
@@ -46,6 +51,39 @@ function joinRouteBase(routeBase: string, route: string) {
   }
 
   return `${routeBase}${route}`;
+}
+
+function isVisibleInTree(
+  entry: ContentEntry,
+  entriesByRoute: Map<string, ContentEntry>,
+  policy: NormalizedContentVisibilityPolicy,
+  memo = new Map<string, boolean>(),
+): boolean {
+  const cached = memo.get(entry.route);
+  if (cached !== undefined) {
+    return cached;
+  }
+
+  const visibility = resolveContentVisibility(entry.visibility);
+  if (!policy.include.has(visibility) || policy.exclude.has(visibility)) {
+    memo.set(entry.route, false);
+    return false;
+  }
+
+  if (!entry.parentRoute || entry.parentRoute === "/") {
+    memo.set(entry.route, true);
+    return true;
+  }
+
+  const parent = entriesByRoute.get(entry.parentRoute);
+  if (!parent) {
+    memo.set(entry.route, true);
+    return true;
+  }
+
+  const visible: boolean = isVisibleInTree(parent, entriesByRoute, policy, memo);
+  memo.set(entry.route, visible);
+  return visible;
 }
 
 function sortEntries(entries: ContentEntry[]) {
@@ -124,6 +162,7 @@ function buildDomainTabs(entries: ContentEntry[], childrenByRoute: Map<string, C
         order: child.order ?? 0,
         href: child.href,
         type: child.type,
+        visibility: child.visibility,
       })),
       visibility: entry.visibility,
     } satisfies DomainNavItem;
@@ -183,6 +222,7 @@ function buildSearchIndex(
       contentType,
       owner: entry.owner,
       status: entry.status,
+      visibility: entry.visibility,
       tags,
       headings: entry.headings,
       text,
@@ -205,14 +245,31 @@ export function buildContentRegistry(
     throw new Error(`No Markdown files found in ${rootDir}`);
   }
 
-  const entries = files.map((filePath) => readMarkdownFile(filePath, rootDir));
+  const allEntries = files.map((filePath) => readMarkdownFile(filePath, rootDir));
+  const allEntryByRoute = new Map<string, ContentEntry>();
+
+  for (const entry of allEntries) {
+    if (allEntryByRoute.has(entry.route)) {
+      const existing = allEntryByRoute.get(entry.route)!;
+      throw new Error(
+        `Duplicate route "${entry.route}" found in ${existing.relativePath} and ${entry.relativePath}`,
+      );
+    }
+    allEntryByRoute.set(entry.route, entry);
+  }
+
+  const visibilityPolicy = normalizeContentVisibilityPolicy(siteConfig.contentVisibility);
+  const visibilityMemo = new Map<string, boolean>();
+  const entries = allEntries.filter((entry) =>
+    isVisibleInTree(entry, allEntryByRoute, visibilityPolicy, visibilityMemo),
+  );
   const entryByRoute = new Map<string, ContentEntry>();
 
   for (const entry of entries) {
     if (entryByRoute.has(entry.route)) {
       const existing = entryByRoute.get(entry.route)!;
       throw new Error(
-        `Duplicate route "${entry.route}" found in ${existing.relativePath} and ${entry.relativePath}`,
+        `Duplicate visible route "${entry.route}" found in ${existing.relativePath} and ${entry.relativePath}`,
       );
     }
     entryByRoute.set(entry.route, entry);
@@ -314,29 +371,23 @@ export function getArchiveRoots() {
 
 export function getVisibleArchiveRoots() {
   const registry = getContentRegistry();
-  return registry.childrenByRoute.get("/")?.filter(isVisibleEntry) ?? [];
+  return registry.childrenByRoute.get("/") ?? [];
 }
 
 export function getArchiveEntries() {
   return getFullArchiveEntries();
 }
 
-function isVisibleEntry(entry: ContentEntry) {
-  return entry.visibility !== "internal";
-}
-
 export function getFullArchiveEntries() {
-  return getContentRegistry().entries.filter(isVisibleEntry);
+  return getContentRegistry().entries;
 }
 
 export function getDomainArchiveEntries(domainKey: string) {
-  return getContentRegistry()
-    .entries.filter(isVisibleEntry)
-    .filter((entry) => entry.domain === domainKey);
+  return getContentRegistry().entries.filter((entry) => entry.domain === domainKey);
 }
 
 export function getVisibleDomainTabs() {
-  return getContentRegistry().domainTabs.filter((domain) => domain.visibility !== "internal");
+  return getContentRegistry().domainTabs;
 }
 
 export function resolveContentHref(

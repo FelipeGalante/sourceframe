@@ -18,6 +18,10 @@ const rawProjectCatalog = [
       openapi: {
         registrations: [],
       },
+      contentVisibility: {
+        include: ["public", "internal", "private"],
+        exclude: [],
+      },
       repositoryUrl: undefined,
       themeAccent: "#7c8cff",
     },
@@ -36,6 +40,10 @@ const rawProjectCatalog = [
       defaultDomain: "operations",
       openapi: {
         registrations: [],
+      },
+      contentVisibility: {
+        include: ["public", "internal", "private"],
+        exclude: [],
       },
       repositoryUrl: undefined,
       themeAccent: "#45c2b6",

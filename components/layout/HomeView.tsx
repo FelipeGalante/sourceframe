@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { ContentEntry, DomainNavItem } from "@/lib/content";
 import type { ContentRegistry } from "@/lib/content";
 import { ContentRenderer } from "@/components/markdown/ContentRenderer";
+import { VisibilityBadge } from "./VisibilityBadge";
 
 export function HomeView({
   entry,
@@ -20,6 +21,7 @@ export function HomeView({
         <h1 className="pm-title pm-title-xl">{entry.title}</h1>
         {entry.description ? <p className="pm-subtitle">{entry.description}</p> : null}
         <div className="pm-meta-row">
+          <VisibilityBadge visibility={entry.visibility} />
           <span className="pm-pill">{domains.length} domains</span>
           <span className="pm-pill">
             {domains.reduce((sum, domain) => sum + domain.sectionCount, 0)} sections
@@ -51,6 +53,7 @@ export function HomeView({
             </h2>
             {domain.description ? <p className="pm-subtitle">{domain.description}</p> : null}
             <div className="pm-meta-row">
+              <VisibilityBadge visibility={domain.visibility} />
               <span className="pm-pill">{domain.sectionCount} sections</span>
             </div>
           </Link>

@@ -70,6 +70,7 @@ export default async function ContentPage({ params }: { params: Promise<{ slug: 
           order: section.order ?? 0,
           href: section.href,
           type: section.type,
+          visibility: section.visibility,
         }))}
         archiveHref={`${domainEntry.href}/archive`}
         activeSectionRoute={entry.href}

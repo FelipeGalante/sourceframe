@@ -65,7 +65,7 @@ test("validateContentTree rejects invalid enum frontmatter values", () => {
       'type: "domain-index"',
       "order: 1",
       'status: "pending"',
-      'visibility: "private"',
+      'visibility: "secret"',
       'contentType: "invalid"',
       "---",
       "",

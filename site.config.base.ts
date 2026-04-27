@@ -11,6 +11,10 @@ const rawSiteConfig = {
   openapi: {
     registrations: [],
   },
+  contentVisibility: {
+    include: ["public", "internal", "private"],
+    exclude: [],
+  },
   repositoryUrl: undefined,
   themeAccent: "#7c8cff",
 } as const;

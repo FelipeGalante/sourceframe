@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 
 import type { DomainNavItem } from "@/lib/content";
+import { VisibilityBadge } from "./VisibilityBadge";
 
 export function DomainTabs({
   domains,
@@ -22,6 +23,7 @@ export function DomainTabs({
         >
           <span>{domain.title}</span>
           <span className="pm-domain-tab-count">{domain.sectionCount}</span>
+          <VisibilityBadge visibility={domain.visibility} />
         </Link>
       ))}
     </nav>

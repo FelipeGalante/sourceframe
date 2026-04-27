@@ -10,6 +10,7 @@ This template expects Node.js 24.
 
 - App Router + strict TypeScript
 - Build-time Markdown loading and frontmatter validation
+- Build-time visibility filtering for public, internal, and private docs
 - Generated domain tabs and section navigation from content metadata
 - Client-side search over titles, headings, and body text
 - Full archive view
@@ -87,6 +88,7 @@ Then open `http://localhost:3000`.
 - [`app`](./app) - routes and layouts
 - [`components`](./components) - reusable UI and Markdown components
 - [`docs`](./docs) - content authoring and deployment guides
+- [`docs/private-deployment.md`](./docs/private-deployment.md) - patterns for public, internal, and private doc builds
 - [`content`](./content) - Markdown source of truth
 - [`lib`](./lib) - content loading, registry building, and Markdown helpers
 - [`projects.config.ts`](./projects.config.ts) - multi-project catalog and per-project content roots
@@ -103,7 +105,8 @@ Then open `http://localhost:3000`.
 - The app shell is intentionally generic so you can swap content without touching layout code.
 - The source archive page is intentionally large and should be left as Markdown unless you have a strong reason to split it further.
 - `content/about/sources.md` is rendered as literal source text so the archive stays auditable and cannot be reinterpreted as normal Markdown.
-- Mark template-only docs with `visibility: "internal"` when they should stay in the repo but be excluded from the public migration manifest.
+- Mark template-only docs with `visibility: "internal"` or `visibility: "private"` when they should stay in the repo but be excluded from a public build.
+- Use `contentVisibility.include` in `site.config.ts` or a project config to decide which visibility levels are included in a build.
 - Run `pnpm generate:content` after changing `/content` if you want to refresh the checked-in manifests in `/generated`.
 - Run `pnpm generate:agent-context` after changing content if you want to refresh the checked-in agent bundle in `/generated`.
 - Run `pnpm screenshots` after starting the app locally if you want fresh preview images in [`public/screenshots`](./public/screenshots).

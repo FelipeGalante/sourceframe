@@ -21,6 +21,7 @@ SourceFrame is designed to deploy as a standard Next.js App Router project.
 - Most template sites do not need environment variables.
 - If you later add search, analytics, or external APIs, set them in the Vercel dashboard.
 - Keep `site.config.ts` in the repo so content swaps remain explicit.
+- Use `contentVisibility.include` in `site.config.ts` to choose whether a deployment includes `public` only or also `internal`/`private` pages.
 
 ## Recommended workflow
 
@@ -34,4 +35,4 @@ SourceFrame is designed to deploy as a standard Next.js App Router project.
 
 - Use `pnpm validate:content` locally before pushing content changes.
 - Use `pnpm generate:content` if you want the checked-in migration manifests refreshed.
-- Keep template-only docs marked `visibility: "internal"` so they do not leak into the public manifest.
+- Keep template-only docs marked `visibility: "internal"` or `visibility: "private"` so they do not leak into public builds or public search.

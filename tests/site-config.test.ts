@@ -23,3 +23,42 @@ test("validateSiteConfig rejects invalid config", () => {
     /repositoryUrl/i,
   );
 });
+
+test("validateSiteConfig accepts visibility filters", () => {
+  const config = validateSiteConfig({
+    name: "Example",
+    subtitle: "Workspace",
+    eyebrow: "Workspace",
+    title: "Example workspace",
+    description: "A reusable site.",
+    defaultDomain: "example",
+    repositoryUrl: "https://example.com/repo",
+    contentVisibility: {
+      include: ["public", "internal"],
+      exclude: ["private"],
+    },
+  });
+
+  assert.deepEqual(config.contentVisibility.include, ["public", "internal"]);
+  assert.deepEqual(config.contentVisibility.exclude, ["private"]);
+});
+
+test("validateSiteConfig rejects overlapping visibility filters", () => {
+  assert.throws(
+    () =>
+      validateSiteConfig({
+        name: "Example",
+        subtitle: "Workspace",
+        eyebrow: "Workspace",
+        title: "Example workspace",
+        description: "A reusable site.",
+        defaultDomain: "example",
+        repositoryUrl: "https://example.com/repo",
+        contentVisibility: {
+          include: ["public"],
+          exclude: ["public"],
+        },
+      }),
+    /overlap/i,
+  );
+});

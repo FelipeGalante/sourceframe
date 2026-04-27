@@ -1,4 +1,5 @@
 import type { ContentEntry, ContentRegistry } from "@/lib/content";
+import type { ContentVisibility } from "@/lib/content/visibility";
 
 export type AgentContextFilters = {
   projectSlugs: string[];
@@ -60,7 +61,7 @@ export type AgentContextDocument = {
   summary?: string;
   owner?: string;
   status?: string;
-  visibility?: "public" | "internal";
+  visibility?: ContentVisibility;
   version?: string;
   updated?: string;
   reviewAfter?: string;

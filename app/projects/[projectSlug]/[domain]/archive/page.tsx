@@ -33,9 +33,7 @@ export default async function ProjectDomainArchivePage({
     notFound();
   }
 
-  const entries = runtime.registry.entries.filter(
-    (entry) => entry.visibility !== "internal" && entry.domain === domainEntry.key,
-  );
+  const entries = runtime.registry.entries.filter((entry) => entry.domain === domainEntry.key);
 
   if (!entries.length) {
     notFound();

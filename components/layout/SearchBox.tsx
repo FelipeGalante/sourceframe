@@ -7,6 +7,7 @@ import type { KeyboardEvent as ReactKeyboardEvent } from "react";
 
 import type { SearchRecord } from "@/lib/content";
 import { buildSearchExcerpt } from "./search-utils";
+import { VisibilityBadge } from "./VisibilityBadge";
 import {
   groupSearchResults,
   highlightText,
@@ -230,6 +231,7 @@ export function SearchBox({ records }: { records: SearchRecord[] }) {
                           )}
                         </span>
                         <span className="pm-search-result-meta">
+                          <VisibilityBadge visibility={record.visibility} />
                           <span>
                             {highlightText(record.domain, terms).map((part, partIndex) =>
                               part.matched ? (

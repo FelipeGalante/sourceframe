@@ -3,6 +3,7 @@ import { apiDefinitionSchema } from "@/lib/api-docs";
 import { decisionDefinitionSchema } from "@/lib/decision-docs";
 import { productTemplateDefinitionSchema } from "@/lib/product-docs";
 import { schemaDefinitionSchema } from "@/lib/schema-docs/types";
+import { contentVisibilityValues } from "./visibility";
 
 const contentTypeValueSchema = z.enum([
   "overview",
@@ -53,7 +54,7 @@ const sharedSchema = z.object({
   status: z
     .enum(["draft", "active", "archived", "deprecated", "proposed", "accepted", "superseded"])
     .optional(),
-  visibility: z.enum(["public", "internal"]).optional(),
+  visibility: z.enum(contentVisibilityValues).optional(),
   summary: z.string().min(1).optional(),
   tags: z.array(z.string().min(1)).optional(),
   owner: z.string().min(1).optional(),

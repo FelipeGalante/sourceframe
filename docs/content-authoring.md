@@ -19,7 +19,9 @@ SourceFrame keeps content in Markdown or MDX files under `/content`. The app rea
 - `nav_label` is optional and overrides the visible section label.
 - `contentType` is optional and, when used, must be one of the documented content-type values.
 - `status` is optional and must be one of `draft`, `active`, `archived`, or `deprecated` when present.
-- `visibility: "internal"` keeps implementation-only docs in the repo while excluding them from the public migration manifest.
+- `visibility` can be `public`, `internal`, or `private`.
+- `visibility: "internal"` keeps implementation-only docs in the repo while excluding them from public builds by default when you opt into visibility filtering.
+- `visibility: "private"` is useful for docs that should stay out of public builds and public search.
 - `source` and `source_panel` help trace migrated files back to the original extraction.
 
 ## Recommended patterns
@@ -34,6 +36,7 @@ SourceFrame keeps content in Markdown or MDX files under `/content`. The app rea
 - Run `pnpm validate:content` after changing content files.
 - Run `pnpm generate:content` when you want to refresh the checked-in migration artifacts.
 - Run `pnpm build` before publishing to catch route or frontmatter issues.
+- Add `contentVisibility.include` in `site.config.ts` or a project config to decide which pages are included in a build.
 
 ## Example frontmatter
 

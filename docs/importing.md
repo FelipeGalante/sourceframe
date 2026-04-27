@@ -57,5 +57,5 @@ The importer:
 
 - Review the generated frontmatter.
 - Add internal links to canonical pages.
-- Mark historical material with `visibility: "internal"` or `contentType: "source-archive"` when it is not canonical guidance.
+- Mark historical material with `visibility: "internal"` or `visibility: "private"` when it is not canonical guidance, and use `contentType: "source-archive"` when you want to preserve it as literal source material.
 - Run `pnpm validate:content` before publishing.

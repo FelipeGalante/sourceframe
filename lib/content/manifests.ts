@@ -46,8 +46,12 @@ function getManifestPath(prefix: string, entry: ContentEntry) {
   return `${prefix}${entry.relativePath}`;
 }
 
+function isPublicVisibility(visibility?: string) {
+  return visibility === undefined || visibility === "public";
+}
+
 function isPublicEntry(entry: ContentEntry) {
-  return entry.frontmatter.visibility !== "internal";
+  return isPublicVisibility(entry.frontmatter.visibility);
 }
 
 function getDomainSectionEntries(registry: ContentRegistry, domainKey: string) {
@@ -74,7 +78,7 @@ export function buildContentManifest(
         return entry ? isPublicEntry(entry) : false;
       }),
     }))
-    .filter((domain) => domain.sections.length > 0);
+    .filter((domain) => isPublicVisibility(domain.visibility) && domain.sections.length > 0);
 
   return {
     source_file: migrationSourceFile,

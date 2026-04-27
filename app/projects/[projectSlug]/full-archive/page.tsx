@@ -23,7 +23,7 @@ export default async function ProjectFullArchivePage({
   }
 
   const runtime = buildProjectRuntime(project, "project");
-  const entries = runtime.registry.entries.filter((entry) => entry.visibility !== "internal");
+  const entries = runtime.registry.entries;
 
   return (
     <SiteChrome

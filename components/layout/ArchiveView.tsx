@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { ContentRenderer } from "@/components/markdown/ContentRenderer";
 import type { ContentEntry, ContentRegistry } from "@/lib/content";
+import { VisibilityBadge } from "./VisibilityBadge";
 
 function archivePills(entry: ContentEntry) {
   const pills: Array<{ label: string; value: string }> = [];
@@ -67,6 +68,7 @@ export function ArchiveView({
               <h2 className="pm-title pm-title-lg">{entry.title}</h2>
               {entry.description ? <p className="pm-subtitle">{entry.description}</p> : null}
               <div className="pm-meta-row">
+                <VisibilityBadge visibility={entry.visibility} />
                 {archivePills(entry).map((pill) => (
                   <span key={`${entry.id}:${pill.label}:${pill.value}`} className="pm-pill">
                     <strong>{pill.label}:</strong> {pill.value}
