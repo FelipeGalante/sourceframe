@@ -47,6 +47,8 @@ Then open `http://localhost:3000`.
 - `pnpm generate:content` - regenerate the checked-in content manifests and migration report
 - `pnpm generate:agent-context` - regenerate the deterministic agent-context bundle in `generated`
 - `pnpm generate:agent-context -- --help` - show the available bundle filters and examples
+- `pnpm normalize:markdown` - normalize a Markdown folder into SourceFrame frontmatter
+- `pnpm import:html` - import a single HTML source file into Markdown sections where practical
 - `pnpm screenshots` - capture template preview images into `public/screenshots`
 - `pnpm typegen` - generate Next.js route types without a full build
 - `pnpm typecheck` - generate Next.js route types and then run the TypeScript compiler in no-emit mode
@@ -68,7 +70,8 @@ Then open `http://localhost:3000`.
 10. Read [`docs/content-authoring.md`](./docs/content-authoring.md) before adding new content.
 11. Read [`docs/vercel-deployment.md`](./docs/vercel-deployment.md) before deploying.
 12. Read [`docs/agent-context.md`](./docs/agent-context.md) if you want to generate a Codex or Claude Code bundle.
-13. Run `pnpm build` before publishing so frontmatter and routing errors are caught early.
+13. Read [`docs/importing.md`](./docs/importing.md) if you are migrating Markdown or HTML content.
+14. Run `pnpm build` before publishing so frontmatter and routing errors are caught early.
 
 ## Content Rules
 
